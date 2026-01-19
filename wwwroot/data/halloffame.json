@@ -1,0 +1,54 @@
+{
+  "competitors": [
+    {
+      "name": "Zimmermann Zsolt Gábor",
+      "title": "3. helyezés (WUKF Világbajnokság, 2023., Skócia)",
+      "description": "További eredmények:",
+      "imagePath": "img/hall_of_fame/Zimmermann_Zsolt.jpg"
+    },
+    {
+      "name": "Fixler Daniella",
+      "title": "1. helyezés (MWKSZ Országos Bajnokság, 2025. Kartal)",
+      "description": "További eredmények:",
+      "imagePath": "img/hall_of_fame/Fixler_Daniella.jpg"
+    },
+    {
+      "name": "Szabó Lea",
+      "title": "2. helyezés (MWKSZ Országos Bajnokság, 2025. Kartal)",
+      "description": "További eredmények:",
+      "imagePath": "img/hall_of_fame/Szabo_Lea.jpg"
+    },
+    {
+      "name": "Csernus Milla",
+      "title": "1. helyezés (MWKSZ Országos Bajnokság, 2025. Kartal",
+      "description": "További eredmények:",
+      "imagePath": "img/hall_of_fame/Csernus_Milla.jpg"
+    }
+  ],
+  "senpais": [
+    {
+      "name": "Stempel Katica",
+      "title": "1. dan",
+      "description": "",
+      "imagePath": "img/hall_of_fame/Stempel_Katica.jpg"
+    },
+    {
+      "name": "Zimmermann Zsolt Gábor",
+      "title": "1. kyu",
+      "description": "",
+      "imagePath": "img/hall_of_fame/Zimmermann_Zsolt.jpg"
+    },
+    {
+      "name": "Meszes Dominik",
+      "title": "3. kyu",
+      "description": "",
+      "imagePath": "img/hall_of_fame/Meszes_Dominik.jpg"
+    },
+    {
+      "name": "Fixler Daniella",
+      "title": "3. kyu",
+      "description": "",
+      "imagePath": "img/hall_of_fame/Fixler_Daniella.jpg"
+    }
+  ]
+}
