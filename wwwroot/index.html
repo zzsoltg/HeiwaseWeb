@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heiwase Karate Szeged</title>
+    <base href="/" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;600;800&family=League+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<body>
+    <div id="app">
+        <div style="display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif;">
+            Betöltés...
+        </div>
+    </div>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/hu_HU/sdk.js#xfbml=1&version=v24.0&appId=1642976156214421"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+
+    <script>
+        window.blazorIntersectionObserver = {
+            observe: function (element) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            element.classList.add('visible');
+                            observer.unobserve(element);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(element);
+            }
+        };
+    </script>
+</body>
+
+</html>
