@@ -3,15 +3,16 @@ using Microsoft.JSInterop;
 
 using System.Net.Http.Json;
 using System.Timers;
+
 namespace HeiwaseWeb2.Pages;
 
 public partial class Home : IDisposable
 {
     [Inject]
-    public IJSRuntime JS { get; set; }
+    public required IJSRuntime JS { get; set; }
 
     [Inject]
-    public HttpClient Http { get; set; }
+    public required HttpClient Http { get; set; }
 
     private bool _isMenuOpen = false;
     private ApplicantModel _applicant = new();
@@ -22,11 +23,13 @@ public partial class Home : IDisposable
     private int _senpaiIndex = 0;
     private System.Timers.Timer? _timer;
 
+    private const string HallOfFameDataString = "data/halloffame.json";
+
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            var data = await Http.GetFromJsonAsync<HallOfFameData>("data/halloffame.json");
+            var data = await Http.GetFromJsonAsync<HallOfFameData>(HallOfFameDataString);
 
             if ( data != null )
             {
@@ -41,8 +44,11 @@ public partial class Home : IDisposable
             Console.WriteLine($"Hiba a JSON betöltésekor: {ex.Message}");
         }
     }
+
     private void ToggleMenu() => _isMenuOpen = !_isMenuOpen;
+
     private void CloseMenu() => _isMenuOpen = false;
+
     private void HandleValidSubmit()
     {
         _formSubmitted = true;
@@ -64,7 +70,11 @@ public partial class Home : IDisposable
         InvokeAsync(StateHasChanged);
     }
 
-    public void Dispose() => _timer?.Dispose();
+    public void Dispose()
+    {
+        _timer?.Dispose();
+        GC.SuppressFinalize(this);
+    }
 
     private static List<Member> GetVisibleItems(List<Member> list, int index)
     {
