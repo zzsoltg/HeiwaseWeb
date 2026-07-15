@@ -1,4 +1,4 @@
-using HeiwaseWeb2;
+using Heiwase.App.Blazor;
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

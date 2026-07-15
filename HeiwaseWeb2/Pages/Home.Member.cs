@@ -1,4 +1,4 @@
-﻿namespace HeiwaseWeb2.Pages;
+﻿namespace Heiwase.App.Blazor.Pages;
 
 public partial class Home
 {
