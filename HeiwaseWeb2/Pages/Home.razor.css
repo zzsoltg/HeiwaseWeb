@@ -120,12 +120,13 @@
 
     .feature-card.visible {
         animation: fadeInUp 0.8s forwards;
+        transform translateY(0);
     }
 
-    .feature-card:hover {
-        transform: translateY(-10px);
-        background: rgba(255, 255, 255, 0.2);
-    }
+        .feature-card.visible:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+        }
 
 .feature-icon-large {
     font-size: 4rem;
@@ -137,7 +138,6 @@
 @keyframes fadeInUp {
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
@@ -168,12 +168,20 @@
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     border-left: 5px solid #cb6ce6;
-    transition: transform 0.3s;
+    transition: transform 0.4s, background 0.4s;
+    opacity: 0;
+    transform: translateY(30px);
 }
 
-    .info-bubble:hover {
-        transform: translateY(-5px);
+    .info-bubble.visible {
+        animation: fadeInUp 0.8s forwards;
+        transform: translateY(0);
     }
+
+        .info-bubble.visible:hover {
+            transform: translateY(-5px);
+        }
+
 
 .stat-number {
     font-size: 3rem;
@@ -296,7 +304,20 @@
     padding: 20px;
     border-radius: var(--radius);
     text-align: center;
+    transition: transform 0.4s, background 0.4s;
+    opacity: 0;
+    transform: translateY(30px);
 }
+
+    .feature-item.visible {
+        animation: fadeInUp 0.8s forwards;
+        transform: translateY(0);
+    }
+
+        .feature-item.visible:hover {
+            transform: translateY(-5px);
+        }
+
 
 .feature-icon {
     font-size: 2.5rem;

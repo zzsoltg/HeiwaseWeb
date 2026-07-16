@@ -34,7 +34,7 @@ public partial class Home : IAsyncDisposable
 
             if ( _module is not null )
             {
-                await _module.InvokeVoidAsync("initScrollAnimations");
+                await _module.InvokeVoidAsync("initAnimations");
             }
         }
     }
