@@ -5,15 +5,15 @@
 <section id="home" class="hero">
     <video autoplay muted loop playsinline class="video-bg">
         <source src="videos/videoplayback.mp4" type="video/mp4">
-        <div style="background: black; width: 100%; height: 100%;"></div>
+        <div class="video-fallback"></div>
     </video>
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
-        <h1 style="font-family: 'Dosis', sans-serif">Heiwase Karate <span style="color: #4dabf7">Szeged</span></h1>
+        <h1 class="hero-title">Heiwase Karate <span class="hero-title-accent">Szeged</span></h1>
         <p>Eddz saját korcsoportodban! Ovistól a felnőttig. 1993 óta.</p>
-        <div style="margin-top: 20px;">
-            <a href="#contact" class="btn-submit" style="text-decoration:none; display:inline-block; width:auto;">Csatlakozz Hozzánk</a>
+        <div class="hero-cta-wrapper">
+            <a href="#contact" class="btn-design hero-cta-link">Csatlakozz Hozzánk</a>
         </div>
     </div>
 </section>
@@ -38,9 +38,9 @@
 </nav>
 
 <section id="why-us" class="section-padding why-us-section">
-    <div style="text-align: center; margin-bottom: 50px;">
-        <h2 style="font-size: 3.5rem;">Edzéstípusaink</h2>
-        <p style="font-size: 1.2rem;">Legyél akár teljesen kezdő, akár haladó, mi szívesen várunk. Nálunk megtalálod a helyed!</p>
+    <div class="section-header section-header-large-gap">
+        <h2 class="heading-xxl">Edzéstípusaink</h2>
+        <p class="lead-text">Legyél akár teljesen kezdő, akár haladó, mi szívesen várunk. Nálunk megtalálod a helyed!</p>
     </div>
 
     <div class="why-us-grid" id="animated-cards">
@@ -57,7 +57,7 @@
                 mindenki a tudásának megfelelő feladatokat kap. Várunk szeretettel!
             </p>
         </div>
-        <div class="feature-card" style="animation-delay: 0.2s;">
+        <div class="feature-card feature-card-delay-02">
             <i class="fas fa-medal feature-icon-large"></i>
             <h3>Sportkarate</h3>
             <p>
@@ -70,7 +70,7 @@
                 mindenki megtalálja a helyét.
             </p>
         </div>
-        <div class="feature-card" style="animation-delay: 0.4s;">
+        <div class="feature-card feature-card-delay-04">
             <i class="fas fa-shield-alt feature-icon-large"></i>
             <h3>Női önvédelem</h3>
             <p>
@@ -82,7 +82,7 @@
                 meg hatékonyan védekezni a hétköznapi veszélyek ellen!
             </p>
         </div>
-        <div class="feature-card" style="animation-delay: 0.6s;">
+        <div class="feature-card feature-card-delay-06">
             <i class="fas fa-dumbbell feature-icon-large"></i>
             <h3>Atlétika</h3>
             <p>
@@ -100,9 +100,9 @@
 
 <section id="about" class="about-section">
     <div class="about-section-overlay section-padding">
-        <div style="text-align:center; margin-bottom: 50px;">
-            <h2 style="font-size: 3rem;">A Csapatról</h2>
-            <p style="max-width: 900px; margin: 0 auto; font-size: 1.2rem;">
+        <div class="section-header section-header-large-gap">
+            <h2 class="heading-xl">A Csapatról</h2>
+            <p class="about-intro-text">
                 A Heiwase Karate Szeged több mint 30 éve a szegedi sportélet meghatározó szereplője.
                 A csapatot megalakulása óta komplex célok vezérlik. Szeretnénk mindenki számára elérhetővé tenni,
                 és minél több emberrel megismertetni a karatét, biztosítani tanítványaink számára a kellő hátteret,
@@ -150,8 +150,8 @@
 </section>
 
 <section id="coaches" class="section-padding coaches-section">
-    <h2 style="text-align:center; font-size: 3rem; margin-bottom: 40px; color: white;">Edzőink</h2>
-    <div class="about-grid" style="justify-content: center;">
+    <h2 class="section-title-white">Edzőink</h2>
+    <div class="about-grid about-grid-centered">
         <div class="card-common">
             <img class="card-img" src="img/zoli.jpg" alt="Stempel Zoltán" />
             <div class="card-details">
@@ -188,9 +188,9 @@
 </section>
 
 <section id="mwksz" class="section-padding mwksz-section">
-    <div style="text-align: center; margin-bottom: 40px;">
-        <h2 style="font-size: 3rem;">Szövetségünk</h2>
-        <p style="max-width: 600px; justify-self: center;">
+    <div class="section-header section-header-medium-gap">
+        <h2 class="heading-xl">Szövetségünk</h2>
+        <p class="mwksz-intro-text">
             A Heiwase a Magyarországi Wado-ryu Karate Szövetség elkötelezett tagja.
             Az MWKSZ biztosítja klubunk számára a szakmai hátteret, és validációt,
             mindemellett a WUKF (World Union of Karate-do Federations) tagjaként lehetőséget
@@ -253,19 +253,19 @@
         <img src="img/mwkszgrid/verseny.jpg" class="gallery-img g-item-4" />
     </div>
 
-    <div style="justify-self: center;">
-        <img src="img/esemenynaptar26.jpg" width="350" style="border-radius: 50px;" />
+    <div class="event-calendar-wrapper">
+        <img src="img/esemenynaptar26.jpg" width="350" class="event-calendar-image" />
     </div>
 </section>
 
 <section id="halloffame" class="section-padding hall-of-fame-section">
     @if ( _competitors == null || _competitors.Count == 0 )
     {
-        <p style="text-align:center;">Adatok betöltése...</p>
+        <p class="text-center">Adatok betöltése...</p>
     }
     else
     {
-        <h3 style="text-align:center; font-size: 2.5rem; margin-bottom: 30px; color: white;">Kiemelkedő Versenyzők</h3>
+        <h3 class="section-subtitle-white">Kiemelkedő Versenyzők</h3>
         <div class="slider-container">
             <div class="slider-grid">
                 @foreach ( var member in GetVisibleItems(_competitors, _competitorIndex) )
@@ -286,7 +286,7 @@
 
     @if ( _senpais != null && _senpais.Count > 0 )
     {
-        <h3 style="text-align:center; font-size: 2.5rem; margin-bottom: 30px; margin-top: 60px; color: white;">Vezető tanítványaink</h3>
+        <h3 class="section-subtitle-white section-subtitle-top-gap">Vezető tanítványaink</h3>
         <div class="slider-container">
             <div class="slider-grid">
                 @foreach ( var member in GetVisibleItems(_senpais, _senpaiIndex) )
@@ -310,30 +310,30 @@
     <div class="timetable-section-overlay section-padding">
         <div class="schedule-map-container">
             <div>
-                <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: white;">Edzésrend</h2>
-                <img src="img/edzeseink.png" style="width:100%; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" alt="Edzésidőpontok" />
+                <h2 class="timetable-heading">Edzésrend</h2>
+                <img src="img/edzeseink.png" class="timetable-image" alt="Edzésidőpontok" />
             </div>
             <div>
-                <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: white;">Heiwase dojo</h2>
+                <h2 class="timetable-heading">Heiwase dojo</h2>
                 <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2758.895392576326!2d20.14728507673322!3d46.25203397109848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47448865664d42d3%3A0x6a16641680190847!2sSzeged%2C%20F%C3%B6ldv%C3%A1ry%20u.%203%2C%206722!5e0!3m2!1shu!2shu!4v1700000000000!5m2!1shu!2shu" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section-padding" style="background: var(--secondary-grad); text-align: center;">
-    <h2 style="font-size: 3rem; margin-bottom: 30px;">Kövess minket!</h2>
+<section class="section-padding social-section">
+    <h2 class="heading-xl heading-bottom-gap">Kövess minket!</h2>
     <div class="social-grid">
-        <div class="social-box" style="border: 1px solid #ddd; background: white;">
+        <div class="social-box social-box-surface">
             <div>
-                <i class="fab fa-facebook fa-3x" style="color: #1877f2; margin-bottom: 10px; display: block;"></i>
+                <i class="fab fa-facebook fa-3x social-icon social-icon-facebook"></i>
                 <p>Kövess minket a Facebookon!</p>
                 <div class="fb-page" data-href="https://www.facebook.com/szegedkaratehirek/" data-tabs="timeline" data-width="500" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/szegedkaratehirek/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/szegedkaratehirek/">Heiwase Karate Szeged</a></blockquote></div>
             </div>
         </div>
-        <div class="social-box" style="border: 1px solid #ddd; background: white;">
+        <div class="social-box social-box-surface">
             <div>
-                <i class="fab fa-instagram fa-3x" style="color: #c32aa3; margin-bottom: 10px;"></i>
+                <i class="fab fa-instagram fa-3x social-icon social-icon-instagram"></i>
                 <p>Kövess minket az Instagramon!</p>
                 <a href="https://instagram.com/szegedkarate" target="_blank">szegedkarate</a>
             </div>
@@ -341,9 +341,9 @@
     </div>
 </section>
 
-<section id="contact" class="section-padding" style="background: var(--primary-grad);">
-    <div style="text-align: center; color: white; margin-bottom: 40px;">
-        <h2 style="font-size: 3rem; color: white;">Jelentkezz Edzésre!</h2>
+<section id="contact" class="section-padding contact-section">
+    <div class="contact-header">
+        <h2 class="heading-xl heading-white">Jelentkezz Edzésre!</h2>
         <p>Az első edzés ingyenes. Töltsd ki az űrlapot!</p>
     </div>
 
@@ -362,16 +362,16 @@
             <div class="form-group">
                 <InputTextArea class="form-control" @bind-Value="_applicant.Message" rows="4" placeholder="Pl.: 10 éves gyerek részére..." />
             </div>
-            <button type="submit" class="btn-submit">
+            <button type="submit" class="btn-design btn-submit">
                 <i class="fas fa-paper-plane"></i> Elküldés
             </button>
             @if ( _formSubmitted )
             {
-                <div style="margin-top: 15px; color: green; font-weight: bold; text-align: center;">Köszönjük!</div>
+                <div class="form-success-message">Köszönjük!</div>
             }
         </EditForm>
 
-        <div style="margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+        <div class="contact-details">
             <p>
                 <strong>Heiwase Karate Szeged</strong><br>
                 <i class="fas fa-envelope"></i> info@szegedkarate.hu<br>
@@ -383,7 +383,7 @@
 
 <footer>
     <p>© @DateTime.Now.Year Heiwase Karate Szeged. Minden jog fenntartva.</p>
-    <p style="font-size: 0.8rem;">Készítette: Zimmermann Zsolt Gábor | .NET Development</p>
+    <p class="footer-credit">Készítette: Zimmermann Zsolt Gábor | .NET Development</p>
 </footer>
 
 <a href="#contact" class="sticky-cta" title="Jelentkezés">
