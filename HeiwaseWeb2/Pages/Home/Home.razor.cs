@@ -3,16 +3,18 @@ using Microsoft.JSInterop;
 
 using System.Net.Http.Json;
 using System.Timers;
-namespace HeiwaseWeb2.Pages;
 
-public partial class Home : IDisposable
+namespace Heiwase.App.Blazor.Pages.Home;
+
+public partial class Home : IAsyncDisposable
 {
     [Inject]
-    public IJSRuntime JS { get; set; }
+    public IJSRuntime JS { get; set; } = default!;
 
     [Inject]
-    public HttpClient Http { get; set; }
+    public HttpClient Http { get; set; } = default!;
 
+    private IJSObjectReference? _module;
     private bool _isMenuOpen = false;
     private ApplicantModel _applicant = new();
     private bool _formSubmitted = false;
@@ -22,11 +24,26 @@ public partial class Home : IDisposable
     private int _senpaiIndex = 0;
     private System.Timers.Timer? _timer;
 
+    private const string HallOfFameDataString = "data/halloffame.json";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if ( firstRender )
+        {
+            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/animations.js");
+
+            if ( _module is not null )
+            {
+                await _module.InvokeVoidAsync("initAnimations");
+            }
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            var data = await Http.GetFromJsonAsync<HallOfFameData>("data/halloffame.json");
+            var data = await Http.GetFromJsonAsync<HallOfFameData>(HallOfFameDataString);
 
             if ( data != null )
             {
@@ -41,8 +58,11 @@ public partial class Home : IDisposable
             Console.WriteLine($"Hiba a JSON betöltésekor: {ex.Message}");
         }
     }
+
     private void ToggleMenu() => _isMenuOpen = !_isMenuOpen;
+
     private void CloseMenu() => _isMenuOpen = false;
+
     private void HandleValidSubmit()
     {
         _formSubmitted = true;
@@ -64,7 +84,16 @@ public partial class Home : IDisposable
         InvokeAsync(StateHasChanged);
     }
 
-    public void Dispose() => _timer?.Dispose();
+    public async ValueTask DisposeAsync()
+    {
+        _timer?.Dispose();
+        GC.SuppressFinalize(this);
+
+        if ( _module is not null )
+        {
+            await _module.DisposeAsync();
+        }
+    }
 
     private static List<Member> GetVisibleItems(List<Member> list, int index)
     {
