@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 using System.Net.Http.Json;
 using System.Timers;
 
-namespace Heiwase.App.Blazor.Pages;
+namespace Heiwase.App.Blazor.Pages.Home;
 
 public partial class Home : IAsyncDisposable
 {

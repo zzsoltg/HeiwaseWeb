@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace Heiwase.App.Blazor.Pages;
+namespace Heiwase.App.Blazor.Pages.Home;
 
 public partial class Home
 {
