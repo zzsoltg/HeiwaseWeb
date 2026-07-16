@@ -19,6 +19,7 @@ HeiwaseWeb is a public-facing promotional website for the club. The homepage inc
 - **C#**
 - **HTML**
 - **CSS**
+- **JavaScript**
 - .NET 10
 
 ## Project structure
@@ -26,10 +27,10 @@ HeiwaseWeb is a public-facing promotional website for the club. The homepage inc
 - `Program.cs` — app bootstrap and service configuration
 - `App.razor` — root router and layout wiring
 - `Layout/` — shared layout components
-- `Pages/Home.razor` — main landing page
+- `Pages/Home` — main landing page's files
 - `Pages/NotFound.razor` — fallback page for unknown routes
 - `wwwroot/` — static assets such as images, videos, icons, and styles
-- `HeiwaseWeb2.csproj` — project configuration
+- `Heiwase.App.Blazor.csproj` — project configuration
 
 ## Features
 
@@ -62,9 +63,9 @@ dotnet publish -c Release
 
 ## Content and customization
 
-Most of the visible content appears to live in `Pages/Home.razor`, while styling and media assets are stored in `wwwroot/`. To update the site:
+Most of the visible content appears to live in `Pages/Home/Home.razor`, while styling and media assets are stored in `wwwroot/`. To update the site:
 
-- edit the page content in `Pages/Home.razor`
+- edit the page content in `Pages/Home/Home.razor`
 - replace images, video, and other static assets in `wwwroot/`
 - adjust shared behavior or routing in `App.razor` and `Program.cs`
 
@@ -73,8 +74,6 @@ Most of the visible content appears to live in `Pages/Home.razor`, while styling
 The project is already deployed at:
 
 https://szegedkarate.netlify.app/
-
-If you deploy it elsewhere, make sure the hosting platform is configured for a client-side Blazor WebAssembly app and serves `index.html` for fallback routes.
 
 ## Notes
 
@@ -87,4 +86,4 @@ Contributions are welcome. If you make changes, please keep the site fast, mobil
 
 ## License
 
-No license has been specified yet.
+You are welcome to contribute, suggest and fork, but all of the page's content belongs to Heiwase Karate Szeged. You can copy coding patterns and solutions but the design elements are forbidden to be used.
