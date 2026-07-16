@@ -2,27 +2,105 @@
   "competitors": [
     {
       "name": "Zimmermann Zsolt Gábor",
-      "title": "3. helyezés (WUKF Világbajnokság, 2023., Skócia)",
-      "description": "További eredmények:",
-      "imagePath": "img/hall_of_fame/Zimmermann_Zsolt.jpg"
+      "title": "Felnőtt férfi kumite -75 kg",
+      "description": "3. helyezés (WUKF Világbajnokság, 2023.)",
+      "imagePath": "img/hall_of_fame/Zimmermann_Zsolt.png"
     },
     {
       "name": "Fixler Daniella",
-      "title": "1. helyezés (MWKSZ Országos Bajnokság, 2025. Kartal)",
-      "description": "További eredmények:",
-      "imagePath": "img/hall_of_fame/Fixler_Daniella.jpg"
+      "title": "Cadet nő kumite -60 kg",
+      "description": "1. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Fixler_Daniella.png"
     },
     {
       "name": "Szabó Lea",
-      "title": "2. helyezés (MWKSZ Országos Bajnokság, 2025. Kartal)",
-      "description": "További eredmények:",
-      "imagePath": "img/hall_of_fame/Szabo_Lea.jpg"
+      "title": "Junior nő kumite -65 kg",
+      "description": "2. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Szabo_Lea.png"
     },
     {
       "name": "Csernus Milla",
-      "title": "1. helyezés (MWKSZ Országos Bajnokság, 2025. Kartal",
-      "description": "További eredmények:",
-      "imagePath": "img/hall_of_fame/Csernus_Milla.jpg"
+      "title": "Gyermek nő kata",
+      "description": "1. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Csernus_Milla.png"
+    },
+    {
+      "name": "Varga Bálint",
+      "title": "Cadet férfi kumite -65 kg",
+      "description": "1. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Varga_Balint.png"
+    },
+    {
+      "name": "Seres Péter",
+      "title": "Cadet férfi kumite -65 kg",
+      "description": "3. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Seres_Peter.png"
+    },
+    {
+      "name": "Horváth Mátyás",
+      "title": "Cadet férfi kumite -65 kg",
+      "description": "2. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Horvath_Matyas.png"
+    },
+    {
+      "name": "Szabad Richárd",
+      "title": "Felnőtt férfi kumite -75 kg",
+      "description": "2. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Szabad_Richard.png"
+    },
+    {
+      "name": "Virág Zalán",
+      "title": "Gyermek férfi kumite -155 cm",
+      "description": "3. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Virag_Zalan.png"
+    },
+    {
+      "name": "Anderle Anna",
+      "title": "Gyermek női kata",
+      "description": "2. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Anderle_Anna.png"
+    },
+    {
+      "name": "Zimmermann Katalin",
+      "title": "Cadet női kumite -65 kg",
+      "description": "3. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Zimmermann_Katalin.png"
+    },
+    {
+      "name": "Kurucz Lilla",
+      "title": "Cadet női kumite -65 kg",
+      "description": "1. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Kurucz_Lilla.png"
+    },
+    {
+      "name": "Pavlovits Júlia",
+      "title": "Cadet női kumite -65 kg",
+      "description": "2. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Pavlovits_Julia.png"
+    },
+    {
+      "name": "Török Dávid",
+      "title": "Junior férfi kumite -75 kg",
+      "description": "3. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Torok_David.png"
+    },
+    {
+      "name": "Elek Anna",
+      "title": "Felnőtt női kumite -65 kg",
+      "description": "3. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Elek_Anna.png"
+    },
+    {
+      "name": "Csenkey-Sinkó Bence",
+      "title": "Cadet férfi kata",
+      "description": "3. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Csenkey_Bence.png"
+    },
+    {
+      "name": "Varga Lilla",
+      "title": "Gyermek női kata",
+      "description": "3. helyezés (MWKSZ Országos Bajnokság)",
+      "imagePath": "img/hall_of_fame/Varga_Lilla.png"
     }
   ],
   "senpais": [
@@ -30,25 +108,37 @@
       "name": "Stempel Katica",
       "title": "1. dan",
       "description": "",
-      "imagePath": "img/hall_of_fame/Stempel_Katica.jpg"
+      "imagePath": "img/hall_of_fame/Stempel_Katica.png"
     },
     {
       "name": "Zimmermann Zsolt Gábor",
       "title": "1. kyu",
       "description": "",
-      "imagePath": "img/hall_of_fame/Zimmermann_Zsolt.jpg"
+      "imagePath": "img/hall_of_fame/Zimmermann_Zsolt.png"
+    },
+    {
+      "name": "Szabad Richárd",
+      "title": "1. kyu",
+      "description": "",
+      "imagePath": "img/hall_of_fame/Szabad_Richard.png"
     },
     {
       "name": "Meszes Dominik",
-      "title": "3. kyu",
+      "title": "2. kyu",
       "description": "",
-      "imagePath": "img/hall_of_fame/Meszes_Dominik.jpg"
+      "imagePath": "img/hall_of_fame/Meszes_Dominik.png"
     },
     {
       "name": "Fixler Daniella",
       "title": "3. kyu",
       "description": "",
-      "imagePath": "img/hall_of_fame/Fixler_Daniella.jpg"
+      "imagePath": "img/hall_of_fame/Fixler_Daniella.png"
+    },
+    {
+      "name": "Szabó Lea",
+      "title": "3. kyu",
+      "description": "",
+      "imagePath": "img/hall_of_fame/Szabo_Lea.png"
     }
   ]
 }
