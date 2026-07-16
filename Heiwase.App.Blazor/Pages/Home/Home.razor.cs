@@ -25,6 +25,11 @@ public partial class Home : IAsyncDisposable
     private System.Timers.Timer? _timer;
 
     private const string HallOfFameDataString = "data/halloffame.json";
+    private const string CompetitorGridId = "competitors-grid";
+    private const string SenpaiGridId = "senpais-grid";
+
+    private bool _trackInitialized  = false;
+    private bool _trackResetPending = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -36,6 +41,22 @@ public partial class Home : IAsyncDisposable
             {
                 await _module.InvokeVoidAsync("initAnimations");
             }
+        }
+
+        if ( !_trackInitialized && _module is not null && _competitors.Count > 0 )
+        {
+            _trackInitialized = true;
+            await _module.InvokeVoidAsync("initCompetitorTrack", CompetitorGridId);
+            await _module.InvokeVoidAsync("initSenpaiTrack", SenpaiGridId);
+            StartTimer();
+        }
+
+        if ( _trackResetPending && _module is not null )
+        {
+            _trackResetPending = false;
+            await _module.InvokeVoidAsync("resetCompetitorTrack", CompetitorGridId);
+            await _module.InvokeVoidAsync("resetSenpaiTrack", SenpaiGridId);
+            _timer?.Start();
         }
     }
 
@@ -50,8 +71,6 @@ public partial class Home : IAsyncDisposable
                 _competitors = data.Competitors;
                 _senpais = data.Senpais;
             }
-
-            StartTimer();
         }
         catch ( Exception ex )
         {
@@ -77,11 +96,21 @@ public partial class Home : IAsyncDisposable
         _timer.Enabled = true;
     }
 
-    private void OnTimerElapsed(object? sender, ElapsedEventArgs e)
+    private async void OnTimerElapsed(object? sender, ElapsedEventArgs e)
     {
-        NextCompetitor();
+        _timer!.Stop();
+
+        if ( _module is not null )
+        {
+            var compTask = _module.InvokeAsync<object>("slideCompetitorTrack", CompetitorGridId).AsTask();
+            var senpTask = _module.InvokeAsync<object>("slideSenpaiTrack", SenpaiGridId).AsTask();
+            await Task.WhenAll(compTask, senpTask);
+        }
+
+        PrevCompetitor();
         NextSenpai();
-        InvokeAsync(StateHasChanged);
+        _trackResetPending = true;
+        await InvokeAsync(StateHasChanged);
     }
 
     public async ValueTask DisposeAsync()
@@ -95,20 +124,42 @@ public partial class Home : IAsyncDisposable
         }
     }
 
-    private static List<Member> GetVisibleItems(List<Member> list, int index)
+    // Returns 4 items: buffer (position 0, off-screen left) + 3 visible.
+    // Top slider flows left→right; index decreases on each tick (PrevCompetitor).
+    private List<Member> GetCompetitorItems()
     {
-        var result = new List<Member>();
-        if ( list == null || list.Count == 0 )
+        if ( _competitors.Count == 0 )
         {
-            return result;
+            return [];
         }
 
-        for ( int i = 0; i < 3; i++ )
+        int count = _competitors.Count;
+        return
+        [
+            _competitors[( _competitorIndex - 1 + count ) % count],
+            _competitors[_competitorIndex % count],
+            _competitors[( _competitorIndex + 1 ) % count],
+            _competitors[( _competitorIndex + 2 ) % count]
+        ];
+    }
+
+    // Returns 4 items: 3 visible + buffer (position 3, off-screen right).
+    // Bottom slider flows right→left; index increases on each tick (NextSenpai).
+    private List<Member> GetSenpaiItems()
+    {
+        if ( _senpais.Count == 0 )
         {
-            result.Add(list[( index + i ) % list.Count]);
+            return [];
         }
 
-        return result;
+        int count = _senpais.Count;
+        return
+        [
+            _senpais[_senpaiIndex % count],
+            _senpais[( _senpaiIndex + 1 ) % count],
+            _senpais[( _senpaiIndex + 2 ) % count],
+            _senpais[( _senpaiIndex + 3 ) % count]
+        ];
     }
 
     private void NextCompetitor()

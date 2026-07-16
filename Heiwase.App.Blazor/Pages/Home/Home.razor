@@ -267,8 +267,8 @@
     {
         <h3 class="section-subtitle-white">Kiemelkedő Versenyzők</h3>
         <div class="slider-container">
-            <div class="slider-grid">
-                @foreach ( var member in GetVisibleItems(_competitors, _competitorIndex) )
+            <div id="competitors-grid" class="slider-grid">
+                @foreach ( var member in GetCompetitorItems() )
                 {
                     <div class="card-common">
                         <img class="card-img" src="@member.ImagePath" alt="@member.Name"
@@ -288,8 +288,8 @@
     {
         <h3 class="section-subtitle-white section-subtitle-top-gap">Vezető tanítványaink</h3>
         <div class="slider-container">
-            <div class="slider-grid">
-                @foreach ( var member in GetVisibleItems(_senpais, _senpaiIndex) )
+            <div id="senpais-grid" class="slider-grid">
+                @foreach ( var member in GetSenpaiItems() )
                 {
                     <div class="card-common">
                         <img class="card-img" src="@member.ImagePath" alt="@member.Name"
