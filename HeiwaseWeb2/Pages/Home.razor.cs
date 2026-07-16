@@ -6,14 +6,15 @@ using System.Timers;
 
 namespace Heiwase.App.Blazor.Pages;
 
-public partial class Home : IDisposable
+public partial class Home : IAsyncDisposable
 {
     [Inject]
-    public required IJSRuntime JS { get; set; }
+    public IJSRuntime JS { get; set; } = default!;
 
     [Inject]
-    public required HttpClient Http { get; set; }
+    public HttpClient Http { get; set; } = default!;
 
+    private IJSObjectReference? _module;
     private bool _isMenuOpen = false;
     private ApplicantModel _applicant = new();
     private bool _formSubmitted = false;
@@ -24,6 +25,19 @@ public partial class Home : IDisposable
     private System.Timers.Timer? _timer;
 
     private const string HallOfFameDataString = "data/halloffame.json";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if ( firstRender )
+        {
+            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/animations.js");
+
+            if ( _module is not null )
+            {
+                await _module.InvokeVoidAsync("initScrollAnimations");
+            }
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -70,10 +84,15 @@ public partial class Home : IDisposable
         InvokeAsync(StateHasChanged);
     }
 
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
         _timer?.Dispose();
         GC.SuppressFinalize(this);
+
+        if ( _module is not null )
+        {
+            await _module.DisposeAsync();
+        }
     }
 
     private static List<Member> GetVisibleItems(List<Member> list, int index)

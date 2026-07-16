@@ -30,21 +30,6 @@
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/hu_HU/sdk.js#xfbml=1&version=v24.0&appId=1642976156214421"></script>
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
-    <script>
-        window.blazorIntersectionObserver = {
-            observe: function (element) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            element.classList.add('visible');
-                            observer.unobserve(element);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                observer.observe(element);
-            }
-        };
-    </script>
 </body>
 
 </html>
