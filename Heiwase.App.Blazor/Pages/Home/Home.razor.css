@@ -594,11 +594,15 @@ footer {
 }
 
 .event-calendar-wrapper {
-    justify-self: center;
+    display: flex;
+    justify-content: center;
 }
 
 .event-calendar-image {
     border-radius: 50px;
+    justify-self: center;
+    max-width: 60%;
+    height: auto;
 }
 
 .text-center {
@@ -702,6 +706,10 @@ footer {
 
     .hero-content h1 {
         font-size: 3rem;
+    }
+
+    .event-calendar-image {
+        max-width: 100%;
     }
 
     .slider-grid {
