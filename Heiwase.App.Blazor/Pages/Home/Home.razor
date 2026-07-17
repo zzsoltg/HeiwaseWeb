@@ -372,31 +372,94 @@
 <section id="contact" class="section-padding contact-section">
     <div class="contact-header">
         <h2 class="heading-xl heading-white">Jelentkezz Edzésre!</h2>
-        <p>Az első edzés ingyenes. Töltsd ki az űrlapot!</p>
+        <p>Az első edzés ingyenes.
+            Ha nem szeretnél még edzésekre jelentkezni,
+            csak kérdésed van, akkor is nyugodtan kitöltheted
+            az edzéstípusok figyelmen kívül hagyásával, és az üzenet mező kitöltésével!</p>
     </div>
 
     <div class="contact-form">
         <EditForm Model="@_applicant" OnValidSubmit="@HandleValidSubmit">
             <DataAnnotationsValidator />
+
             <div class="form-group">
+                <label class="form-label">Jelentkező neve</label>
                 <InputText class="form-control" @bind-Value="_applicant.Name" placeholder="Teljes név" />
+                <ValidationMessage For="@(() => _applicant.Name)" class="form-validation-message" />
             </div>
+
             <div class="form-group">
+                <label class="form-label">Születési dátum</label>
+                <InputDate class="form-control" @bind-Value="_applicant.DateOfBirth"
+                           @bind-Value:after="SanitizeTrainingTypes" />
+            </div>
+
+            <div class="form-field-collapsible @(_applicant.IsMinor ? "form-field-visible" : "")">
+                <label class="form-label">Szülő / Gondviselő neve</label>
+                <InputText class="form-control" @bind-Value="_applicant.GuardianName"
+                           placeholder="Gondviselő teljes neve" />
+                <ValidationMessage For="@(() => _applicant.GuardianName)" class="form-validation-message" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Nem</label>
+                <InputSelect class="form-control" @bind-Value="_applicant.Sex"
+                             @bind-Value:after="SanitizeTrainingTypes">
+                    <option value="">– Válassz –</option>
+                    <option value="férfi">Férfi</option>
+                    <option value="nő">Nő</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => _applicant.Sex)" class="form-validation-message" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Edzéstípusok</label>
+                <div class="training-types-grid">
+                    @foreach ( var type in TrainingTypeOptions )
+                    {
+                        var isDisabled = IsTrainingTypeDisabled(type);
+                        var isChecked  = _applicant.TrainingTypes.Contains(type);
+                        <label class="training-type-option @(isDisabled ? "training-type-disabled" : "") @(isChecked ? "training-type-checked" : "")">
+                            <input type="checkbox"
+                                   checked="@isChecked"
+                                   disabled="@isDisabled"
+                                   @onchange="@(e => OnTrainingTypeChanged(type, (bool)e.Value!))" />
+                            @type
+                        </label>
+                    }
+                </div>
+                <ValidationMessage For="@(() => _applicant.TrainingTypes)" class="form-validation-message" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Email-cím</label>
                 <InputText class="form-control" @bind-Value="_applicant.Email" placeholder="pelda@email.hu" />
+                <ValidationMessage For="@(() => _applicant.Email)" class="form-validation-message" />
             </div>
+
             <div class="form-group">
+                <label class="form-label">Telefonszám</label>
                 <InputText class="form-control" @bind-Value="_applicant.Phone" placeholder="+36..." />
             </div>
+
             <div class="form-group">
-                <InputTextArea class="form-control" @bind-Value="_applicant.Message" rows="4" placeholder="Pl.: 10 éves gyerek részére..." />
+                <label class="form-label">Üzenet</label>
+                <InputTextArea class="form-control" @bind-Value="_applicant.Message" rows="4"
+                               placeholder="Kérdés, információ..." />
             </div>
+
             <button type="submit" class="btn-design btn-submit">
                 <i class="fas fa-paper-plane"></i> Elküldés
             </button>
-            @if ( _formSubmitted )
-            {
-                <div class="form-success-message">Köszönjük!</div>
-            }
+
+            <div class="form-feedback-message form-success-message @(_formSubmitted ? "form-message-visible" : "")">
+                <i class="fas fa-check-circle"></i>
+                Sikeresen elküldted a jelentkezésedet! Hamarosan felvesszük veled a kapcsolatot.
+            </div>
+            <div class="form-feedback-message form-error-message @(_formError ? "form-message-visible" : "")">
+                <i class="fas fa-exclamation-circle"></i>
+                Hiba történt az elküldés során. Kérjük, próbáld újra, vagy vedd fel velünk a kapcsolatot közvetlenül.
+            </div>
         </EditForm>
 
         <div class="contact-details">
