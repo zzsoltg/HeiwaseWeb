@@ -15,24 +15,32 @@ public partial class Home : IAsyncDisposable
     public HttpClient Http { get; set; } = default!;
 
     private IJSObjectReference? _module;
-    private bool _isMenuOpen = false;
     private ApplicantModel _applicant = new();
-    private bool _formSubmitted = false;
     private List<Member> _competitors = [];
     private List<Member> _senpais = [];
-    private int _competitorIndex = 0;
-    private int _senpaiIndex = 0;
     private System.Timers.Timer? _timer;
+    private System.Timers.Timer? _resumeTimer;
+
+    private bool _formSubmitted = false;
+    private bool _formError = false;
+    private bool _isMenuOpen = false;
     private bool _trackInitialized = false;
     private bool _trackResetPending = false;
     private bool _isAnimating = false;
     private bool _userInteractionPaused = false;
+    private int _competitorIndex = 0;
+    private int _senpaiIndex = 0;
 
+    private const string FormspreeEndpoint = "https://formspree.io/f/mrenpyzo";
     private const string HallOfFameDataString = "data/halloffame.json";
     private const string CompetitorGridId = "competitors-grid";
     private const string SenpaiGridId = "senpais-grid";
+    private const string Woman = "nő";
+    private const string Adult = "Felnőtt";
+    private const string Child = "Gyerek";
 
-    private System.Timers.Timer? _resumeTimer;
+    private static readonly string[] TrainingTypeOptions =
+        ["Felnőtt", "Gyerek", "Sportkarate", "Női önvédelem", "Atlétika"];
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -90,11 +98,60 @@ public partial class Home : IAsyncDisposable
 
     private void CloseMenu() => _isMenuOpen = false;
 
-    private void HandleValidSubmit()
+    private async Task HandleValidSubmit()
     {
-        _formSubmitted = true;
-        _applicant = new ApplicantModel();
+        _formSubmitted = false;
+        _formError = false;
+
+        var payload = new
+        {
+            name = _applicant.Name,
+            email = _applicant.Email,
+            phone = _applicant.Phone,
+            sex = _applicant.Sex,
+            dateOfBirth = _applicant.DateOfBirth?.ToString("yyyy-MM-dd"),
+            guardianName = _applicant.GuardianName,
+            trainingTypes = string.Join(", ", _applicant.TrainingTypes),
+            message = _applicant.Message
+        };
+
+        var response = await Http.PostAsJsonAsync(FormspreeEndpoint, payload);
+
+        if ( response.IsSuccessStatusCode )
+        {
+            _formSubmitted = true;
+            _applicant = new ApplicantModel();
+        }
+        else
+        {
+            _formError = true;
+        }
     }
+
+    private bool IsTrainingTypeDisabled(string type) => type switch
+    {
+        "Női önvédelem" => _applicant.Sex != Woman && _applicant.Sex != String.Empty,
+        "Gyerek" => ( _applicant.DateOfBirth.HasValue && !_applicant.IsMinor )
+                    || _applicant.TrainingTypes.Contains(Adult),
+        "Felnőtt" => _applicant.TrainingTypes.Contains(Child),
+        _ => false
+    };
+
+    private void OnTrainingTypeChanged(string type, bool isChecked)
+    {
+        if ( isChecked )
+        {
+            if ( !IsTrainingTypeDisabled(type) && !_applicant.TrainingTypes.Contains(type) )
+                _applicant.TrainingTypes.Add(type);
+        }
+        else
+        {
+            _applicant.TrainingTypes.Remove(type);
+        }
+    }
+
+    private void SanitizeTrainingTypes() =>
+        _applicant.TrainingTypes.RemoveAll(t => IsTrainingTypeDisabled(t));
 
     private void StartTimer()
     {
@@ -134,10 +191,6 @@ public partial class Home : IAsyncDisposable
         }
     }
 
-    // Returns 5 items: buffer-left + 3 visible + buffer-right.
-    // Resting track position (-slotWidth) shows cards 1–3.
-    // slideTrackRight: shows cards 0–2 (buffer enters left, card 4 exits right).
-    // slideTrackLeft:  shows cards 2–4 (card 0 exits left, buffer enters right).
     private List<Member> GetCompetitorItems()
     {
         if ( _competitors.Count == 0 )
@@ -156,7 +209,6 @@ public partial class Home : IAsyncDisposable
         ];
     }
 
-    // Returns 5 items: buffer-left + 3 visible + buffer-right.
     private List<Member> GetSenpaiItems()
     {
         if ( _senpais.Count == 0 )
@@ -175,8 +227,6 @@ public partial class Home : IAsyncDisposable
         ];
     }
 
-    // Stops the auto-animation timer and starts/resets the 15-second resume countdown.
-    // Call on every button press so user interaction always postpones auto-animation.
     private void PauseAutoAnimation()
     {
         _userInteractionPaused = true;
@@ -194,24 +244,33 @@ public partial class Home : IAsyncDisposable
     {
         _userInteractionPaused = false;
 
-        // If no animation is currently running, restart the auto-animation timer.
-        // If one is running, OnAfterRenderAsync will restart it once the animation finishes.
         if ( !_isAnimating )
         {
             _timer?.Start();
         }
     }
 
-    private Task OnCompetitorLeftClick()  => PerformCompetitorSlide(slidesLeft: true);
-    private Task OnCompetitorRightClick() => PerformCompetitorSlide(slidesLeft: false);
-    private Task OnSenpaiLeftClick()      => PerformSenpaiSlide(slidesLeft: true);
-    private Task OnSenpaiRightClick()     => PerformSenpaiSlide(slidesLeft: false);
+    private Task OnCompetitorLeftClick() 
+        => PerformCompetitorSlide(slidesLeft: true);
+
+    private Task OnCompetitorRightClick()
+        => PerformCompetitorSlide(slidesLeft: false);
+
+    private Task OnSenpaiLeftClick()
+        => PerformSenpaiSlide(slidesLeft: true);
+
+    private Task OnSenpaiRightClick()
+        => PerformSenpaiSlide(slidesLeft: false);
 
     private async Task PerformCompetitorSlide(bool slidesLeft)
     {
         PauseAutoAnimation();
 
-        if ( _isAnimating ) return;
+        if ( _isAnimating )
+        {
+            return;
+        }
+
         _isAnimating = true;
 
         if ( _module is not null )
@@ -219,8 +278,14 @@ public partial class Home : IAsyncDisposable
             await _module.InvokeAsync<object>(slidesLeft ? "slideTrackLeft" : "slideTrackRight", CompetitorGridId);
         }
 
-        if ( slidesLeft ) NextCompetitor();
-        else PrevCompetitor();
+        if ( slidesLeft )
+        {
+            NextCompetitor();
+        }
+        else
+        {
+            PrevCompetitor();
+        }
 
         _trackResetPending = true;
         await InvokeAsync(StateHasChanged);
@@ -230,7 +295,11 @@ public partial class Home : IAsyncDisposable
     {
         PauseAutoAnimation();
 
-        if ( _isAnimating ) return;
+        if ( _isAnimating )
+        {
+            return;
+        }
+
         _isAnimating = true;
 
         if ( _module is not null )
@@ -238,8 +307,14 @@ public partial class Home : IAsyncDisposable
             await _module.InvokeAsync<object>(slidesLeft ? "slideTrackLeft" : "slideTrackRight", SenpaiGridId);
         }
 
-        if ( slidesLeft ) NextSenpai();
-        else PrevSenpai();
+        if ( slidesLeft )
+        {
+            NextSenpai();
+        }
+        else
+        {
+            PrevSenpai();
+        }
 
         _trackResetPending = true;
         await InvokeAsync(StateHasChanged);
