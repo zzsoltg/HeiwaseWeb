@@ -75,6 +75,10 @@
     flex: 0 0 100%;
   }
 }
+.slider-grid .btn-info {
+  margin-top: 15px;
+  align-self: center;
+}
 .slider-controls {
   display: flex;
   justify-content: center;

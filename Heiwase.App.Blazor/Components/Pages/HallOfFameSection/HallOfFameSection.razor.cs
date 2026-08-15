@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
+using Heiwase.App.Blazor.Components.Shared;
+
+using Radzen;
+
 using System.Net.Http.Json;
 using System.Timers;
 
@@ -13,6 +17,9 @@ public partial class HallOfFameSection : IAsyncDisposable
 
     [Inject]
     public HttpClient Http { get; set; } = default!;
+
+    [Inject]
+    public DialogService DialogService { get; set; } = default!;
 
     private IJSObjectReference? _module;
     private List<Member> _competitors = [];
@@ -281,4 +288,10 @@ public partial class HallOfFameSection : IAsyncDisposable
             _senpaiIndex = ( _senpaiIndex - 1 + _senpais.Count ) % _senpais.Count;
         }
     }
+
+    private Task OpenCompetitorResultsDialogAsync(Member member) =>
+        DialogService.OpenAsync<CompetitorResultsDialog>($"{member.Name} eredményei");
+
+    private Task OpenSenpaiResultsDialogAsync(Member member) =>
+        DialogService.OpenAsync<SenpaiResultsDialog>($"{member.Name} eredményei");
 }

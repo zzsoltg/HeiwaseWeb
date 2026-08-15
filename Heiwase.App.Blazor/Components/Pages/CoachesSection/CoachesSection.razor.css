@@ -7,3 +7,7 @@
   margin-bottom: 40px;
   color: white;
 }
+.card-details .btn-info {
+  margin-top: 10px;
+  align-self: center;
+}

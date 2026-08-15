@@ -32,3 +32,6 @@
   display: block;
   font-family: var(--font-heading);
 }
+.info-bubble .btn-info {
+  margin-top: 15px;
+}
