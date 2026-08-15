@@ -1,6 +1,6 @@
-﻿namespace Heiwase.App.Blazor.Components.Pages.Home;
+﻿namespace Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
 
-public partial class Home
+public partial class HallOfFameSection
 {
     public class Member
     {

@@ -4,9 +4,9 @@ using Microsoft.JSInterop;
 using System.Net.Http.Json;
 using System.Timers;
 
-namespace Heiwase.App.Blazor.Components.Pages.Home;
+namespace Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
 
-public partial class Home : IAsyncDisposable
+public partial class HallOfFameSection : IAsyncDisposable
 {
     [Inject]
     public IJSRuntime JS { get; set; } = default!;
@@ -15,15 +15,11 @@ public partial class Home : IAsyncDisposable
     public HttpClient Http { get; set; } = default!;
 
     private IJSObjectReference? _module;
-    private ApplicantModel _applicant = new();
     private List<Member> _competitors = [];
     private List<Member> _senpais = [];
     private System.Timers.Timer? _timer;
     private System.Timers.Timer? _resumeTimer;
 
-    private bool _formSubmitted = false;
-    private bool _formError = false;
-    private bool _isMenuOpen = false;
     private bool _trackInitialized = false;
     private bool _trackResetPending = false;
     private bool _isAnimating = false;
@@ -31,16 +27,9 @@ public partial class Home : IAsyncDisposable
     private int _competitorIndex = 0;
     private int _senpaiIndex = 0;
 
-    private const string FormspreeEndpoint = "https://formspree.io/f/mrenpyzo";
     private const string HallOfFameDataString = "data/halloffame.json";
     private const string CompetitorGridId = "competitors-grid";
     private const string SenpaiGridId = "senpais-grid";
-    private const string Woman = "nő";
-    private const string Adult = "Felnőtt";
-    private const string Child = "Gyerek";
-
-    private static readonly string[] TrainingTypeOptions =
-        ["Felnőtt", "Gyerek", "Sportkarate", "Női önvédelem", "Atlétika"];
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -93,65 +82,6 @@ public partial class Home : IAsyncDisposable
             Console.WriteLine($"Hiba a JSON betöltésekor: {ex.Message}");
         }
     }
-
-    private void ToggleMenu() => _isMenuOpen = !_isMenuOpen;
-
-    private void CloseMenu() => _isMenuOpen = false;
-
-    private async Task HandleValidSubmit()
-    {
-        _formSubmitted = false;
-        _formError = false;
-
-        var payload = new
-        {
-            name = _applicant.Name,
-            email = _applicant.Email,
-            phone = _applicant.Phone,
-            sex = _applicant.Sex,
-            dateOfBirth = _applicant.DateOfBirth?.ToString("yyyy-MM-dd"),
-            guardianName = _applicant.GuardianName,
-            trainingTypes = string.Join(", ", _applicant.TrainingTypes),
-            message = _applicant.Message
-        };
-
-        var response = await Http.PostAsJsonAsync(FormspreeEndpoint, payload);
-
-        if ( response.IsSuccessStatusCode )
-        {
-            _formSubmitted = true;
-            _applicant = new ApplicantModel();
-        }
-        else
-        {
-            _formError = true;
-        }
-    }
-
-    private bool IsTrainingTypeDisabled(string type) => type switch
-    {
-        "Női önvédelem" => _applicant.Sex != Woman && _applicant.Sex != String.Empty,
-        "Gyerek" => ( _applicant.DateOfBirth.HasValue && !_applicant.IsMinor )
-                    || _applicant.TrainingTypes.Contains(Adult),
-        "Felnőtt" => _applicant.TrainingTypes.Contains(Child),
-        _ => false
-    };
-
-    private void OnTrainingTypeChanged(string type, bool isChecked)
-    {
-        if ( isChecked )
-        {
-            if ( !IsTrainingTypeDisabled(type) && !_applicant.TrainingTypes.Contains(type) )
-                _applicant.TrainingTypes.Add(type);
-        }
-        else
-        {
-            _applicant.TrainingTypes.Remove(type);
-        }
-    }
-
-    private void SanitizeTrainingTypes() =>
-        _applicant.TrainingTypes.RemoveAll(t => IsTrainingTypeDisabled(t));
 
     private void StartTimer()
     {

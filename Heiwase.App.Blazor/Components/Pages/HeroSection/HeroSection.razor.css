@@ -1,0 +1,81 @@
+﻿.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+}
+
+.hero-content h1 {
+    font-size: 5rem;
+    font-weight: 900;
+    margin: 0;
+    line-height: 1;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    font-weight: 300;
+}
+
+.video-fallback {
+    background: black;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-title {
+    font-family: 'Dosis', sans-serif;
+}
+
+.hero-title-accent {
+    color: #4dabf7;
+}
+
+.hero-width {
+    margin: 0 30%;
+}
+
+.hero-cta-wrapper {
+    margin-top: 20px;
+}
+
+.hero-cta-link {
+    text-decoration: none;
+    display: inline-block;
+    width: fit-content;
+}
+
+@media (max-width: 768px) {
+    .hero-width {
+        margin: 1em;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+}

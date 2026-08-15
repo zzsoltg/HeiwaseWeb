@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Heiwase.App.Blazor.Components.Pages.Home;
+namespace Heiwase.App.Blazor.Components.Pages.ContactSection;
 
-public partial class Home
+public partial class ContactSection
 {
     public sealed class ApplicantModel : IValidatableObject
     {

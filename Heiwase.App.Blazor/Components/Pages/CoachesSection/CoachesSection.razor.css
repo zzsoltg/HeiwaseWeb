@@ -1,0 +1,10 @@
+﻿.coaches-section {
+    background: var(--secondary-grad);
+}
+
+.section-title-white {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 40px;
+    color: white;
+}

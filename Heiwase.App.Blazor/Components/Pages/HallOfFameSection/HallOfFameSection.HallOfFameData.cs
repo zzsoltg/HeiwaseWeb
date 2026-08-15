@@ -1,7 +1,8 @@
 ﻿using System.Text.Json.Serialization;
-namespace Heiwase.App.Blazor.Components.Pages.Home;
 
-public partial class Home
+namespace Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
+
+public partial class HallOfFameSection
 {
     public class HallOfFameData
     {
