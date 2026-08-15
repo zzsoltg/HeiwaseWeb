@@ -290,8 +290,14 @@ public partial class HallOfFameSection : IAsyncDisposable
     }
 
     private Task OpenCompetitorResultsDialogAsync(Member member) =>
-        DialogService.OpenAsync<CompetitorResultsDialog>($"{member.Name} eredményei");
+        DialogService.OpenAsync<CompetitorResultsDialog>(
+            $"{member.Name} eredményei",
+            new Dictionary<string, object?> { { "Member", member } },
+            DialogDefaults.Options());
 
     private Task OpenSenpaiResultsDialogAsync(Member member) =>
-        DialogService.OpenAsync<SenpaiResultsDialog>($"{member.Name} eredményei");
+        DialogService.OpenAsync<SenpaiResultsDialog>(
+            $"{member.Name} eredményei",
+            new Dictionary<string, object?> { { "Member", member } },
+            DialogDefaults.Options());
 }

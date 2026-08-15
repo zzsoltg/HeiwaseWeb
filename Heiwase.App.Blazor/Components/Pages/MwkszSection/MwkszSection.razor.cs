@@ -12,14 +12,14 @@ public partial class MwkszSection
     public DialogService DialogService { get; set; } = default!;
 
     private Task OpenBeltExamDialogAsync() =>
-        DialogService.OpenAsync<BeltExamDialog>("Övvizsgák");
+        DialogService.OpenAsync<BeltExamDialog>("Övvizsgák", options: DialogDefaults.Options());
 
     private Task OpenTrainingCampDialogAsync() =>
-        DialogService.OpenAsync<TrainingCampDialog>("Edzőtáborok");
+        DialogService.OpenAsync<TrainingCampDialog>("Edzőtáborok", options: DialogDefaults.Options());
 
     private Task OpenCompetitionsDialogAsync() =>
-        DialogService.OpenAsync<CompetitionsDialog>("Versenyek");
+        DialogService.OpenAsync<CompetitionsDialog>("Versenyek", options: DialogDefaults.Options());
 
     private Task OpenSeminarsDialogAsync() =>
-        DialogService.OpenAsync<SeminarsDialog>("Szemináriumok");
+        DialogService.OpenAsync<SeminarsDialog>("Szemináriumok", options: DialogDefaults.Options());
 }

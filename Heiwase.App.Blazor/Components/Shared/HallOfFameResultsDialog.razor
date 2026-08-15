@@ -1,0 +1,35 @@
+﻿@using Heiwase.App.Blazor.Components.Pages.HallOfFameSection
+
+<div class="dialog-photo-wrapper">
+	<img class="dialog-photo" src="@(Member?.ImagePath ?? "img/logo.png")" alt="@Member?.Name"
+		 onerror="this.src='https://via.placeholder.com/300x300/3533cd/ffffff?text=Nincs+Kep';" />
+</div>
+
+<div class="dialog-header dialog-header-centered">
+	<div>
+		<span class="dialog-eyebrow">Kiemelkedő eredmények</span>
+		<h3 class="dialog-header-title">@Member?.Name</h3>
+	</div>
+</div>
+
+<div style="text-align: center; margin-bottom: 20px;">
+	<span class="dialog-badge">@Member?.Title</span>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Member?.Description))
+{
+	<p class="dialog-lead">@Member.Description</p>
+}
+
+<h4 class="dialog-section-title">Egyéb elismerések</h4>
+<ul class="dialog-accomplishments">
+	@foreach (var accomplishment in MockedAccomplishments)
+	{
+		<li><i class="fas fa-medal"></i> @accomplishment</li>
+	}
+</ul>
+
+<div class="dialog-cta-note">
+	<strong>Megjegyzés:</strong> Ez a lista jelenleg minta-eredményeket tartalmaz – hamarosan
+	minden versenyzőnk saját, valós eredménylistával jelenik meg ezen a felületen.
+</div>

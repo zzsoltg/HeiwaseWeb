@@ -12,14 +12,14 @@ public partial class WhyUsSection
     public DialogService DialogService { get; set; } = default!;
 
     private Task OpenWadoRyuDialogAsync() =>
-        DialogService.OpenAsync<WadoRyuDialog>("Wado-ryu");
+        DialogService.OpenAsync<WadoRyuDialog>("Wado-ryu", options: DialogDefaults.Options());
 
     private Task OpenSportkarateDialogAsync() =>
-        DialogService.OpenAsync<SportkarateDialog>("Sportkarate");
+        DialogService.OpenAsync<SportkarateDialog>("Sportkarate", options: DialogDefaults.Options());
 
     private Task OpenWomensSelfDefenseDialogAsync() =>
-        DialogService.OpenAsync<WomensSelfDefenseDialog>("Női önvédelem");
+        DialogService.OpenAsync<WomensSelfDefenseDialog>("Női önvédelem", options: DialogDefaults.Options());
 
     private Task OpenAthleticsDialogAsync() =>
-        DialogService.OpenAsync<AthleticsDialog>("Atlétika");
+        DialogService.OpenAsync<AthleticsDialog>("Atlétika", options: DialogDefaults.Options());
 }

@@ -12,11 +12,11 @@ public partial class AboutSection
     public DialogService DialogService { get; set; } = default!;
 
     private Task OpenClubHistoryDialogAsync() =>
-        DialogService.OpenAsync<ClubHistoryDialog>("1993 óta HEIWASE");
+        DialogService.OpenAsync<ClubHistoryDialog>("Történetünk", options: DialogDefaults.Options());
 
     private Task OpenStudentCountDialogAsync() =>
-        DialogService.OpenAsync<StudentCountDialog>("100+ tanítvány");
+        DialogService.OpenAsync<StudentCountDialog>("Küldetésünk", options: DialogDefaults.Options());
 
-    private Task OpenLocationDialogAsync() =>
-        DialogService.OpenAsync<LocationDialog>("0 km-re Szeged szívétől");
+    private Task OpenMedalDialogAsync() =>
+        DialogService.OpenAsync<MedalDialog>("Eredményeink", options: DialogDefaults.Options());
 }

@@ -257,3 +257,267 @@ code {
   margin-bottom: 10px;
   display: block;
 }
+.rz-dialog-mask {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  animation: dialogFadeIn 0.2s ease-out;
+}
+.rz-dialog.app-dialog {
+  border: none;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  border-top: 6px solid #cb6ce6;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  animation: dialogPopIn 0.25s ease-out;
+}
+.rz-dialog.app-dialog .rz-dialog-titlebar {
+  background: var(--primary-grad);
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+}
+.rz-dialog.app-dialog .rz-dialog-title {
+  font-family: var(--font-heading);
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1.6rem;
+  margin: 0;
+}
+.rz-dialog.app-dialog .rz-dialog-titlebar-close {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: var(--text-light);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+}
+.rz-dialog.app-dialog .rz-dialog-titlebar-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+.app-dialog-content {
+  background: var(--text-light);
+  color: var(--text-dark);
+  padding: 30px 28px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+@media (max-width: 768px) {
+  .app-dialog-content {
+    padding: 22px 18px;
+  }
+}
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes dialogPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+/* --- Content primitives reused across every dialog family --- */
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+.dialog-header-centered {
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.dialog-header-icon {
+  flex: 0 0 auto;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--secondary-grad);
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+.dialog-eyebrow {
+  display: block;
+  color: #004aad;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  margin-bottom: 2px;
+}
+.dialog-header-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+.dialog-lead {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.dialog-section-title {
+  font-size: 1.3rem;
+  margin: 24px 0 12px 0;
+  color: #004aad;
+}
+.dialog-list {
+  list-style: none;
+  margin: 0 0 20px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dialog-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  line-height: 1.5;
+}
+.dialog-list li i {
+  flex: 0 0 auto;
+  margin-top: 3px;
+  color: #cb6ce6;
+}
+.dialog-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+.dialog-meta-item {
+  background: rgba(53, 51, 205, 0.06);
+  border-left: 4px solid #cb6ce6;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.dialog-meta-item .dialog-meta-label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #666;
+  margin-bottom: 4px;
+}
+.dialog-meta-item .dialog-meta-value {
+  font-weight: 700;
+  color: #004aad;
+}
+.dialog-quote {
+  font-style: italic;
+  border-left: 4px solid #cb6ce6;
+  padding: 10px 20px;
+  margin: 20px 0;
+  color: #444;
+  background: rgba(203, 108, 230, 0.06);
+  border-radius: 0 10px 10px 0;
+}
+.dialog-photo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.dialog-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #cb6ce6;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+.dialog-badge {
+  display: inline-block;
+  background: var(--secondary-grad);
+  color: var(--text-light);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 8px 8px 0;
+}
+.dialog-timeline {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+  border-left: 3px solid #cb6ce6;
+}
+.dialog-timeline li {
+  position: relative;
+  padding: 0 0 18px 24px;
+}
+.dialog-timeline li::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 4px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #004aad;
+}
+.dialog-timeline li:last-child {
+  padding-bottom: 0;
+}
+.dialog-timeline-year {
+  display: block;
+  font-weight: 800;
+  color: #004aad;
+}
+.dialog-accomplishments {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dialog-accomplishments li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(53, 51, 205, 0.06);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.dialog-accomplishments li i {
+  flex: 0 0 auto;
+  font-size: 1.3rem;
+  color: #cb6ce6;
+}
+.dialog-cta-note {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 0.95rem;
+  color: #555;
+}
+.dialog-cta-note strong {
+  color: #004aad;
+}
