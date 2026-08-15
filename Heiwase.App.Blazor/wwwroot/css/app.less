@@ -589,3 +589,52 @@ code {
         color: @color-primary-blue-dark;
     }
 }
+
+/* --- Inline pictures used to break up longer dialog content (lists, timelines) --- */
+
+.dialog-photo-banner {
+    margin: 20px 0;
+    border-radius: 14px;
+    overflow: hidden;
+    .box-shadow-black(6px, 16px, 0.2);
+
+    img {
+        display: block;
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+}
+
+.dialog-photo-caption {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #666;
+}
+
+.dialog-photo-duo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+
+    figure {
+        margin: 0;
+    }
+
+    img {
+        display: block;
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 14px;
+        .box-shadow-black(6px, 16px, 0.2);
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+}
