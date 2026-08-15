@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-namespace Heiwase.App.Blazor.Pages.Home;
+namespace Heiwase.App.Blazor.Components.Pages.Home;
 
 public partial class Home
 {
