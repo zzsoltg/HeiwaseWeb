@@ -1,10 +1,9 @@
 ﻿footer {
-    background: #111;
-    color: #888;
-    text-align: center;
-    padding: 40px 20px;
+  background: #111;
+  color: #888;
+  text-align: center;
+  padding: 40px 20px;
 }
-
 .footer-credit {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 }
