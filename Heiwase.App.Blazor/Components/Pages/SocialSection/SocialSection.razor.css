@@ -45,7 +45,7 @@
   .social-box-facebook {
     padding: 12px;
     min-height: 0;
-    aspect-ratio: 0.769230769;
+    aspect-ratio: 500 / 650;
   }
 }
 .social-facebook-embed {

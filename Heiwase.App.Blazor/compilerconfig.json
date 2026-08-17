@@ -1,0 +1,54 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/app.css",
+    "inputFile": "wwwroot/css/app.less"
+  },
+  {
+    "outputFile": "Components/Pages/AboutSection/AboutSection.razor.css",
+    "inputFile": "Components/Pages/AboutSection/AboutSection.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/CoachesSection/CoachesSection.razor.css",
+    "inputFile": "Components/Pages/CoachesSection/CoachesSection.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/ContactSection/ContactSection.razor.css",
+    "inputFile": "Components/Pages/ContactSection/ContactSection.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/HallOfFameSection/HallOfFameSection.razor.css",
+    "inputFile": "Components/Pages/HallOfFameSection/HallOfFameSection.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/HeroSection/HeroSection.razor.css",
+    "inputFile": "Components/Pages/HeroSection/HeroSection.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/MwkszSection/MwkszSection.razor.css",
+    "inputFile": "Components/Pages/MwkszSection/MwkszSection.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/NavigationMenu/NavigationMenu.razor.css",
+    "inputFile": "Components/Pages/NavigationMenu/NavigationMenu.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/SiteFooter/SiteFooter.razor.css",
+    "inputFile": "Components/Pages/SiteFooter/SiteFooter.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/SocialSection/SocialSection.razor.css",
+    "inputFile": "Components/Pages/SocialSection/SocialSection.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/StickyCta/StickyCta.razor.css",
+    "inputFile": "Components/Pages/StickyCta/StickyCta.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/TimetableSection/TimetableSection.razor.css",
+    "inputFile": "Components/Pages/TimetableSection/TimetableSection.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/WhyUsSection/WhyUsSection.razor.css",
+    "inputFile": "Components/Pages/WhyUsSection/WhyUsSection.razor.less"
+  }
+]
