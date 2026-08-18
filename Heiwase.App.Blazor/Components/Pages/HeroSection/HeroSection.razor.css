@@ -32,6 +32,10 @@
   margin: 0;
   line-height: 1;
 }
+.hero-content h1:focus,
+.hero-content h1:focus-visible {
+  outline: none;
+}
 .hero-content p {
   font-size: 1.5rem;
   margin-top: 10px;
