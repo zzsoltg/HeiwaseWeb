@@ -37,6 +37,7 @@
 .nav-links {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 @media (max-width: 768px) {
   .nav-links {

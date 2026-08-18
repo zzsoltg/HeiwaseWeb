@@ -1,4 +1,6 @@
-﻿<nav class="sticky-nav">
+﻿@using Heiwase.App.Blazor.Components.Layout.LanguageSelector
+
+<nav class="sticky-nav">
 	<img src="img/logo.png" width="50" alt="Logo" />
 
 	<div class="hamburger" @onclick="ToggleMenu">
@@ -6,6 +8,7 @@
 	</div>
 
 	<div class="nav-links @(_isMenuOpen ? "active" : "")">
+        <LanguageSelector></LanguageSelector>
 		<a href="#home" @onclick="CloseMenu">Kezdőlap</a>
 		<a href="#why-us" @onclick="CloseMenu">Edzéstípusok</a>
 		<a href="#about" @onclick="CloseMenu">Rólunk</a>
