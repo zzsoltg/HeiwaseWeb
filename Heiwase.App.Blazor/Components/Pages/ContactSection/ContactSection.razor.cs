@@ -64,20 +64,20 @@ public partial class ContactSection
 
     protected bool IsTrainingTypeDisabled(string type)
     {
-        if ( type == L["Woman"].Value )
+        if ( type == L["SelfDefense"] )
         {
-            return _applicant.Sex != L["Woman"].Value && !string.IsNullOrEmpty(_applicant.Sex);
+            return _applicant.Sex == L["Male"];
         }
 
-        if ( type == L["Child"].Value )
+        if ( type == L["Child"] )
         {
             return ( _applicant.DateOfBirth.HasValue && !_applicant.IsMinor )
-                   || _applicant.TrainingTypes.Contains(L["Adult"].Value);
+                   || _applicant.TrainingTypes.Contains(L["Adult"]);
         }
 
-        if ( type == L["Adult"].Value )
+        if ( type == L["Adult"] )
         {
-            return _applicant.TrainingTypes.Contains(L["Child"].Value);
+            return _applicant.TrainingTypes.Contains(L["Child"]);
         }
 
         return false;

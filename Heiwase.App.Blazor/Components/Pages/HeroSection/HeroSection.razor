@@ -1,20 +1,10 @@
 ﻿<section id="home" class="hero">
-	<video autoplay muted loop playsinline class="video-bg">
-		<source src="videos/videoplayback.mp4" type="video/mp4">
-		<div class="video-fallback"></div>
-	</video>
-	<div class="hero-overlay"></div>
-
-	<div class="hero-content">
-		<h1 class="hero-title">Heiwase Karate <span class="hero-title-accent">Szeged</span></h1>
-		<p>Üdvözlünk a weboldalunkon!</p>
-		<p>Eddz saját korcsoportodban! Ovistól a felnőttig. 1993 óta.</p>
-		<p class="hero-width">
-			A Magyarországi Wado-ryu Karate Szövetség tagjaként foglalkozunk tradicionális és sportkarate oktatással,
-			kiegészítve azt erősítő és női önvédelmi edzésekkel. Övvizsgáztatási és versenyzési lehetőséget is biztosítunk.
-		</p>
-		<div class="hero-cta-wrapper">
-			<a href="#contact" class="btn-design hero-cta-link">Csatlakozz Hozzánk</a>
-		</div>
-	</div>
+	@if (CultureInfo.CurrentCulture.Name == "hu-HU")
+	{
+		<HeroSection_hu_HU></HeroSection_hu_HU>
+	}
+	else
+	{
+		<HeroSection_en_US></HeroSection_en_US>
+	}
 </section>

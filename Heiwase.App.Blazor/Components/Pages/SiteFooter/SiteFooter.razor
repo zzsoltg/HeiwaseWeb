@@ -1,4 +1,10 @@
 ﻿<footer>
-	<p>© @DateTime.Now.Year Heiwase Karate Szeged. Minden jog fenntartva.</p>
-	<p class="footer-credit">Készítette: Zimmermann Zsolt Gábor | .NET Development</p>
+	@if (CultureInfo.CurrentCulture.Name == "hu-HU")
+	{
+		<SiteFooter_hu_HU></SiteFooter_hu_HU>
+	}
+	else
+	{
+		<SiteFooter_en_US></SiteFooter_en_US>
+	}
 </footer>

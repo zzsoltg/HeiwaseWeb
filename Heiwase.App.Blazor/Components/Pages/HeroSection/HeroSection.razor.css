@@ -8,7 +8,7 @@
   text-align: center;
   overflow: hidden;
 }
-.video-bg {
+.hero ::deep .video-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -17,7 +17,7 @@
   object-fit: cover;
   z-index: -2;
 }
-.hero-overlay {
+.hero ::deep .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -26,48 +26,48 @@
   background: rgba(0, 0, 0, 0.6);
   z-index: -1;
 }
-.hero-content h1 {
+.hero ::deep .hero-content h1 {
   font-size: 5rem;
   font-weight: 900;
   margin: 0;
   line-height: 1;
 }
-.hero-content h1:focus,
-.hero-content h1:focus-visible {
+.hero ::deep .hero-content h1:focus,
+.hero ::deep .hero-content h1:focus-visible {
   outline: none;
 }
-.hero-content p {
+.hero ::deep .hero-content p {
   font-size: 1.5rem;
   margin-top: 10px;
   font-weight: 300;
 }
-.video-fallback {
+.hero ::deep .video-fallback {
   background: black;
   width: 100%;
   height: 100%;
 }
-.hero-title {
+.hero ::deep .hero-title {
   font-family: 'Dosis', sans-serif;
 }
-.hero-title-accent {
+.hero ::deep .hero-title-accent {
   color: #4dabf7;
 }
-.hero-width {
+.hero ::deep .hero-width {
   margin: 0 30%;
 }
-.hero-cta-wrapper {
+.hero ::deep .hero-cta-wrapper {
   margin-top: 20px;
 }
-.hero-cta-link {
+.hero ::deep .hero-cta-link {
   text-decoration: none;
   display: inline-block;
   width: fit-content;
 }
 @media (max-width: 768px) {
-  .hero-width {
+  .hero ::deep .hero-width {
     margin: 1em;
   }
-  .hero-content h1 {
+  .hero ::deep .hero-content h1 {
     font-size: 3rem;
   }
 }

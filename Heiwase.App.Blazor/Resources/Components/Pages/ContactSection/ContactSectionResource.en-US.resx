@@ -156,7 +156,10 @@
   <data name="Under18Guradian" xml:space="preserve">
     <value>Provide the name of a parent or guradian!</value>
   </data>
-  <data name="Woman" xml:space="preserve">
-    <value>Woman</value>
+  <data name="Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Male</value>
   </data>
 </root>

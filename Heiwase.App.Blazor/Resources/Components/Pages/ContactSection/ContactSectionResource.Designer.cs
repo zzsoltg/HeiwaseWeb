@@ -98,11 +98,29 @@ namespace Heiwase.App.Blazor.Components.Pages.ContactSection {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nő.
+        /// </summary>
+        public static string Female {
+            get {
+                return ResourceManager.GetString("Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Érvénytelen e-mail cím formátum.
         /// </summary>
         public static string InvalidEmail {
             get {
                 return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Férfi.
+        /// </summary>
+        public static string Male {
+            get {
+                return ResourceManager.GetString("Male", resourceCulture);
             }
         }
         
@@ -175,15 +193,6 @@ namespace Heiwase.App.Blazor.Components.Pages.ContactSection {
         public static string Under18Guradian {
             get {
                 return ResourceManager.GetString("Under18Guradian", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nő.
-        /// </summary>
-        public static string Woman {
-            get {
-                return ResourceManager.GetString("Woman", resourceCulture);
             }
         }
     }

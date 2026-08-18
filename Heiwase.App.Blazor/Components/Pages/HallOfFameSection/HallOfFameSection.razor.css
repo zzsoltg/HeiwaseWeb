@@ -2,19 +2,19 @@
   background: var(--secondary-grad);
   color: white;
 }
-.text-center {
+.hall-of-fame-section ::deep .text-center {
   text-align: center;
 }
-.section-subtitle-white {
+.hall-of-fame-section ::deep .section-subtitle-white {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 30px;
   color: white;
 }
-.section-subtitle-top-gap {
+.hall-of-fame-section ::deep .section-subtitle-top-gap {
   margin-top: 60px;
 }
-.slider-wrapper {
+.hall-of-fame-section ::deep .slider-wrapper {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -23,18 +23,18 @@
   padding: 0 20px;
 }
 @media (max-width: 768px) {
-  .slider-wrapper {
+  .hall-of-fame-section ::deep .slider-wrapper {
     gap: 8px;
     padding: 0 10px;
   }
 }
-.slider-container {
+.hall-of-fame-section ::deep .slider-container {
   position: relative;
   flex: 1;
   min-width: 0;
   overflow: hidden;
 }
-.slider-nav-btn {
+.hall-of-fame-section ::deep .slider-nav-btn {
   flex: 0 0 48px;
   width: 48px;
   height: 48px;
@@ -49,43 +49,43 @@
   justify-content: center;
   transition: transform 0.2s;
 }
-.slider-nav-btn:hover {
+.hall-of-fame-section ::deep .slider-nav-btn:hover {
   transform: scale(1.08);
 }
 @media (max-width: 768px) {
-  .slider-nav-btn {
+  .hall-of-fame-section ::deep .slider-nav-btn {
     flex: 0 0 36px;
     width: 36px;
     height: 36px;
     font-size: 1rem;
   }
 }
-.slider-grid {
+.hall-of-fame-section ::deep .slider-grid {
   display: flex;
   flex-wrap: nowrap;
   gap: 30px;
   will-change: transform;
 }
-.slider-grid > .card-common {
+.hall-of-fame-section ::deep .slider-grid > .card-common {
   flex: 0 0 calc((100% - 60px) / 3);
   min-width: 0;
 }
 @media (max-width: 768px) {
-  .slider-grid > .card-common {
+  .hall-of-fame-section ::deep .slider-grid > .card-common {
     flex: 0 0 100%;
   }
 }
-.slider-grid .btn-info {
+.hall-of-fame-section ::deep .slider-grid .btn-info {
   margin-top: 15px;
   align-self: center;
 }
-.slider-controls {
+.hall-of-fame-section ::deep .slider-controls {
   display: flex;
   justify-content: center;
   gap: 20px;
   margin-top: 20px;
 }
-.slider-btn {
+.hall-of-fame-section ::deep .slider-btn {
   background: var(--primary-grad);
   color: white;
   border: none;
@@ -99,7 +99,7 @@
   align-items: center;
   justify-content: center;
 }
-.slider-btn:hover {
+.hall-of-fame-section ::deep .slider-btn:hover {
   transform: scale(1.1);
   background: var(--secondary-grad);
 }

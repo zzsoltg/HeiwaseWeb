@@ -5,8 +5,10 @@ footer {
     color: #888;
     text-align: center;
     padding: 40px 20px;
-}
 
-.footer-credit {
-    font-size: 0.8rem;
+    @{deep-combinator} {
+        .footer-credit {
+            font-size: 0.8rem;
+        }
+    }
 }

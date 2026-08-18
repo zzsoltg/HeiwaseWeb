@@ -64,21 +64,21 @@ public partial class ContactSection
                     [nameof(GuardianName)]);
             }
 
-            if ( TrainingTypes.Contains("Női önvédelem") && Sex != "nő" )
+            if (TrainingTypes.Contains(ContactSectionResource.SelfDefense) && Sex != ContactSectionResource.Female )
             {
                 yield return new ValidationResult(
                     ContactSectionResource.MenSelfDefenseApplication,
                     [nameof(TrainingTypes)]);
             }
 
-            if ( TrainingTypes.Contains("Gyerek") && TrainingTypes.Contains("Felnőtt") )
+            if ( TrainingTypes.Contains(ContactSectionResource.Child) && TrainingTypes.Contains(ContactSectionResource.Adult) )
             {
                 yield return new ValidationResult(
                     ContactSectionResource.NoSameTime,
                     [nameof(TrainingTypes)]);
             }
 
-            if ( DateOfBirth.HasValue && !IsMinor && TrainingTypes.Contains("Gyerek") )
+            if ( DateOfBirth.HasValue && !IsMinor && TrainingTypes.Contains(ContactSectionResource.Child) )
             {
                 yield return new ValidationResult(
                     ContactSectionResource.Above18,

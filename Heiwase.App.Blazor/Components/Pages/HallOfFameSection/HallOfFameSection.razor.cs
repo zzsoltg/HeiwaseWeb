@@ -7,11 +7,14 @@ using Radzen;
 
 using System.Net.Http.Json;
 using System.Timers;
+using Microsoft.Extensions.Localization;
 
 namespace Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
 
 public partial class HallOfFameSection : IAsyncDisposable
 {
+    [Inject]
+    public IStringLocalizer<HallOfFameSectionResource> L { get; set; } = default!;
     [Inject]
     public IJSRuntime JS { get; set; } = default!;
 
@@ -21,22 +24,22 @@ public partial class HallOfFameSection : IAsyncDisposable
     [Inject]
     public DialogService DialogService { get; set; } = default!;
 
-    private IJSObjectReference? _module;
-    private List<Member> _competitors = [];
-    private List<Member> _senpais = [];
-    private System.Timers.Timer? _timer;
-    private System.Timers.Timer? _resumeTimer;
+    protected IJSObjectReference? _module;
+    protected List<Member> _competitors = [];
+    protected List<Member> _senpais = [];
+    protected System.Timers.Timer? _timer;
+    protected System.Timers.Timer? _resumeTimer;
 
-    private bool _trackInitialized = false;
-    private bool _trackResetPending = false;
-    private bool _isAnimating = false;
-    private bool _userInteractionPaused = false;
-    private int _competitorIndex = 0;
-    private int _senpaiIndex = 0;
+    protected bool _trackInitialized = false;
+    protected bool _trackResetPending = false;
+    protected bool _isAnimating = false;
+    protected bool _userInteractionPaused = false;
+    protected int _competitorIndex = 0;
+    protected int _senpaiIndex = 0;
 
-    private const string HallOfFameDataString = "data/halloffame.json";
-    private const string CompetitorGridId = "competitors-grid";
-    private const string SenpaiGridId = "senpais-grid";
+    protected const string HallOfFameDataString = "data/halloffame.json";
+    protected const string CompetitorGridId = "competitors-grid";
+    protected const string SenpaiGridId = "senpais-grid";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -90,7 +93,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         }
     }
 
-    private void StartTimer()
+    protected void StartTimer()
     {
         _timer = new System.Timers.Timer(3000);
         _timer.Elapsed += OnTimerElapsed;
@@ -98,7 +101,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         _timer.Enabled = true;
     }
 
-    private async void OnTimerElapsed(object? sender, ElapsedEventArgs e)
+    protected async void OnTimerElapsed(object? sender, ElapsedEventArgs e)
     {
         _timer!.Stop();
         _isAnimating = true;
@@ -128,7 +131,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         }
     }
 
-    private List<Member> GetCompetitorItems()
+    protected List<Member> GetCompetitorItems()
     {
         if ( _competitors.Count == 0 )
         {
@@ -146,7 +149,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         ];
     }
 
-    private List<Member> GetSenpaiItems()
+    protected List<Member> GetSenpaiItems()
     {
         if ( _senpais.Count == 0 )
         {
@@ -164,7 +167,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         ];
     }
 
-    private void PauseAutoAnimation()
+    protected void PauseAutoAnimation()
     {
         _userInteractionPaused = true;
         _timer?.Stop();
@@ -177,7 +180,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         _resumeTimer.Enabled   = true;
     }
 
-    private void OnResumeTimerElapsed(object? sender, ElapsedEventArgs e)
+    protected void OnResumeTimerElapsed(object? sender, ElapsedEventArgs e)
     {
         _userInteractionPaused = false;
 
@@ -187,19 +190,19 @@ public partial class HallOfFameSection : IAsyncDisposable
         }
     }
 
-    private Task OnCompetitorLeftClick() 
+    protected Task OnCompetitorLeftClick() 
         => PerformCompetitorSlide(slidesLeft: true);
 
-    private Task OnCompetitorRightClick()
+    protected Task OnCompetitorRightClick()
         => PerformCompetitorSlide(slidesLeft: false);
 
-    private Task OnSenpaiLeftClick()
+    protected Task OnSenpaiLeftClick()
         => PerformSenpaiSlide(slidesLeft: true);
 
-    private Task OnSenpaiRightClick()
+    protected Task OnSenpaiRightClick()
         => PerformSenpaiSlide(slidesLeft: false);
 
-    private async Task PerformCompetitorSlide(bool slidesLeft)
+    protected async Task PerformCompetitorSlide(bool slidesLeft)
     {
         PauseAutoAnimation();
 
@@ -228,7 +231,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         await InvokeAsync(StateHasChanged);
     }
 
-    private async Task PerformSenpaiSlide(bool slidesLeft)
+    protected async Task PerformSenpaiSlide(bool slidesLeft)
     {
         PauseAutoAnimation();
 
@@ -257,7 +260,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         await InvokeAsync(StateHasChanged);
     }
 
-    private void NextCompetitor()
+    protected void NextCompetitor()
     {
         if ( _competitors.Count > 0 )
         {
@@ -265,7 +268,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         }
     }
 
-    private void PrevCompetitor()
+    protected void PrevCompetitor()
     {
         if ( _competitors.Count > 0 )
         {
@@ -273,7 +276,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         }
     }
 
-    private void NextSenpai()
+    protected void NextSenpai()
     {
         if ( _senpais.Count > 0 )
         {
@@ -281,7 +284,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         }
     }
 
-    private void PrevSenpai()
+    protected void PrevSenpai()
     {
         if ( _senpais.Count > 0 )
         {
@@ -289,15 +292,15 @@ public partial class HallOfFameSection : IAsyncDisposable
         }
     }
 
-    private Task OpenCompetitorResultsDialogAsync(Member member) =>
+    protected Task OpenCompetitorResultsDialogAsync(Member member) =>
         DialogService.OpenAsync<CompetitorResultsDialog>(
-            $"{member.Name} eredményei",
+            $"{member.Name}{L["Achievements"]}",
             new Dictionary<string, object?> { { "Member", member } },
             DialogDefaults.Options());
 
-    private Task OpenSenpaiResultsDialogAsync(Member member) =>
+    protected Task OpenSenpaiResultsDialogAsync(Member member) =>
         DialogService.OpenAsync<SenpaiResultsDialog>(
-            $"{member.Name} eredményei",
+            $"{member.Name}{L["Achievements"]}",
             new Dictionary<string, object?> { { "Member", member } },
             DialogDefaults.Options());
 }

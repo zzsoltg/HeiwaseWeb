@@ -156,7 +156,10 @@
   <data name="Under18Guradian" xml:space="preserve">
     <value>18 éven aluli jelentkező esetén a szülő/gondviselő neve kötelező.</value>
   </data>
-  <data name="Woman" xml:space="preserve">
+  <data name="Female" xml:space="preserve">
     <value>Nő</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Férfi</value>
   </data>
 </root>
