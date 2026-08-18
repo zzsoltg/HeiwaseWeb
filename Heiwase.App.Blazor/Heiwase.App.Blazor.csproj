@@ -27,6 +27,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\Components\Layout\NavigationMenu\NavigationMenuResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NavigationMenuResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Components\Pages\AboutSection\AboutSectionResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -57,9 +62,24 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>WhyUsSectionResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Components\Shared\CompetitorResultsDialog\CompetitorResultsDialogResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CompetitorResultsDialogResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Components\Shared\SenpaiResultsDialog\SenpaiResultsDialogResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SenpaiResultsDialogResource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Components\Layout\NavigationMenu\NavigationMenuResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NavigationMenuResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Layout.NavigationMenu</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Components\Pages\AboutSection\AboutSectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AboutSectionResource.Designer.cs</LastGenOutput>
@@ -89,6 +109,16 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WhyUsSectionResource.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.WhyUsSection</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Components\Shared\CompetitorResultsDialog\CompetitorResultsDialogResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CompetitorResultsDialogResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Shared.CompetitorResultsDialog</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Components\Shared\SenpaiResultsDialog\SenpaiResultsDialogResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SenpaiResultsDialogResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Shared.SenpaiResultsDialog</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

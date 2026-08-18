@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Components;
-
-using Heiwase.App.Blazor.Components.Shared;
+using Microsoft.Extensions.Localization;
 
 using Radzen;
-using Microsoft.Extensions.Localization;
+
+using Heiwase.App.Blazor.Components.Shared;
+using Heiwase.App.Blazor.Components.Shared.WadoRyuDialog;
+using Heiwase.App.Blazor.Components.Shared.SportkarateDialog;
+using Heiwase.App.Blazor.Components.Shared.WomensSelfDefenseDialog;
+using Heiwase.App.Blazor.Components.Shared.AthleticsDialog;
 
 namespace Heiwase.App.Blazor.Components.Pages.WhyUsSection;
 

@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Components;
-
-using Heiwase.App.Blazor.Components.Shared;
+using Microsoft.Extensions.Localization;
 
 using Radzen;
-using Microsoft.Extensions.Localization;
+
+using Heiwase.App.Blazor.Components.Shared;
+using Heiwase.App.Blazor.Components.Shared.ClubHistoryDialog;
+using Heiwase.App.Blazor.Components.Shared.StudentCountDialog;
+using Heiwase.App.Blazor.Components.Shared.MedalDialog;
 
 namespace Heiwase.App.Blazor.Components.Pages.AboutSection;
 

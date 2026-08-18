@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Components;
-
-using Heiwase.App.Blazor.Components.Shared;
+using Microsoft.Extensions.Localization;
 
 using Radzen;
-using Microsoft.Extensions.Localization;
+
+using Heiwase.App.Blazor.Components.Shared;
+using Heiwase.App.Blazor.Components.Shared.CoachZoltanDialog;
+using Heiwase.App.Blazor.Components.Shared.CoachBendeguzDialog;
+using Heiwase.App.Blazor.Components.Shared.CoachBarnabasDialog;
 
 namespace Heiwase.App.Blazor.Components.Pages.CoachesSection;
 
