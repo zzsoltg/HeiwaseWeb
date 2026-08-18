@@ -1,0 +1,29 @@
+﻿@inherits CoachesSection
+
+<h2 class="section-title-white">Our Instructors</h2>
+<div class="about-grid about-grid-centered">
+    <div class="card-common">
+        <img class="card-img" src="img/zoli.png" alt="Zoltán Stempel" />
+        <div class="card-details">
+            <h3 class="card-name">Zoltán Stempel</h3>
+            <span class="card-rank">4th Dan, Head Instructor</span>
+            <button type="button" class="btn-info" @onclick="OpenZoltanDialogAsync">Get to Know Me</button>
+        </div>
+    </div>
+    <div class="card-common">
+        <img class="card-img" src="img/bendi.png" alt="Bendegúz Tálas" />
+        <div class="card-details">
+            <h3 class="card-name">Bendegúz Tálas</h3>
+            <span class="card-rank">1st Dan, Instructor</span>
+            <button type="button" class="btn-info" @onclick="OpenBendeguzDialogAsync">Get to Know Me</button>
+        </div>
+    </div>
+    <div class="card-common">
+        <img class="card-img" src="img/barni.jpg" alt="Barnabás Benkó" />
+        <div class="card-details">
+            <h3 class="card-name">Barnabás Benkó</h3>
+            <span class="card-rank">3rd Kyu, Instructor</span>
+            <button type="button" class="btn-info" @onclick="OpenBarnabasDialogAsync">Get to Know Me</button>
+        </div>
+    </div>
+</div>

@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\css\_variables.less" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,5 +24,21 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.9" PrivateAssets="all" />
     <PackageReference Include="Radzen.Blazor" Version="11.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Components\Pages\ContactSection\ContactSectionResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ContactSectionResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Components\Pages\ContactSection\ContactSectionResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ContactSectionResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.ContactSection</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

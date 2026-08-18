@@ -1,17 +1,19 @@
-﻿@import "../../../Styles/_variables.less";
+﻿@import "../../../wwwroot/css/_variables.less";
 
 .coaches-section {
     background: var(--secondary-grad);
-}
 
-.section-title-white {
-    text-align: center;
-    font-size: 3rem;
-    margin-bottom: 40px;
-    color: white;
-}
+    @{deep-combinator} {
+        .section-title-white {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: white;
+        }
 
-.card-details .btn-info {
-    margin-top: 10px;
-    align-self: center;
+        .card-details .btn-info {
+            margin-top: 10px;
+            align-self: center;
+        }
+    }
 }

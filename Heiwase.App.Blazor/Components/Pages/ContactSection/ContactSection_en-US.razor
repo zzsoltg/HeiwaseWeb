@@ -1,0 +1,104 @@
+﻿@inherits ContactSection
+
+<div class="contact-header">
+    <h2 class="heading-xl heading-white">Join Our Training Sessions!</h2>
+    <p>
+        Your first session is entirely complimentary.
+        If you are not yet ready to enroll but have inquiries,
+        please feel free to complete the form—simply bypass the
+        training type selection and leave your inquiry in the message field!
+    </p>
+</div>
+
+<div class="contact-form">
+    <EditForm Model="@_applicant" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+
+        <div class="form-group">
+            <label class="form-label">Applicant's Name</label>
+            <InputText class="form-control" @bind-Value="_applicant.Name" placeholder="Full Name" />
+            <ValidationMessage For="@(() => _applicant.Name)" class="form-validation-message" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Date of Birth</label>
+            <InputDate class="form-control" @bind-Value="_applicant.DateOfBirth"
+                       @bind-Value:after="SanitizeTrainingTypes" />
+        </div>
+
+        <div class="form-field-collapsible @(_applicant.IsMinor ? "form-field-visible" : "")">
+            <label class="form-label">Parent / Guardian's Name</label>
+            <InputText class="form-control" @bind-Value="_applicant.GuardianName"
+                       placeholder="Guardian's Full Name" />
+            <ValidationMessage For="@(() => _applicant.GuardianName)" class="form-validation-message" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Gender</label>
+            <InputSelect class="form-control" @bind-Value="_applicant.Sex"
+                         @bind-Value:after="SanitizeTrainingTypes">
+                <option value="">– Select –</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </InputSelect>
+            <ValidationMessage For="@(() => _applicant.Sex)" class="form-validation-message" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Training Types</label>
+            <div class="training-types-grid">
+                @foreach ( var type in TrainingTypeOptions )
+                {
+                    var isDisabled = IsTrainingTypeDisabled(type);
+                    var isChecked = _applicant.TrainingTypes.Contains(type);
+                    <label class="training-type-option @(isDisabled ? "training-type-disabled" : "") @(isChecked ? "training-type-checked" : "")">
+                        <input type="checkbox"
+                               checked="@isChecked"
+                               disabled="@isDisabled"
+                               @onchange="@(e => OnTrainingTypeChanged(type, (bool)e.Value!))" />
+                        @type
+                    </label>
+                }
+            </div>
+            <ValidationMessage For="@(() => _applicant.TrainingTypes)" class="form-validation-message" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <InputText class="form-control" @bind-Value="_applicant.Email" placeholder="example@email.com" />
+            <ValidationMessage For="@(() => _applicant.Email)" class="form-validation-message" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <InputText class="form-control" @bind-Value="_applicant.Phone" placeholder="+36..." />
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Message</label>
+            <InputTextArea class="form-control" @bind-Value="_applicant.Message" rows="4"
+                           placeholder="Questions, additional information..." />
+        </div>
+
+        <button type="submit" class="btn-design btn-submit">
+            <i class="fas fa-paper-plane"></i> Submit
+        </button>
+
+        <div class="form-feedback-message form-success-message @(_formSubmitted ? "form-message-visible" : "")">
+            <i class="fas fa-check-circle"></i>
+            Your application has been successfully submitted! We will be in touch with you shortly.
+        </div>
+        <div class="form-feedback-message form-error-message @(_formError ? "form-message-visible" : "")">
+            <i class="fas fa-exclamation-circle"></i>
+            An error occurred while submitting your form. Please try again, or reach out to us directly.
+        </div>
+    </EditForm>
+
+    <div class="contact-details">
+        <p>
+            <strong>Heiwase Karate Szeged</strong><br>
+            <i class="fas fa-envelope"></i> <a href="mailto:info@szegedkarate.hu"> info@szegedkarate.hu</a><br>
+            <i class="fas fa-phone"></i> <a href="tel:+36203701611">+36 20 370 1611</a>
+        </p>
+    </div>
+</div>

@@ -11,12 +11,12 @@ public partial class AboutSection
     [Inject]
     public DialogService DialogService { get; set; } = default!;
 
-    private Task OpenClubHistoryDialogAsync() =>
+    protected Task OpenClubHistoryDialogAsync() =>
         DialogService.OpenAsync<ClubHistoryDialog>("Történetünk", options: DialogDefaults.Options());
 
-    private Task OpenStudentCountDialogAsync() =>
+    protected Task OpenStudentCountDialogAsync() =>
         DialogService.OpenAsync<StudentCountDialog>("Küldetésünk", options: DialogDefaults.Options());
 
-    private Task OpenMedalDialogAsync() =>
+    protected Task OpenMedalDialogAsync() =>
         DialogService.OpenAsync<MedalDialog>("Eredményeink", options: DialogDefaults.Options());
 }

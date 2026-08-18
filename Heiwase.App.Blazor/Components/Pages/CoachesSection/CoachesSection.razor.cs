@@ -11,12 +11,12 @@ public partial class CoachesSection
     [Inject]
     public DialogService DialogService { get; set; } = default!;
 
-    private Task OpenZoltanDialogAsync() =>
+    protected Task OpenZoltanDialogAsync() =>
         DialogService.OpenAsync<CoachZoltanDialog>("Stempel Zoltán", options: DialogDefaults.Options("min(720px, 92vw)"));
 
-    private Task OpenBendeguzDialogAsync() =>
+    protected Task OpenBendeguzDialogAsync() =>
         DialogService.OpenAsync<CoachBendeguzDialog>("Tálas Bendegúz", options: DialogDefaults.Options("min(720px, 92vw)"));
 
-    private Task OpenBarnabasDialogAsync() =>
+    protected Task OpenBarnabasDialogAsync() =>
         DialogService.OpenAsync<CoachBarnabasDialog>("Benkó Barnabás", options: DialogDefaults.Options("min(720px, 92vw)"));
 }
