@@ -1,0 +1,46 @@
+﻿.sticky-cta {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 1rem;
+  background: var(--primary-grad);
+  color: white;
+  width: 220px;
+  height: 70px;
+  gap: 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 20px rgba(53, 51, 205, 0.4);
+  z-index: 1000;
+  cursor: pointer;
+  transition: transform 0.3s;
+  text-decoration: none;
+}
+.sticky-cta:hover {
+  transform: rotate(5deg) scale(1.05);
+}
+.sticky-cta i {
+  font-size: 2rem;
+}
+@media (max-width: 768px) {
+  .sticky-cta {
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+}
+.sticky-cta-text {
+  margin: 0;
+  font-weight: bold;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+}
+@media (max-width: 768px) {
+  .sticky-cta-text {
+    display: none;
+  }
+}

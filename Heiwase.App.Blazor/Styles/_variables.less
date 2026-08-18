@@ -1,0 +1,37 @@
+@breakpoint-mobile: 768px;
+
+@color-black: #000000;
+@color-primary-blue: #3533cd;
+@color-primary-blue-dark: #004aad;
+@color-accent-purple: #cb6ce6;
+@color-text-dark: #222;
+@color-text-light: #fff;
+
+@deep-combinator: ~"::deep";
+
+@radius: 20px;
+
+@font-body: 'Dosis', sans-serif;
+@font-heading: 'League Gothic', sans-serif;
+
+@primary-grad: linear-gradient(135deg, @color-black, @color-primary-blue);
+@secondary-grad: linear-gradient(135deg, @color-primary-blue-dark, @color-accent-purple);
+
+.box-shadow-black(@y, @blur, @alpha) {
+    box-shadow: 0 @y @blur fade(black, @alpha * 100%);
+}
+
+.hover-scale(@factor) {
+    &:hover {
+        transform: scale(@factor);
+    }
+}
+
+.reveal-on-visible() {
+    opacity: 0;
+
+    &.visible {
+        animation: fadeInUp 0.8s backwards;
+        opacity: 1;
+    }
+}

@@ -1,0 +1,102 @@
+﻿@import "../../../Styles/_variables.less";
+
+.mwksz-section {
+    background: var(--primary-grad);
+    color: var(--text-light);
+}
+
+.mwksz-intro-text {
+    max-width: 600px;
+    justify-self: center;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.features-grid .btn-info {
+    margin-top: 15px;
+}
+
+.gallery-collage {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 250px);
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto 60px auto;
+
+    @media (max-width: @breakpoint-mobile) {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+}
+
+.gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius);
+    transition: transform 0.3s;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.02);
+        z-index: 2;
+        .box-shadow-black(10px, 20px, 0.2);
+    }
+}
+
+// Collage grid placement for each gallery tile, e.g. .grid-span(2, 2) => spans 2 columns and 2 rows.
+.grid-span(@columns, @rows) {
+    grid-column: span @columns;
+    grid-row: span @rows;
+}
+
+.g-item-1 {
+    .grid-span(2, 2);
+}
+
+.g-item-2 {
+    .grid-span(1, 1);
+}
+
+.g-item-3 {
+    .grid-span(1, 2);
+}
+
+.g-item-4 {
+    .grid-span(1, 1);
+}
+
+.event-calendar-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.event-calendar-image {
+    border-radius: 50px;
+    justify-self: center;
+    max-width: 60%;
+    height: auto;
+
+    @media (max-width: @breakpoint-mobile) {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: @breakpoint-mobile) {
+    .g-item-1, .g-item-2, .g-item-3, .g-item-4 {
+        .grid-span(1, 1);
+        height: 250px;
+    }
+}
