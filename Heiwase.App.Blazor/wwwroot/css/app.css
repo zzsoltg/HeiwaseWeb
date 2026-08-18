@@ -373,6 +373,12 @@ code {
   margin: 0;
   font-size: 1.5rem;
 }
+.result-dialog-title {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 .dialog-lead {
   font-size: 1.05rem;
   line-height: 1.6;
@@ -449,7 +455,6 @@ code {
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
 }
 .dialog-badge {
-  display: inline-block;
   background: var(--secondary-grad);
   color: var(--text-light);
   padding: 6px 16px;
@@ -458,7 +463,6 @@ code {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin: 0 8px 8px 0;
 }
 .dialog-timeline {
   list-style: none;
