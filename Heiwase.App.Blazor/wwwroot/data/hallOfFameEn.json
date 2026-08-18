@@ -1,0 +1,259 @@
+{
+  "competitors": [
+    {
+      "name": "Zsolt Gábor Zimmermann",
+      "title": "Senior Male Kumite -75 kg",
+      "description": [
+        "3rd Place (WUKF World Championship, 2023)",
+        "1st Place (Szeged Cup, 2022)",
+        "3rd Place (WKF Budapest Open, 2021)",
+        "1st Place (Tisza Cup, 2020)"
+      ],
+      "imagePath": "img/hall_of_fame/Zimmermann_Zsolt.png"
+    },
+    {
+      "name": "Daniella Fixler",
+      "title": "Cadet Female Kumite -60 kg",
+      "description": [
+        "1st Place (MWKSZ National Championship)",
+        "3rd Place (WKF Budapest Open, 2021)",
+        "2nd Place (Hungarian Open, 2022)",
+        "3rd Place (Gajdos Cup, 2019)"
+      ],
+      "imagePath": "img/hall_of_fame/Fixler_Daniella.png"
+    },
+    {
+      "name": "Lea Szabó",
+      "title": "Junior Female Kumite -65 kg",
+      "description": [
+        "2nd Place (MWKSZ National Championship)",
+        "1st Place (Tisza Cup, 2020)",
+        "3rd Place (Gajdos Cup, 2019)",
+        "2nd Place (Student Olympics, 2021)"
+      ],
+      "imagePath": "img/hall_of_fame/Szabo_Lea.png"
+    },
+    {
+      "name": "Milla Csernus",
+      "title": "Children's Female Kata",
+      "description": [
+        "1st Place (MWKSZ National Championship)",
+        "3rd Place (Gajdos Cup, 2019)",
+        "2nd Place (Hungarian Open, 2022)",
+        "1st Place (Szeged Cup, 2022)"
+      ],
+      "imagePath": "img/hall_of_fame/Csernus_Milla.png"
+    },
+    {
+      "name": "Bálint Varga",
+      "title": "Cadet Male Kumite -65 kg",
+      "description": [
+        "1st Place (MWKSZ National Championship)",
+        "1st Place (Tisza Cup, 2020)",
+        "1st Place (Szeged Cup, 2022)",
+        "3rd Place (WKF Budapest Open, 2021)"
+      ],
+      "imagePath": "img/hall_of_fame/Varga_Balint.png"
+    },
+    {
+      "name": "Péter Seres",
+      "title": "Cadet Male Kumite -65 kg",
+      "description": [
+        "3rd Place (MWKSZ National Championship)",
+        "1st Place (Tisza Cup, 2020)",
+        "3rd Place (Gajdos Cup, 2019)",
+        "2nd Place (Student Olympics, 2021)"
+      ],
+      "imagePath": "img/hall_of_fame/Seres_Peter.png"
+    },
+    {
+      "name": "Mátyás Horváth",
+      "title": "Cadet Male Kumite -65 kg",
+      "description": [
+        "2nd Place (MWKSZ National Championship)",
+        "2nd Place (Hungarian Open, 2022)",
+        "1st Place (Tisza Cup, 2020)",
+        "1st Place (Szeged Cup, 2022)"
+      ],
+      "imagePath": "img/hall_of_fame/Horvath_Matyas.png"
+    },
+    {
+      "name": "Richárd Szabad",
+      "title": "Senior Male Kumite -75 kg",
+      "description": [
+        "2nd Place (MWKSZ National Championship)",
+        "2nd Place (Student Olympics, 2021)",
+        "2nd Place (Hungarian Open, 2022)",
+        "3rd Place (Gajdos Cup, 2019)"
+      ],
+      "imagePath": "img/hall_of_fame/Szabad_Richard.png"
+    },
+    {
+      "name": "Zalán Virág",
+      "title": "Children's Male Kumite -155 cm",
+      "description": [
+        "3rd Place (MWKSZ National Championship)",
+        "2nd Place (Student Olympics, 2021)",
+        "1st Place (Tisza Cup, 2020)",
+        "1st Place (Szeged Cup, 2022)"
+      ],
+      "imagePath": "img/hall_of_fame/Virag_Zalan.png"
+    },
+    {
+      "name": "Anna Anderle",
+      "title": "Children's Female Kata",
+      "description": [
+        "2nd Place (MWKSZ National Championship)",
+        "1st Place (Csongrád County Championship, 2023)",
+        "3rd Place (WKF Budapest Open, 2021)",
+        "1st Place (Szeged Cup, 2022)"
+      ],
+      "imagePath": "img/hall_of_fame/Anderle_Anna.png"
+    },
+    {
+      "name": "Katalin Zimmermann",
+      "title": "Cadet Female Kumite -65 kg",
+      "description": [
+        "3rd Place (MWKSZ National Championship)",
+        "3rd Place (WKF Budapest Open, 2021)",
+        "2nd Place (Student Olympics, 2021)",
+        "2nd Place (Hungarian Open, 2022)"
+      ],
+      "imagePath": "img/hall_of_fame/Zimmermann_Katalin.png"
+    },
+    {
+      "name": "Lilla Kurucz",
+      "title": "Cadet Female Kumite -65 kg",
+      "description": [
+        "1st Place (MWKSZ National Championship)",
+        "1st Place (Szeged Cup, 2022)",
+        "3rd Place (Gajdos Cup, 2019)",
+        "2nd Place (Hungarian Open, 2022)"
+      ],
+      "imagePath": "img/hall_of_fame/Kurucz_Lilla.png"
+    },
+    {
+      "name": "Júlia Pavlovits",
+      "title": "Cadet Female Kumite -65 kg",
+      "description": [
+        "2nd Place (MWKSZ National Championship)",
+        "3rd Place (Gajdos Cup, 2019)",
+        "2nd Place (Student Olympics, 2021)",
+        "1st Place (Szeged Cup, 2022)"
+      ],
+      "imagePath": "img/hall_of_fame/Pavlovits_Julia.png"
+    },
+    {
+      "name": "Dávid Török",
+      "title": "Junior Male Kumite -75 kg",
+      "description": [
+        "3rd Place (MWKSZ National Championship)",
+        "1st Place (Tisza Cup, 2020)",
+        "3rd Place (Gajdos Cup, 2019)",
+        "1st Place (Szeged Cup, 2022)"
+      ],
+      "imagePath": "img/hall_of_fame/Torok_David.png"
+    },
+    {
+      "name": "Anna Elek",
+      "title": "Senior Female Kumite -65 kg",
+      "description": [
+        "3rd Place (MWKSZ National Championship)",
+        "1st Place (Csongrád County Championship, 2023)",
+        "1st Place (Tisza Cup, 2020)",
+        "2nd Place (Student Olympics, 2021)"
+      ],
+      "imagePath": "img/hall_of_fame/Elek_Anna.png"
+    },
+    {
+      "name": "Bence Csenkey-Sinkó",
+      "title": "Cadet Male Kata",
+      "description": [
+        "3rd Place (MWKSZ National Championship)",
+        "2nd Place (Student Olympics, 2021)",
+        "1st Place (Szeged Cup, 2022)",
+        "3rd Place (Gajdos Cup, 2019)"
+      ],
+      "imagePath": "img/hall_of_fame/Csenkey_Bence.png"
+    },
+    {
+      "name": "Lilla Varga",
+      "title": "Children's Female Kata",
+      "description": [
+        "3rd Place (MWKSZ National Championship)",
+        "1st Place (Szeged Cup, 2022)",
+        "2nd Place (Student Olympics, 2021)",
+        "3rd Place (WKF Budapest Open, 2021)"
+      ],
+      "imagePath": "img/hall_of_fame/Varga_Lilla.png"
+    }
+  ],
+  "senpais": [
+    {
+      "name": "Katica Stempel",
+      "title": "1st Dan",
+      "description": [
+        "2023.05.12 - Successful 2nd Kyu Exam",
+        "2022.11.20 - Successful 3rd Kyu Exam",
+        "2021.06.15 - Successful 4th Kyu Exam",
+        "2020.12.05 - Successful 5th Kyu Exam"
+      ],
+      "imagePath": "img/hall_of_fame/Stempel_Katica.png"
+    },
+    {
+      "name": "Zsolt Gábor Zimmermann",
+      "title": "1st Kyu",
+      "description": [
+        "2023.05.12 - Successful 2nd Kyu Exam",
+        "2022.11.20 - Successful 3rd Kyu Exam",
+        "2021.06.15 - Successful 4th Kyu Exam",
+        "2019.05.10 - Successful 6th Kyu Exam"
+      ],
+      "imagePath": "img/hall_of_fame/Zimmermann_Zsolt.png"
+    },
+    {
+      "name": "Richárd Szabad",
+      "title": "1st Kyu",
+      "description": [
+        "2023.05.12 - Successful 2nd Kyu Exam",
+        "2022.11.20 - Successful 3rd Kyu Exam",
+        "2020.12.05 - Successful 5th Kyu Exam",
+        "2019.05.10 - Successful 6th Kyu Exam"
+      ],
+      "imagePath": "img/hall_of_fame/Szabad_Richard.png"
+    },
+    {
+      "name": "Dominik Meszes",
+      "title": "2nd Kyu",
+      "description": [
+        "2023.05.12 - Successful 2nd Kyu Exam",
+        "2022.11.20 - Successful 3rd Kyu Exam",
+        "2021.06.15 - Successful 4th Kyu Exam",
+        "2019.05.10 - Successful 6th Kyu Exam"
+      ],
+      "imagePath": "img/hall_of_fame/Meszes_Dominik.png"
+    },
+    {
+      "name": "Daniella Fixler",
+      "title": "3rd Kyu",
+      "description": [
+        "2023.05.12 - Successful 2nd Kyu Exam",
+        "2021.06.15 - Successful 4th Kyu Exam",
+        "2020.12.05 - Successful 5th Kyu Exam",
+        "2019.05.10 - Successful 6th Kyu Exam"
+      ],
+      "imagePath": "img/hall_of_fame/Fixler_Daniella.png"
+    },
+    {
+      "name": "Lea Szabó",
+      "title": "3rd Kyu",
+      "description": [
+        "2023.05.12 - Successful 2nd Kyu Exam",
+        "2022.11.20 - Successful 3rd Kyu Exam",
+        "2020.12.05 - Successful 5th Kyu Exam",
+        "2019.05.10 - Successful 6th Kyu Exam"
+      ],
+      "imagePath": "img/hall_of_fame/Szabo_Lea.png"
+    }
+  ]
+}

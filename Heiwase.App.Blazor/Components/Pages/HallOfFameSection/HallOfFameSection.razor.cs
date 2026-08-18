@@ -10,6 +10,7 @@ using System.Timers;
 using Microsoft.Extensions.Localization;
 using Heiwase.App.Blazor.Components.Shared.CompetitorResultsDialog;
 using Heiwase.App.Blazor.Components.Shared.SenpaiResultsDialog;
+using System.Globalization;
 
 namespace Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
 
@@ -39,7 +40,8 @@ public partial class HallOfFameSection : IAsyncDisposable
     protected int _competitorIndex = 0;
     protected int _senpaiIndex = 0;
 
-    protected const string HallOfFameDataString = "data/halloffame.json";
+    protected static string HallOfFameDataString
+        => CultureInfo.CurrentCulture.Name ==  "hu-HU" ? "data/halloffame.json" : "data/halloffameen.json";
     protected const string CompetitorGridId = "competitors-grid";
     protected const string SenpaiGridId = "senpais-grid";
 
