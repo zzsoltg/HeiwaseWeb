@@ -1,29 +1,10 @@
 ﻿<section id="coaches" class="section-padding coaches-section">
-	<h2 class="section-title-white">Edzőink</h2>
-	<div class="about-grid about-grid-centered">
-		<div class="card-common">
-			<img class="card-img" src="img/zoli.png" alt="Stempel Zoltán" />
-			<div class="card-details">
-				<h3 class="card-name">Stempel Zoltán</h3>
-				<span class="card-rank">4. dan, vezetőedző</span>
-				<button type="button" class="btn-info" @onclick="OpenZoltanDialogAsync">Ismerj meg!</button>
-			</div>
-		</div>
-		<div class="card-common">
-			<img class="card-img" src="img/bendi.png" alt="Tálas Bendegúz" />
-			<div class="card-details">
-				<h3 class="card-name">Tálas Bendegúz</h3>
-				<span class="card-rank">1. dan, edző</span>
-				<button type="button" class="btn-info" @onclick="OpenBendeguzDialogAsync">Ismerj meg!</button>
-			</div>
-		</div>
-		<div class="card-common">
-			<img class="card-img" src="img/barni.jpg" alt="Benkó Barnabás" />
-			<div class="card-details">
-				<h3 class="card-name">Benkó Barnabás</h3>
-				<span class="card-rank">3. kyu, edző</span>
-				<button type="button" class="btn-info" @onclick="OpenBarnabasDialogAsync">Ismerj meg!</button>
-			</div>
-		</div>
-	</div>
+    @if ( CultureInfo.CurrentCulture.Name == "hu-HU" )
+    {
+        <CoachesSection_hu_HU></CoachesSection_hu_HU>
+    }
+    else
+    {
+        <CoachesSection_en_US></CoachesSection_en_US>
+    }
 </section>

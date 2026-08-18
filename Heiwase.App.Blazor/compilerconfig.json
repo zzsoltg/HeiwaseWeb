@@ -50,5 +50,9 @@
   {
     "outputFile": "Components/Pages/WhyUsSection/WhyUsSection.razor.css",
     "inputFile": "Components/Pages/WhyUsSection/WhyUsSection.razor.less"
+  },
+  {
+    "outputFile": "Components/Layout/LanguageSelector/LanguageSelector.razor.css",
+    "inputFile": "Components/Layout/LanguageSelector/LanguageSelector.razor.less"
   }
 ]

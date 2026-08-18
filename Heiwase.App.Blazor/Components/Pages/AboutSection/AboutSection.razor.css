@@ -5,11 +5,11 @@
   color: white;
   position: relative;
 }
-.about-section-overlay {
+.about-section ::deep .about-section-overlay {
   background: rgba(0, 0, 0, 0.8);
   width: 100%;
 }
-.info-bubble {
+.about-section ::deep .info-bubble {
   background: var(--primary-grad);
   padding: 30px;
   border-radius: var(--radius);
@@ -18,20 +18,20 @@
   transition: transform 0.4s, background 0.4s;
   opacity: 0;
 }
-.info-bubble.visible {
+.about-section ::deep .info-bubble.visible {
   animation: fadeInUp 0.8s backwards;
   opacity: 1;
 }
-.info-bubble.visible:hover {
+.about-section ::deep .info-bubble.visible:hover {
   transform: translateY(-5px);
 }
-.stat-number {
+.about-section ::deep .stat-number {
   font-size: 3rem;
   font-weight: 800;
   color: #cb6ce6;
   display: block;
   font-family: var(--font-heading);
 }
-.info-bubble .btn-info {
+.about-section ::deep .info-bubble .btn-info {
   margin-top: 15px;
 }

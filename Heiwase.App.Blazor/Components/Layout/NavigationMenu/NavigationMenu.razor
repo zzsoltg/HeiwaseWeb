@@ -1,0 +1,21 @@
+﻿@using Heiwase.App.Blazor.Components.Layout.LanguageSelector
+
+<nav class="sticky-nav">
+	<a href="#home"><img src="img/logo.png" width="50" alt="Logo" /></a>
+
+	<div class="hamburger" @onclick="ToggleMenu">
+		<i class="fas fa-bars"></i>
+	</div>
+
+	<div class="nav-links @(_isMenuOpen ? "active" : "")">
+        <LanguageSelector></LanguageSelector>
+		<a href="#home" @onclick="CloseMenu">@L["Home"]</a>
+		<a href="#why-us" @onclick="CloseMenu">@L["WhyUs"]</a>
+		<a href="#about" @onclick="CloseMenu">@L["About"]</a>
+		<a href="#coaches" @onclick="CloseMenu">@L["Coaches"]</a>
+		<a href="#mwksz" @onclick="CloseMenu">@L["Mwksz"]</a>
+		<a href="#halloffame" @onclick="CloseMenu">@L["HallOfFame"]</a>
+		<a href="#timetable" @onclick="CloseMenu">@L["Timetable"]</a>
+		<a href="#contact" @onclick="CloseMenu">@L["Contact"]</a>
+	</div>
+</nav>

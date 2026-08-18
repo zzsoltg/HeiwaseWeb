@@ -1,0 +1,32 @@
+﻿@inherits AboutSection
+
+<div class="about-section-overlay section-padding">
+    <div class="section-header section-header-large-gap">
+        <h2 class="heading-xl">About Our Team</h2>
+        <p class="about-intro-text">
+            Heiwase stands as a defining pillar of Szeged's vibrant sports community.
+            Boasting a rich legacy spanning decades in karate instruction, our unwavering
+            commitment has always been the realization of our students' personal aspirations.
+            Whether you are seeking a fulfilling afternoon pursuit or nurturing dreams of
+            world championship glory, you can rely on our steadfast guidance.
+        </p>
+    </div>
+
+    <div class="about-grid">
+        <div class="info-bubble">
+            <span class="stat-number">1993</span>
+            <h3>Heiwase Founded</h3>
+            <button type="button" class="btn-info" @onclick="OpenClubHistoryDialogAsync">Our History</button>
+        </div>
+        <div class="info-bubble">
+            <span class="stat-number">112</span>
+            <h3>Practitioners</h3>
+            <button type="button" class="btn-info" @onclick="OpenStudentCountDialogAsync">Our Mission</button>
+        </div>
+        <div class="info-bubble">
+            <span class="stat-number">52</span>
+            <h3>Medals Earned</h3>
+            <button type="button" class="btn-info" @onclick="OpenMedalDialogAsync">Our Achievements</button>
+        </div>
+    </div>
+</div>

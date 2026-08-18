@@ -19,8 +19,22 @@
     <div id="app">
         <div class="app-loading-screen">
             <img src="img/loading.gif" alt="Loading" width="500" class="app-loading-image" />
-            <p class="app-loading-text">BETÖLTÉS...</p>
+            <p id="app-loading-text" class="app-loading-text">BETÖLTÉS...</p>
         </div>
+        <script>
+            (function () {
+                var savedCulture = localStorage.getItem('blazorCulture');
+                var browserLang = navigator.language || navigator.userLanguage || '';
+
+                var isHungarian = (savedCulture && savedCulture.toLowerCase().startsWith('hu')) ||
+                    (!savedCulture && browserLang.toLowerCase().startsWith('hu'));
+
+                var textEl = document.getElementById('app-loading-text');
+                if (textEl) {
+                    textEl.innerText = isHungarian ? 'BETÖLTÉS...' : 'LOADING...';
+                }
+            })();
+        </script>
     </div>
 
     <div id="blazor-error-ui">

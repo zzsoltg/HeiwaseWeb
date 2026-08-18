@@ -1,13 +1,13 @@
 ﻿.coaches-section {
   background: var(--secondary-grad);
 }
-.section-title-white {
+.coaches-section ::deep .section-title-white {
   text-align: center;
   font-size: 3rem;
   margin-bottom: 40px;
   color: white;
 }
-.card-details .btn-info {
+.coaches-section ::deep .card-details .btn-info {
   margin-top: 10px;
   align-self: center;
 }

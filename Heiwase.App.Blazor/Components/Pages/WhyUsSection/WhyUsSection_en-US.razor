@@ -1,0 +1,35 @@
+﻿@inherits WhyUsSection
+
+<div class="section-header section-header-large-gap">
+	<h2 class="heading-xxl">Our Training Programs</h2>
+	<p class="about-intro-text lead-text">
+		Our club offers comprehensive instruction in both traditional and sport karate. Traditional
+		karate is divided into distinct styles, with a primary focus on personal development, the mastery of techniques, and
+		belt examinations. At Heiwase, we practice and teach the Wado-ryu style. Conversely, sport karate is a modern, Olympic
+		combat sport that transcends individual styles, specifically designed for competitive sparring and tournaments.
+		Our karate sessions are further complemented by strength-building athletic conditioning, and we also welcome our female
+		students with specialized self-defense classes.
+	</p>
+</div>
+<div class="why-us-grid" id="animated-cards">
+	<div class="feature-card">
+		<i class="fas fa-torii-gate feature-icon-large"></i>
+		<h3>Wado-ryu</h3>
+		<button type="button" class="btn-info" @onclick="OpenWadoRyuDialogAsync">Learn More</button>
+	</div>
+	<div class="feature-card feature-card-delay-02">
+		<i class="fas fa-medal feature-icon-large"></i>
+		<h3>Sport Karate</h3>
+		<button type="button" class="btn-info" @onclick="OpenSportkarateDialogAsync">Learn More</button>
+	</div>
+	<div class="feature-card feature-card-delay-04">
+		<i class="fas fa-shield-alt feature-icon-large"></i>
+		<h3>Women's Self-Defense</h3>
+		<button type="button" class="btn-info" @onclick="OpenWomensSelfDefenseDialogAsync">Learn More</button>
+	</div>
+	<div class="feature-card feature-card-delay-06">
+		<i class="fas fa-dumbbell feature-icon-large"></i>
+		<h3>Athletic Conditioning</h3>
+		<button type="button" class="btn-info" @onclick="OpenAthleticsDialogAsync">Learn More</button>
+	</div>
+</div>

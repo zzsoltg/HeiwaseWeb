@@ -123,7 +123,6 @@ code {
 .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
-/* Shared home-page section styles reused across multiple page section components. */
 .section-padding {
   padding: 80px 20px;
 }
@@ -523,7 +522,6 @@ code {
 .dialog-cta-note strong {
   color: #004aad;
 }
-/* --- Inline pictures used to break up longer dialog content (lists, timelines) --- */
 .dialog-photo-banner {
   margin: 20px 0;
   border-radius: 14px;

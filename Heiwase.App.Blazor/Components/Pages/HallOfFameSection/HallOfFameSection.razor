@@ -1,64 +1,10 @@
 ﻿<section id="halloffame" class="section-padding hall-of-fame-section">
-	@if ( _competitors == null || _competitors.Count == 0 )
+	@if (CultureInfo.CurrentCulture.Name == "hu-HU")
 	{
-		<p class="text-center">Adatok betöltése...</p>
+		<HallOfFameSection_hu_HU></HallOfFameSection_hu_HU>
 	}
 	else
 	{
-		<h3 class="section-subtitle-white">Kiemelkedő Versenyzők</h3>
-		<div class="slider-wrapper">
-			<button class="slider-nav-btn" @onclick="OnCompetitorRightClick" aria-label="Előző">
-				<i class="fas fa-chevron-left"></i>
-			</button>
-			<div class="slider-container">
-				<div id="competitors-grid" class="slider-grid">
-					@foreach ( var member in GetCompetitorItems() )
-					{
-						<div class="card-common">
-							<img class="card-img" src="@member.ImagePath" alt="@member.Name"
-								 onerror="this.src='https://via.placeholder.com/300x300/3533cd/ffffff?text=Nincs+Kep';" />
-							<div class="card-details">
-								<h3 class="card-name">@member.Name</h3>
-								<span class="card-rank">@member.Title</span>
-								<button type="button" class="btn-info" @onclick="() => OpenCompetitorResultsDialogAsync(member)">Eredményei</button>
-							</div>
-						</div>
-					}
-				</div>
-			</div>
-			<button class="slider-nav-btn" @onclick="OnCompetitorLeftClick" aria-label="Következő">
-				<i class="fas fa-chevron-right"></i>
-			</button>
-		</div>
+		<HallOfFameSection_en_US></HallOfFameSection_en_US>
 	}
-
-	@if ( _senpais != null && _senpais.Count > 0 )
-	{
-		<h3 class="section-subtitle-white section-subtitle-top-gap">Vezető tanítványaink</h3>
-		<div class="slider-wrapper">
-			<button class="slider-nav-btn" @onclick="OnSenpaiRightClick" aria-label="Előző">
-				<i class="fas fa-chevron-left"></i>
-			</button>
-			<div class="slider-container">
-				<div id="senpais-grid" class="slider-grid">
-					@foreach ( var member in GetSenpaiItems() )
-					{
-						<div class="card-common">
-							<img class="card-img" src="@member.ImagePath" alt="@member.Name"
-								 onerror="this.src='https://via.placeholder.com/300x300/cb6ce6/ffffff?text=Nincs+Kep';" />
-							<div class="card-details">
-								<h3 class="card-name">@member.Name</h3>
-								<span class="card-rank">@member.Title</span>
-								<button type="button" class="btn-info" @onclick="() => OpenSenpaiResultsDialogAsync(member)">Eredményei</button>
-							</div>
-						</div>
-					}
-				</div>
-			</div>
-			<button class="slider-nav-btn" @onclick="OnSenpaiLeftClick" aria-label="Következő">
-				<i class="fas fa-chevron-right"></i>
-			</button>
-		</div>
-	}
-
 </section>

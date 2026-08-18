@@ -1,0 +1,23 @@
+﻿<div class="dialog-photo-wrapper">
+    <img class="dialog-photo" src="@(Member?.ImagePath ?? "img/logo.png")" alt="@Member?.Name"
+         onerror="this.src='https://via.placeholder.com/300x300/3533cd/ffffff?text=Nincs+Kep';" />
+</div>
+
+<div class="dialog-header dialog-header-centered">
+    <div>
+        <h3 class="dialog-header-title">@Member?.Name</h3>
+        <span class="dialog-eyebrow">@L["Competitor"]</span>
+    </div>
+</div>
+
+<div class="result-dialog-title">
+    <span class="dialog-badge">@Member?.Title</span>
+</div>
+
+<h4 class="dialog-section-title">@L["Accomplishments"]</h4>
+<ul class="dialog-accomplishments">
+    @foreach ( var accomplishment in Member?.Description ?? Enumerable.Empty<string>() )
+    {
+        <li><i class="fas fa-medal"></i> @accomplishment</li>
+    }
+</ul>

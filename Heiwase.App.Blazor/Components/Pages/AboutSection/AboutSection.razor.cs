@@ -1,22 +1,28 @@
 using Microsoft.AspNetCore.Components;
-
-using Heiwase.App.Blazor.Components.Shared;
+using Microsoft.Extensions.Localization;
 
 using Radzen;
+
+using Heiwase.App.Blazor.Components.Shared;
+using Heiwase.App.Blazor.Components.Shared.ClubHistoryDialog;
+using Heiwase.App.Blazor.Components.Shared.StudentCountDialog;
+using Heiwase.App.Blazor.Components.Shared.MedalDialog;
 
 namespace Heiwase.App.Blazor.Components.Pages.AboutSection;
 
 public partial class AboutSection
 {
     [Inject]
+    public IStringLocalizer<AboutSectionResource> L { get; set; } = default!;
+    [Inject]
     public DialogService DialogService { get; set; } = default!;
 
-    private Task OpenClubHistoryDialogAsync() =>
-        DialogService.OpenAsync<ClubHistoryDialog>("Történetünk", options: DialogDefaults.Options());
+    protected Task OpenClubHistoryDialogAsync() =>
+        DialogService.OpenAsync<ClubHistoryDialog>(L["History"], options: DialogDefaults.Options());
 
-    private Task OpenStudentCountDialogAsync() =>
-        DialogService.OpenAsync<StudentCountDialog>("Küldetésünk", options: DialogDefaults.Options());
+    protected Task OpenStudentCountDialogAsync() =>
+        DialogService.OpenAsync<StudentCountDialog>(L["Mission"], options: DialogDefaults.Options());
 
-    private Task OpenMedalDialogAsync() =>
-        DialogService.OpenAsync<MedalDialog>("Eredményeink", options: DialogDefaults.Options());
+    protected Task OpenMedalDialogAsync() =>
+        DialogService.OpenAsync<MedalDialog>(L["Achievements"], options: DialogDefaults.Options());
 }

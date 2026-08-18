@@ -1,25 +1,32 @@
 using Microsoft.AspNetCore.Components;
-
-using Heiwase.App.Blazor.Components.Shared;
+using Microsoft.Extensions.Localization;
 
 using Radzen;
+
+using Heiwase.App.Blazor.Components.Shared;
+using Heiwase.App.Blazor.Components.Shared.BeltExamDialog;
+using Heiwase.App.Blazor.Components.Shared.TrainingCampDialog;
+using Heiwase.App.Blazor.Components.Shared.CompetitionsDialog;
+using Heiwase.App.Blazor.Components.Shared.SeminarsDialog;
 
 namespace Heiwase.App.Blazor.Components.Pages.MwkszSection;
 
 public partial class MwkszSection
 {
     [Inject]
+    public IStringLocalizer<MwkszSectionResource> L { get; set; } = default!;
+    [Inject]
     public DialogService DialogService { get; set; } = default!;
 
-    private Task OpenBeltExamDialogAsync() =>
-        DialogService.OpenAsync<BeltExamDialog>("Övvizsgák", options: DialogDefaults.Options());
+    protected Task OpenBeltExamDialogAsync() =>
+        DialogService.OpenAsync<BeltExamDialog>(L["BeltExams"], options: DialogDefaults.Options());
 
-    private Task OpenTrainingCampDialogAsync() =>
-        DialogService.OpenAsync<TrainingCampDialog>("Edzőtáborok", options: DialogDefaults.Options());
+    protected Task OpenTrainingCampDialogAsync() =>
+        DialogService.OpenAsync<TrainingCampDialog>(L["TrainingCamps"], options: DialogDefaults.Options());
 
-    private Task OpenCompetitionsDialogAsync() =>
-        DialogService.OpenAsync<CompetitionsDialog>("Versenyek", options: DialogDefaults.Options());
+    protected Task OpenCompetitionsDialogAsync() =>
+        DialogService.OpenAsync<CompetitionsDialog>(L["Competitions"], options: DialogDefaults.Options());
 
-    private Task OpenSeminarsDialogAsync() =>
-        DialogService.OpenAsync<SeminarsDialog>("Szemináriumok", options: DialogDefaults.Options());
+    protected Task OpenSeminarsDialogAsync() =>
+        DialogService.OpenAsync<SeminarsDialog>(L["Seminars"], options: DialogDefaults.Options());
 }

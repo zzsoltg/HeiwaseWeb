@@ -1,0 +1,32 @@
+﻿@inherits AboutSection
+
+
+<div class="about-section-overlay section-padding">
+    <div class="section-header section-header-large-gap">
+        <h2 class="heading-xl">A Csapatról</h2>
+        <p class="about-intro-text">
+            A Heiwase a szegedi sportélet meghatározó szereplője. Több évtizedes múlttal rendelkezünk
+            karate oktatás terén, célunk pedig mindig is a tanítvány által kitűzött cél megvalósítása volt.
+            Akár egy délutáni hobbit keresel, akár világbajnoki álmokat dédelgetsz magadban, ránk számíthatsz.
+        </p>
+    </div>
+
+    <div class="about-grid">
+        <div class="info-bubble">
+            <span class="stat-number">1993</span>
+            <h3>óta Heiwase</h3>
+            <button type="button" class="btn-info" @onclick="OpenClubHistoryDialogAsync">Történetünk</button>
+        </div>
+        <div class="info-bubble">
+            <span class="stat-number">112</span>
+            <h3>tanítvány</h3>
+            <button type="button" class="btn-info" @onclick="OpenStudentCountDialogAsync">Küldetésünk</button>
+        </div>
+        <div class="info-bubble">
+            <span class="stat-number">52</span>
+            <h3>érem</h3>
+            <button type="button" class="btn-info" @onclick="OpenMedalDialogAsync">Eredményeink</button>
+        </div>
+    </div>
+</div>
+

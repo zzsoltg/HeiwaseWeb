@@ -6,16 +6,24 @@ public partial class ContactSection
 {
     public sealed class ApplicantModel : IValidatableObject
     {
-        [Required(ErrorMessage = "A jelentkező neve kötelező.")]
+        [Required(
+            ErrorMessageResourceType = typeof(ContactSectionResource),
+            ErrorMessageResourceName = nameof(ContactSectionResource.MandatoryName))]
         public string Name { get; set; } = String.Empty;
 
-        [Required(ErrorMessage = "Az e-mail cím megadása kötelező.")]
-        [EmailAddress(ErrorMessage = "Érvénytelen e-mail cím formátum.")]
+        [Required(
+            ErrorMessageResourceType = typeof(ContactSectionResource),
+            ErrorMessageResourceName = nameof(ContactSectionResource.MandatoryEmail))]
+        [EmailAddress(
+            ErrorMessageResourceType = typeof(ContactSectionResource),
+            ErrorMessageResourceName = nameof(ContactSectionResource.InvalidEmail))]
         public string Email { get; set; } = String.Empty;
 
         public string Phone { get; set; } = String.Empty;
 
-        [Required(ErrorMessage = "A nem megadása kötelező.")]
+        [Required(
+            ErrorMessageResourceType = typeof(ContactSectionResource),
+            ErrorMessageResourceName = nameof(ContactSectionResource.MandatorySex))]
         public string Sex { get; set; } = String.Empty;
 
         public DateOnly? DateOfBirth { get; set; }
@@ -52,28 +60,28 @@ public partial class ContactSection
             if ( IsMinor && string.IsNullOrWhiteSpace(GuardianName) )
             {
                 yield return new ValidationResult(
-                    "18 éven aluli jelentkező esetén a szülő/gondviselő neve kötelező.",
+                    ContactSectionResource.Under18Guradian,
                     [nameof(GuardianName)]);
             }
 
-            if ( TrainingTypes.Contains("Női önvédelem") && Sex != "nő" )
+            if (TrainingTypes.Contains(ContactSectionResource.SelfDefense) && Sex != ContactSectionResource.Female )
             {
                 yield return new ValidationResult(
-                    "A Női önvédelem edzéstípust csak női jelentkező választhatja.",
+                    ContactSectionResource.MenSelfDefenseApplication,
                     [nameof(TrainingTypes)]);
             }
 
-            if ( TrainingTypes.Contains("Gyerek") && TrainingTypes.Contains("Felnőtt") )
+            if ( TrainingTypes.Contains(ContactSectionResource.Child) && TrainingTypes.Contains(ContactSectionResource.Adult) )
             {
                 yield return new ValidationResult(
-                    "A \"Gyerek\" és \"Felnőtt\" edzéstípusok egyszerre nem választhatók.",
+                    ContactSectionResource.NoSameTime,
                     [nameof(TrainingTypes)]);
             }
 
-            if ( DateOfBirth.HasValue && !IsMinor && TrainingTypes.Contains("Gyerek") )
+            if ( DateOfBirth.HasValue && !IsMinor && TrainingTypes.Contains(ContactSectionResource.Child) )
             {
                 yield return new ValidationResult(
-                    "A \"Gyerek\" edzéstípus 18 éven felüli jelentkező számára nem választható.",
+                    ContactSectionResource.Above18,
                     [nameof(TrainingTypes)]);
             }
         }

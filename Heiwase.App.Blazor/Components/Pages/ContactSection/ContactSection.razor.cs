@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 using System.Net.Http.Json;
 
@@ -8,21 +9,30 @@ public partial class ContactSection
 {
     [Inject]
     public HttpClient Http { get; set; } = default!;
+    [Inject]
+    public IStringLocalizer<ContactSectionResource> L { get; set; } = default!;
 
-    private ApplicantModel _applicant = new();
+    protected ApplicantModel _applicant = new();
 
-    private bool _formSubmitted = false;
-    private bool _formError = false;
+    protected bool _formSubmitted = false;
+    protected bool _formError = false;
 
-    private const string FormspreeEndpoint = "https://formspree.io/f/mrenpyzo";
-    private const string Woman = "nő";
-    private const string Adult = "Felnőtt";
-    private const string Child = "Gyerek";
+    protected const string FormspreeEndpoint = "https://formspree.io/f/mrenpyzo";
 
-    private static readonly string[] TrainingTypeOptions =
-        ["Felnőtt", "Gyerek", "Sportkarate", "Női önvédelem", "Atlétika"];
+    protected string[] TrainingTypeOptions = [];
 
-    private async Task HandleValidSubmit()
+    protected override void OnInitialized()
+    {
+        TrainingTypeOptions = [
+            L["Adult"],
+            L["Child"],
+            L["Sportkarate"],
+            L["SelfDefense"],
+            L["Athletics"]
+        ];
+    }
+
+    protected async Task HandleValidSubmit()
     {
         _formSubmitted = false;
         _formError = false;
@@ -52,16 +62,28 @@ public partial class ContactSection
         }
     }
 
-    private bool IsTrainingTypeDisabled(string type) => type switch
+    protected bool IsTrainingTypeDisabled(string type)
     {
-        "Női önvédelem" => _applicant.Sex != Woman && _applicant.Sex != String.Empty,
-        "Gyerek" => ( _applicant.DateOfBirth.HasValue && !_applicant.IsMinor )
-                    || _applicant.TrainingTypes.Contains(Adult),
-        "Felnőtt" => _applicant.TrainingTypes.Contains(Child),
-        _ => false
-    };
+        if ( type == L["SelfDefense"] )
+        {
+            return _applicant.Sex == L["Male"];
+        }
 
-    private void OnTrainingTypeChanged(string type, bool isChecked)
+        if ( type == L["Child"] )
+        {
+            return ( _applicant.DateOfBirth.HasValue && !_applicant.IsMinor )
+                   || _applicant.TrainingTypes.Contains(L["Adult"]);
+        }
+
+        if ( type == L["Adult"] )
+        {
+            return _applicant.TrainingTypes.Contains(L["Child"]);
+        }
+
+        return false;
+    }
+
+    protected void OnTrainingTypeChanged(string type, bool isChecked)
     {
         if ( isChecked )
         {
@@ -74,6 +96,6 @@ public partial class ContactSection
         }
     }
 
-    private void SanitizeTrainingTypes() =>
+    protected void SanitizeTrainingTypes() =>
         _applicant.TrainingTypes.RemoveAll(t => IsTrainingTypeDisabled(t));
 }
