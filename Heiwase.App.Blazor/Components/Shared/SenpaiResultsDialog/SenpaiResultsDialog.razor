@@ -1,6 +1,9 @@
 ﻿<div class="dialog-photo-wrapper">
-    <img class="dialog-photo" src="@(Member?.ImagePath ?? "img/logo.png")" alt="@Member?.Name"
-         onerror="this.src='https://via.placeholder.com/300x300/3533cd/ffffff?text=Nincs+Kep';" />
+    <picture class="dialog-photo">
+      <source srcset="@((Member?.ImagePath ?? "img/logo.png").Replace(".webp", ".avif").Replace(".jpg", ".avif").Replace(".png", ".avif").Replace(".jfif", ".avif"))" type="image/avif">
+      <source srcset="@((Member?.ImagePath ?? "img/logo.png").Replace(".avif", ".webp").Replace(".jpg", ".webp").Replace(".png", ".webp").Replace(".jfif", ".webp"))" type="image/webp">
+      <img src="@((Member?.ImagePath ?? "img/logo.png").Replace(".avif", ".jpg").Replace(".webp", ".jpg").Replace(".png", ".jpg").Replace(".jfif", ".jpg"))" alt="@Member?.Name" loading="lazy">
+    </picture>
 </div>
 
 <div class="dialog-header dialog-header-centered">

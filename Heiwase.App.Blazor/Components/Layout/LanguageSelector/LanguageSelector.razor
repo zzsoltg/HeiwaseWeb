@@ -1,3 +1,7 @@
 ﻿<div class="language-selector-alignment" @onclick="ChangeLanguageAsync">
-    <img src="@GetCurrentPicturePath()" alt="Flag of languages" />
+    <picture>
+      <source srcset="@(GetCurrentPicturePath().Replace(".webp", ".avif").Replace(".jpg", ".avif").Replace(".png", ".avif").Replace(".jfif", ".avif"))" type="image/avif">
+      <source srcset="@(GetCurrentPicturePath().Replace(".avif", ".webp").Replace(".jpg", ".webp").Replace(".png", ".webp").Replace(".jfif", ".webp"))" type="image/webp">
+      <img src="@(GetCurrentPicturePath().Replace(".avif", ".jpg").Replace(".webp", ".jpg").Replace(".png", ".jpg").Replace(".jfif", ".jpg"))" alt="Flag of languages" loading="lazy">
+    </picture>
 </div>

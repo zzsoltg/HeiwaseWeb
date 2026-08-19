@@ -1,27 +1,39 @@
-Ôªø@inherits CoachesSection
+@inherits CoachesSection
 
 <h2 class="section-title-white">Our Instructors</h2>
 <div class="about-grid about-grid-centered">
     <div class="card-common">
-        <img class="card-img" src="img/zoli.png" alt="Zolt√°n Stempel" />
+        <picture class="card-img">
+          <source srcset="img/zoli.avif" type="image/avif">
+          <source srcset="img/zoli.webp" type="image/webp">
+          <img src="img/zoli.jpg" alt="Zolt·n Stempel" loading="lazy">
+        </picture>
         <div class="card-details">
-            <h3 class="card-name">Zolt√°n Stempel</h3>
+            <h3 class="card-name">Zolt·n Stempel</h3>
             <span class="card-rank">4th Dan, Head Instructor</span>
             <button type="button" class="btn-info" @onclick="OpenZoltanDialogAsync">Get to Know Me</button>
         </div>
     </div>
     <div class="card-common">
-        <img class="card-img" src="img/bendi.png" alt="Bendeg√∫z T√°las" />
+        <picture class="card-img">
+          <source srcset="img/bendi.avif" type="image/avif">
+          <source srcset="img/bendi.webp" type="image/webp">
+          <img src="img/bendi.jpg" alt="Bendeg˙z T·las" loading="lazy">
+        </picture>
         <div class="card-details">
-            <h3 class="card-name">Bendeg√∫z T√°las</h3>
+            <h3 class="card-name">Bendeg˙z T·las</h3>
             <span class="card-rank">1st Dan, Instructor</span>
             <button type="button" class="btn-info" @onclick="OpenBendeguzDialogAsync">Get to Know Me</button>
         </div>
     </div>
     <div class="card-common">
-        <img class="card-img" src="img/barni.jpg" alt="Barnab√°s Benk√≥" />
+        <picture class="card-img">
+          <source srcset="img/barni.avif" type="image/avif">
+          <source srcset="img/barni.webp" type="image/webp">
+          <img src="img/barni.jpg" alt="Barnab·s BenkÛ" loading="lazy">
+        </picture>
         <div class="card-details">
-            <h3 class="card-name">Barnab√°s Benk√≥</h3>
+            <h3 class="card-name">Barnab·s BenkÛ</h3>
             <span class="card-rank">3rd Kyu, Instructor</span>
             <button type="button" class="btn-info" @onclick="OpenBarnabasDialogAsync">Get to Know Me</button>
         </div>

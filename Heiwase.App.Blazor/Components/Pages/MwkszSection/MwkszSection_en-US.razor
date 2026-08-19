@@ -1,4 +1,4 @@
-﻿@inherits MwkszSection
+@inherits MwkszSection
 
 <div class="section-header section-header-medium-gap">
 	<h2 class="heading-xl">Our Federation</h2>
@@ -34,9 +34,26 @@
 		<button type="button" class="btn-info" @onclick="OpenSeminarsDialogAsync">Learn More</button>
 	</div>
 </div>
+
 <div class="gallery-collage">
-	<img src="img/mwkszgrid/csoport.jpg" class="gallery-img g-item-1" />
-	<img src="img/mwkszgrid/katica.jpg" class="gallery-img g-item-2" />
-	<img src="img/mwkszgrid/technika.jpg" class="gallery-img g-item-3" />
-	<img src="img/mwkszgrid/verseny.jpg" class="gallery-img g-item-4" />
+    <picture class="gallery-img g-item-1">
+        <source srcset="img/mwkszgrid/csoport.avif" type="image/avif">
+        <source srcset="img/mwkszgrid/csoport.webp" type="image/webp">
+        <img src="img/mwkszgrid/csoport.jpg" alt="Leírás" loading="lazy">
+    </picture>
+    <picture class="gallery-img g-item-2">
+        <source srcset="img/mwkszgrid/katica.avif" type="image/avif">
+        <source srcset="img/mwkszgrid/katica.webp" type="image/webp">
+        <img src="img/mwkszgrid/katica.jpg" alt="Leírás" loading="lazy">
+    </picture>
+    <picture class="gallery-img g-item-3">
+        <source srcset="img/mwkszgrid/technika.avif" type="image/avif">
+        <source srcset="img/mwkszgrid/technika.webp" type="image/webp">
+        <img src="img/mwkszgrid/technika.jpg" alt="Leírás" loading="lazy">
+    </picture>
+    <picture class="gallery-img g-item-4">
+        <source srcset="img/mwkszgrid/verseny.avif" type="image/avif">
+        <source srcset="img/mwkszgrid/verseny.webp" type="image/webp">
+        <img src="img/mwkszgrid/verseny.jpg" alt="Leírás" loading="lazy">
+    </picture>
 </div>
