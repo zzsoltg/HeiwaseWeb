@@ -1,28 +1,40 @@
-Ôªø@inherits CoachesSection
+@inherits CoachesSection
 
-<h2 class="section-title-white">Edz≈ëink</h2>
+<h2 class="section-title-white">Edzıink</h2>
 <div class="about-grid about-grid-centered">
     <div class="card-common">
-        <img class="card-img" src="img/zoli.png" alt="Stempel Zolt√°n" />
+        <picture class="card-img">
+            <source srcset="img/zoli.avif" type="image/avif">
+            <source srcset="img/zoli.webp" type="image/webp">
+            <img src="img/zoli.jpg" alt="Stempel Zolt·n" loading="lazy">
+        </picture>
         <div class="card-details">
-            <h3 class="card-name">Stempel Zolt√°n</h3>
-            <span class="card-rank">4. dan, vezet≈ëedz≈ë</span>
+            <h3 class="card-name">Stempel Zolt·n</h3>
+            <span class="card-rank">4. dan, vezetıedzı</span>
             <button type="button" class="btn-info" @onclick="OpenZoltanDialogAsync">Ismerj meg!</button>
         </div>
     </div>
     <div class="card-common">
-        <img class="card-img" src="img/bendi.png" alt="T√°las Bendeg√∫z" />
+        <picture class="card-img">
+            <source srcset="img/bendi.avif" type="image/avif">
+            <source srcset="img/bendi.webp" type="image/webp">
+            <img src="img/bendi.jpg" alt="T·las Bendeg˙z" loading="lazy">
+        </picture>
         <div class="card-details">
-            <h3 class="card-name">T√°las Bendeg√∫z</h3>
-            <span class="card-rank">1. dan, edz≈ë</span>
+            <h3 class="card-name">T·las Bendeg˙z</h3>
+            <span class="card-rank">1. dan, edzı</span>
             <button type="button" class="btn-info" @onclick="OpenBendeguzDialogAsync">Ismerj meg!</button>
         </div>
     </div>
     <div class="card-common">
-        <img class="card-img" src="img/barni.jpg" alt="Benk√≥ Barnab√°s" />
+        <picture class="card-img">
+            <source srcset="img/barni.avif" type="image/avif">
+            <source srcset="img/barni.webp" type="image/webp">
+            <img src="img/barni.jpg" alt="BenkÛ Barnab·s" loading="lazy">
+        </picture>
         <div class="card-details">
-            <h3 class="card-name">Benk√≥ Barnab√°s</h3>
-            <span class="card-rank">3. kyu, edz≈ë</span>
+            <h3 class="card-name">BenkÛ Barnab·s</h3>
+            <span class="card-rank">3. kyu, edzı</span>
             <button type="button" class="btn-info" @onclick="OpenBarnabasDialogAsync">Ismerj meg!</button>
         </div>
     </div>

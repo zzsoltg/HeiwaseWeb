@@ -16,8 +16,11 @@ else
 				@foreach (var member in GetCompetitorItems())
 				{
 					<div class="card-common">
-						<img class="card-img" src="@member.ImagePath" alt="@member.Name"
-							 onerror="this.src='https://via.placeholder.com/300x300/3533cd/ffffff?text=No+Image';" />
+						<picture>
+						  <source srcset="@(member.ImagePath.Replace(".webp", ".avif").Replace(".jpg", ".avif").Replace(".png", ".avif").Replace(".jfif", ".avif"))" type="image/avif">
+						  <source srcset="@(member.ImagePath.Replace(".avif", ".webp").Replace(".jpg", ".webp").Replace(".png", ".webp").Replace(".jfif", ".webp"))" type="image/webp">
+						  <img src="@(member.ImagePath.Replace(".avif", ".jpg").Replace(".webp", ".jpg").Replace(".png", ".jpg").Replace(".jfif", ".jpg"))" alt="@member.Name" loading="lazy">
+						</picture>
 						<div class="card-details">
 							<h3 class="card-name">@member.Name</h3>
 							<span class="card-rank">@member.Title</span>
@@ -45,8 +48,11 @@ else
 				@foreach (var member in GetSenpaiItems())
 				{
 					<div class="card-common">
-						<img class="card-img" src="@member.ImagePath" alt="@member.Name"
-							 onerror="this.src='https://via.placeholder.com/300x300/cb6ce6/ffffff?text=No+Image';" />
+						<picture>
+						  <source srcset="@(member.ImagePath.Replace(".webp", ".avif").Replace(".jpg", ".avif").Replace(".png", ".avif").Replace(".jfif", ".avif"))" type="image/avif">
+						  <source srcset="@(member.ImagePath.Replace(".avif", ".webp").Replace(".jpg", ".webp").Replace(".png", ".webp").Replace(".jfif", ".webp"))" type="image/webp">
+						  <img src="@(member.ImagePath.Replace(".avif", ".jpg").Replace(".webp", ".jpg").Replace(".png", ".jpg").Replace(".jfif", ".jpg"))" alt="@member.Name" loading="lazy">
+						</picture>
 						<div class="card-details">
 							<h3 class="card-name">@member.Name</h3>
 							<span class="card-rank">@member.Title</span>

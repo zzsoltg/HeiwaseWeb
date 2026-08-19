@@ -1,48 +1,68 @@
-ï»¿@inherits MwkszSection
+@inherits MwkszSection
 
 <div class="section-header section-header-medium-gap">
-	<h2 class="heading-xl">SzÃ¶vetsÃ©gÃ¼nk</h2>
+	<h2 class="heading-xl">Szövetségünk</h2>
 	<p class="mwksz-intro-text">
-		A Heiwase a MagyarorszÃ¡gi Wado-ryu Karate SzÃ¶vetsÃ©g elkÃ¶telezett tagja.
-		Az MWKSZ biztosÃ­tja klubunk szÃ¡mÃ¡ra a szakmai hÃ¡tteret, Ã©s validÃ¡ciÃ³t,
-		mindemellett a WUKF (World Union of Karate-do Federations) tagjakÃ©nt lehetÅ‘sÃ©get
-		biztosÃ­t csapatunknak a nemzetkÃ¶zi versenyzÃ©sre is, mÃ­g
-		az IWKU (International Wado Karate Union) alapÃ­tÃ³ tagjakÃ©nt
-		kÃ©pzi tovÃ¡bb csapattagjainkat, Shibamori Kando (9. dan)
-		nemzetkÃ¶zi fÅ‘instruktor irÃ¡nyÃ­tÃ¡sa alatt. VezetÅ‘je RostÃ¡s Tibor (7. dan).
+		A Heiwase a Magyarországi Wado-ryu Karate Szövetség elkötelezett tagja.
+		Az MWKSZ biztosítja klubunk számára a szakmai hátteret, és validációt,
+		mindemellett a WUKF (World Union of Karate-do Federations) tagjaként lehetõséget
+		biztosít csapatunknak a nemzetközi versenyzésre is, míg
+		az IWKU (International Wado Karate Union) alapító tagjaként
+		képzi tovább csapattagjainkat, Shibamori Kando (9. dan)
+		nemzetközi fõinstruktor irányítása alatt. Vezetõje Rostás Tibor (7. dan).
 	</p>
 </div>
 
 <div class="features-grid">
 	<div class="feature-card">
 		<i class="fas fa-graduation-cap feature-icon"></i>
-		<h4>Ã–vvizsgÃ¡k</h4>
-		<button type="button" class="btn-info" @onclick="OpenBeltExamDialogAsync">TovÃ¡bbi informÃ¡ciÃ³</button>
+		<h4>Övvizsgák</h4>
+		<button type="button" class="btn-info" @onclick="OpenBeltExamDialogAsync">További információ</button>
 	</div>
 	<div class="feature-card">
 		<i class="fas fa-campground feature-icon"></i>
-		<h4>EdzÅ‘tÃ¡borok</h4>
-		<button type="button" class="btn-info" @onclick="OpenTrainingCampDialogAsync">TovÃ¡bbi informÃ¡ciÃ³</button>
+		<h4>Edzõtáborok</h4>
+		<button type="button" class="btn-info" @onclick="OpenTrainingCampDialogAsync">További információ</button>
 	</div>
 	<div class="feature-card">
 		<i class="fas fa-trophy feature-icon"></i>
 		<h4>Versenyek</h4>
-		<button type="button" class="btn-info" @onclick="OpenCompetitionsDialogAsync">TovÃ¡bbi informÃ¡ciÃ³</button>
+		<button type="button" class="btn-info" @onclick="OpenCompetitionsDialogAsync">További információ</button>
 	</div>
 	<div class="feature-card">
 		<i class="fas fa-globe-europe feature-icon"></i>
-		<h4>SzeminÃ¡riumok</h4>
-		<button type="button" class="btn-info" @onclick="OpenSeminarsDialogAsync">TovÃ¡bbi informÃ¡ciÃ³</button>
+		<h4>Szemináriumok</h4>
+		<button type="button" class="btn-info" @onclick="OpenSeminarsDialogAsync">További információ</button>
 	</div>
 </div>
 
 <div class="gallery-collage">
-	<img src="img/mwkszgrid/csoport.jpg" class="gallery-img g-item-1" />
-	<img src="img/mwkszgrid/katica.jpg" class="gallery-img g-item-2" />
-	<img src="img/mwkszgrid/technika.jpg" class="gallery-img g-item-3" />
-	<img src="img/mwkszgrid/verseny.jpg" class="gallery-img g-item-4" />
+	<picture class="gallery-img g-item-1">
+	  <source srcset="img/mwkszgrid/csoport.avif" type="image/avif">
+	  <source srcset="img/mwkszgrid/csoport.webp" type="image/webp">
+	  <img src="img/mwkszgrid/csoport.jpg" alt="Leírás" loading="lazy">
+	</picture>
+	<picture class="gallery-img g-item-2">
+	  <source srcset="img/mwkszgrid/katica.avif" type="image/avif">
+	  <source srcset="img/mwkszgrid/katica.webp" type="image/webp">
+	  <img src="img/mwkszgrid/katica.jpg" alt="Leírás" loading="lazy">
+	</picture>
+	<picture class="gallery-img g-item-3">
+	  <source srcset="img/mwkszgrid/technika.avif" type="image/avif">
+	  <source srcset="img/mwkszgrid/technika.webp" type="image/webp">
+	  <img src="img/mwkszgrid/technika.jpg" alt="Leírás" loading="lazy">
+	</picture>
+	<picture class="gallery-img g-item-4">
+	  <source srcset="img/mwkszgrid/verseny.avif" type="image/avif">
+	  <source srcset="img/mwkszgrid/verseny.webp" type="image/webp">
+	  <img src="img/mwkszgrid/verseny.jpg" alt="Leírás" loading="lazy">
+	</picture>
 </div>
 
 <div class="event-calendar-wrapper">
-	<img src="img/esemenynaptar26.jpg" class="event-calendar-image" />
+	<picture class="event-calendar-image">
+	  <source srcset="img/esemenynaptar26.avif" type="image/avif">
+	  <source srcset="img/esemenynaptar26.webp" type="image/webp">
+	  <img src="img/esemenynaptar26.jpg" alt="Leírás" loading="lazy">
+	</picture>
 </div>

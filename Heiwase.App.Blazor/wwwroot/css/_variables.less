@@ -35,3 +35,19 @@
         opacity: 1;
     }
 }
+
+.responsive-bg(@name, @folder: '/img', @ext: 'jpg') {
+    background-image: ~"url('@{folder}/@{name}.@{ext}')";
+
+    background-image: -webkit-image-set(
+        ~"url('@{folder}/@{name}.avif')" type('image/avif'),
+        ~"url('@{folder}/@{name}.webp')" type('image/webp'),
+        ~"url('@{folder}/@{name}.@{ext}')" type('image/@{ext}')
+    );
+
+    background-image: image-set(
+        ~"url('@{folder}/@{name}.avif')" type('image/avif'),
+        ~"url('@{folder}/@{name}.webp')" type('image/webp'),
+        ~"url('@{folder}/@{name}.@{ext}')" type('image/@{ext}')
+    );
+}

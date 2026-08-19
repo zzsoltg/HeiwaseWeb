@@ -1,7 +1,13 @@
-﻿<div class="dialog-photo-wrapper">
-    <img class="dialog-photo" src="@(Member?.ImagePath ?? "img/logo.png")" alt="@Member?.Name"
-         onerror="this.src='https://via.placeholder.com/300x300/3533cd/ffffff?text=Nincs+Kep';" />
-</div>
+﻿@if ( !string.IsNullOrWhiteSpace(Member?.PngPath) )
+{
+    <div class="dialog-photo-wrapper">
+        <picture class="dialog-photo">
+            <source srcset="@Member.AvifPath" type="image/avif">
+            <source srcset="@Member.WebpPath" type="image/webp">
+            <img src="@Member.PngPath" alt="@(Member.Name ?? "Versenyző fotó")" loading="lazy">
+        </picture>
+    </div>
+}
 
 <div class="dialog-header dialog-header-centered">
     <div>

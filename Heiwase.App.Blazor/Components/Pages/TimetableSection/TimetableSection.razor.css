@@ -1,5 +1,7 @@
 ﻿.timetable-section {
-  background: url('img/edzes.jpg');
+  background-image: url('/img/team.jpg');
+  background-image: -webkit-image-set(url('/img/team.avif') type('image/avif'), url('/img/team.webp') type('image/webp'), url('/img/team.jpg') type('image/jpg'));
+  background-image: image-set(url('/img/team.avif') type('image/avif'), url('/img/team.webp') type('image/webp'), url('/img/team.jpg') type('image/jpg'));
 }
 .timetable-section ::deep .timetable-section-overlay {
   background: rgba(0, 0, 0, 0.7);
