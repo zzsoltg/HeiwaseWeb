@@ -1,10 +1,13 @@
-﻿<div class="dialog-photo-wrapper">
-    <picture class="dialog-photo">
-      <source srcset="@((Member?.ImagePath ?? "img/logo.png").Replace(".webp", ".avif").Replace(".jpg", ".avif").Replace(".png", ".avif").Replace(".jfif", ".avif"))" type="image/avif">
-      <source srcset="@((Member?.ImagePath ?? "img/logo.png").Replace(".avif", ".webp").Replace(".jpg", ".webp").Replace(".png", ".webp").Replace(".jfif", ".webp"))" type="image/webp">
-      <img src="@((Member?.ImagePath ?? "img/logo.png").Replace(".avif", ".jpg").Replace(".webp", ".jpg").Replace(".png", ".jpg").Replace(".jfif", ".jpg"))" alt="@Member?.Name" loading="lazy">
-    </picture>
-</div>
+﻿@if ( !string.IsNullOrWhiteSpace(Member?.PngPath) )
+{
+    <div class="dialog-photo-wrapper">
+        <picture class="dialog-photo">
+            <source srcset="@Member.AvifPath" type="image/avif">
+            <source srcset="@Member.WebpPath" type="image/webp">
+            <img src="@Member.PngPath" alt="@(Member.Name ?? "Versenyző fotó")" loading="lazy">
+        </picture>
+    </div>
+}
 
 <div class="dialog-header dialog-header-centered">
     <div>
