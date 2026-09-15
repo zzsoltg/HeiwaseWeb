@@ -1,5 +1,9 @@
 ﻿<video autoplay muted loop playsinline class="video-bg">
+    @*
+    The video is too big for Azure, so until Blob storage is set up, we will use a smaller video.
+    The original video is going to be deleted from the "videos" folder, and uploaded to Blob storage.
     <source src="videos/videoplayback.webm" type="video/webm">
+    *@ 
     <source src="videos/videoplayback.mp4" type="video/mp4">
     <div class="video-fallback"></div>
 </video>
