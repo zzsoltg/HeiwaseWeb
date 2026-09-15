@@ -1,14 +1,14 @@
-Ôªø@inherits HallOfFameSection
+@inherits HallOfFameSection
 
 @if (_competitors == null || _competitors.Count == 0)
 {
-	<p class="text-center">Adatok bet√∂lt√©se...</p>
+	<p class="text-center">Adatok betˆltÈse...</p>
 }
 else
 {
-	<h3 class="section-subtitle-white">Kiemelked≈ë Versenyz≈ëk</h3>
+	<h3 class="section-subtitle-white">Kiemelkedı Versenyzık</h3>
 	<div class="slider-wrapper">
-		<button class="slider-nav-btn" @onclick="OnCompetitorRightClick" aria-label="El≈ëz≈ë">
+		<button class="slider-nav-btn" @onclick="OnCompetitorRightClick" aria-label="Elızı">
 			<i class="fas fa-chevron-left"></i>
 		</button>
 		<div class="slider-container">
@@ -17,20 +17,20 @@ else
 				{
 					<div class="card-common">
 						<picture>
-						  <source srcset="@(member.ImagePath.Replace(".webp", ".avif").Replace(".jpg", ".avif").Replace(".png", ".avif").Replace(".jfif", ".avif"))" type="image/avif">
-						  <source srcset="@(member.ImagePath.Replace(".avif", ".webp").Replace(".jpg", ".webp").Replace(".png", ".webp").Replace(".jfif", ".webp"))" type="image/webp">
+						  <!-- Will be added back later: <source srcset="@(member.ImagePath.Replace(".webp", ".avif").Replace(".jpg", ".avif").Replace(".png", ".avif").Replace(".jfif", ".avif"))" type="image/avif"> -->
+						  <!-- Will be added back later: <source srcset="@(member.ImagePath.Replace(".avif", ".webp").Replace(".jpg", ".webp").Replace(".png", ".webp").Replace(".jfif", ".webp"))" type="image/webp"> -->
 						  <img src="@(member.ImagePath.Replace(".avif", ".jpg").Replace(".webp", ".jpg").Replace(".png", ".jpg").Replace(".jfif", ".jpg"))" alt="@member.Name" loading="lazy">
 						</picture>
 						<div class="card-details">
 							<h3 class="card-name">@member.Name</h3>
 							<span class="card-rank">@member.Title</span>
-							<button type="button" class="btn-info" @onclick="() => OpenCompetitorResultsDialogAsync(member)">Eredm√©nyei</button>
+							<button type="button" class="btn-info" @onclick="() => OpenCompetitorResultsDialogAsync(member)">EredmÈnyei</button>
 						</div>
 					</div>
 				}
 			</div>
 		</div>
-		<button class="slider-nav-btn" @onclick="OnCompetitorLeftClick" aria-label="K√∂vetkez≈ë">
+		<button class="slider-nav-btn" @onclick="OnCompetitorLeftClick" aria-label="Kˆvetkezı">
 			<i class="fas fa-chevron-right"></i>
 		</button>
 	</div>
@@ -38,9 +38,9 @@ else
 
 @if (_senpais != null && _senpais.Count > 0)
 {
-	<h3 class="section-subtitle-white section-subtitle-top-gap">Vezet≈ë tan√≠tv√°nyaink</h3>
+	<h3 class="section-subtitle-white section-subtitle-top-gap">Vezetı tanÌtv·nyaink</h3>
 	<div class="slider-wrapper">
-		<button class="slider-nav-btn" @onclick="OnSenpaiRightClick" aria-label="El≈ëz≈ë">
+		<button class="slider-nav-btn" @onclick="OnSenpaiRightClick" aria-label="Elızı">
 			<i class="fas fa-chevron-left"></i>
 		</button>
 		<div class="slider-container">
@@ -49,20 +49,20 @@ else
 				{
 					<div class="card-common">
 						<picture>
-						  <source srcset="@(member.ImagePath.Replace(".webp", ".avif").Replace(".jpg", ".avif").Replace(".png", ".avif").Replace(".jfif", ".avif"))" type="image/avif">
-						  <source srcset="@(member.ImagePath.Replace(".avif", ".webp").Replace(".jpg", ".webp").Replace(".png", ".webp").Replace(".jfif", ".webp"))" type="image/webp">
+						  <!-- Will be added back later: <source srcset="@(member.ImagePath.Replace(".webp", ".avif").Replace(".jpg", ".avif").Replace(".png", ".avif").Replace(".jfif", ".avif"))" type="image/avif"> -->
+						  <!-- Will be added back later: <source srcset="@(member.ImagePath.Replace(".avif", ".webp").Replace(".jpg", ".webp").Replace(".png", ".webp").Replace(".jfif", ".webp"))" type="image/webp"> -->
 						  <img src="@(member.ImagePath.Replace(".avif", ".jpg").Replace(".webp", ".jpg").Replace(".png", ".jpg").Replace(".jfif", ".jpg"))" alt="@member.Name" loading="lazy">
 						</picture>
 						<div class="card-details">
 							<h3 class="card-name">@member.Name</h3>
 							<span class="card-rank">@member.Title</span>
-							<button type="button" class="btn-info" @onclick="() => OpenSenpaiResultsDialogAsync(member)">Eredm√©nyei</button>
+							<button type="button" class="btn-info" @onclick="() => OpenSenpaiResultsDialogAsync(member)">EredmÈnyei</button>
 						</div>
 					</div>
 				}
 			</div>
 		</div>
-		<button class="slider-nav-btn" @onclick="OnSenpaiLeftClick" aria-label="K√∂vetkez≈ë">
+		<button class="slider-nav-btn" @onclick="OnSenpaiLeftClick" aria-label="Kˆvetkezı">
 			<i class="fas fa-chevron-right"></i>
 		</button>
 	</div>
