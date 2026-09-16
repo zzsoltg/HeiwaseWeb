@@ -108,7 +108,7 @@ This project is currently **not accepting external contributions**.
 
 ## License
 
-This repository is licensed under the **HeiwaseWeb Content & Design Protection License v1.0**.
+This repository is licensed under the **HeiwaseWeb Dual-Scope Source-Available License v1.0**.
 
 In short:
 - viewing, cloning, and forking for evaluation/learning/reference are allowed
