@@ -1,89 +1,119 @@
 # HeiwaseWeb
 
-A modern single-page landing site for **Heiwase Karate Szeged**, a local sports club. The site is built with **Blazor WebAssembly** and presents the club’s story, training options, coaches, timetable, and contact information in a mobile-friendly format.
+Official website project for **Heiwase Karate Szeged**, implemented as a Blazor WebAssembly single-page application.
 
-Live site: https://szegedkarate.netlify.app/
+## Live Deployment
 
-## Overview
+**Production URL:** https://nice-glacier-0b19a2e03.6.azurestaticapps.net
 
-HeiwaseWeb is a public-facing promotional website for the club. The homepage includes:
+> Legacy Netlify hosting is being phased out in favor of Azure Static Web Apps.
 
-- a full-screen hero section with a background video
-- a sticky navigation bar for quick scrolling through the page
-- sections for training types, about information, coaches, federation details, hall of fame, timetable, and contact
-- a simple not-found page for invalid routes
+## Project Purpose
 
-## Built with
+The project provides a public-facing club website with:
+- hero/landing presentation
+- training and program overview
+- coach and club background sections
+- hall of fame content
+- timetable and contact sections
+- bilingual content support (`hu-HU`, `en-US`)
 
-- **Blazor WebAssembly**
-- **C#**
-- **HTML**
-- **CSS**
-- **JavaScript**
+## Current Codebase Condition (Measured)
+
+Based on the current repository state:
+
+- **Architecture:** single-project .NET solution with one Blazor WebAssembly app (`Heiwase.App.Blazor`).
+- **Frontend composition:** modular Razor component structure under `Components/Pages`, `Components/Layout`, and `Components/Shared`.
+- **Localization:** culture selection with resource-based localization and language-specific Razor component variants.
+- **UI/Assets:** static site UI with extensive media usage; media has already been moved to Azure Blob Storage URLs in component markup.
+- **Deployment automation:** Azure Static Web Apps workflow exists at `.github/workflows/azure-static-web-apps-nice-glacier-0b19a2e03.yml`.
+- **Platform status:** frontend is functional and deployable; larger multi-project/API/admin architecture is planned but not yet present in this branch.
+
+## Backlog Analysis
+
+### Completed Work (from closed backlog items)
+Recent and historical completed items indicate that the team has already delivered:
+
+- core landing-page feature set and componentized structure
+- localization support
+- modal/dialog-based UX improvements
+- contact/form-related improvements
+- responsive and styling bug fixes
+- favicon and multiple presentation/content fixes
+- media migration/support work toward Azure hosting readiness
+
+### Pending Work (from open backlog items)
+The open backlog shows major roadmap focus areas:
+
+1. **Solution expansion**
+   - move from single project to multi-project structure
+   - scaffold shared, API, infrastructure, and admin applications
+2. **Cloud data/content platform**
+   - provision Azure resources
+   - design Cosmos DB containers and repository layer
+   - implement Blob upload services and seed existing data
+3. **Identity & security**
+   - register Entra ID app
+   - add admin authentication and API authorization
+   - establish secrets/security baseline
+4. **Public/API integration**
+   - expose articles, hall-of-fame, and application endpoints
+   - connect public site sections to Azure-backed APIs
+5. **Operations**
+   - CI/CD hardening (dual workflows, OIDC migration)
+   - observability (Application Insights) and cost governance
+   - domain/TLS cutover and decommissioning Netlify/Formspree
+6. **Content enhancements**
+   - dojo section, media replacement, copy rewrites, gallery/animation refinements
+
+## Technology Stack
+
 - .NET 10
+- Blazor WebAssembly
+- C#
+- Razor Components
+- LESS/CSS
+- JavaScript
+- Radzen Blazor Components
 
-## Project structure
+## Repository Layout
 
-- `Program.cs` — app bootstrap and service configuration
-- `App.razor` — root router and layout wiring
-- `Layout/` — shared layout components
-- `Pages/Home` — main landing page's files
-- `Pages/NotFound.razor` — fallback page for unknown routes
-- `wwwroot/` — static assets such as images, videos, icons, and styles
-- `Heiwase.App.Blazor.csproj` — project configuration
+- `Heiwase.App.Blazor/Program.cs` – app bootstrap, services, localization culture setup
+- `Heiwase.App.Blazor/App.razor` – routing/root composition
+- `Heiwase.App.Blazor/Components/` – page, layout, and shared UI components
+- `Heiwase.App.Blazor/Resources/` – localization resources
+- `.github/workflows/` – CI/CD workflow definition
 
-## Features
-
-- Responsive landing page layout
-- Smooth, section-based navigation
-- Hero video background
-- Club information and call-to-action sections
-- Public contact-oriented presentation for visitors
-
-## Getting started
+## Local Development
 
 ### Prerequisites
-
 - .NET 10 SDK
 
-### Run locally
+### Run
 
 ```bash
 dotnet restore
-dotnet run
+dotnet run --project Heiwase.App.Blazor/Heiwase.App.Blazor.csproj
 ```
 
-If your environment uses a different project file name, run the app from the repository root with the solution or project file available in the directory.
-
-### Build for production
+### Publish
 
 ```bash
-dotnet publish -c Release
+dotnet publish Heiwase.App.Blazor/Heiwase.App.Blazor.csproj -c Release
 ```
 
-## Content and customization
+## Contribution Policy
 
-Most of the visible content appears to live in `Pages/Home/Home.razor`, while styling and media assets are stored in `wwwroot/`. To update the site:
-
-- edit the page content in `Pages/Home/Home.razor`
-- replace images, video, and other static assets in `wwwroot/`
-- adjust shared behavior or routing in `App.razor` and `Program.cs`
-
-## Deployment
-
-The project is already deployed at:
-
-https://szegedkarate.netlify.app/
-
-## Notes
-
-- The repository currently does not include a license file.
-- The project name in the repo is `HeiwaseWeb`, while the main project file is `HeiwaseWeb2.csproj`.
-
-## Contributing
-
-Contributions are welcome. If you make changes, please keep the site fast, mobile-friendly, and focused on the club’s public-facing presentation.
+This project is currently **not accepting external contributions**.
 
 ## License
 
-You are welcome to contribute, suggest and fork, but all of the page's content belongs to Heiwase Karate Szeged. You can copy coding patterns and solutions but the design elements are forbidden to be used.
+This repository is licensed under the **HeiwaseWeb Content & Design Protection License v1.0**.
+
+In short:
+- viewing, cloning, and forking for evaluation/learning/reference are allowed
+- reuse of architectural ideas is allowed, and code snippets are reusable only from `Heiwase.App.Blazor/**/*.cs` and `Heiwase.App.Blazor/wwwroot/js/**/*.js` (max 40 consecutive lines per snippet, max 120 total lines from one source file)
+- direct copying from `.razor`, stylesheet, media, and text resources is prohibited
+- copying/reusing the site design, visual identity, media assets, and written page content is prohibited
+
+See `LICENSE` for full terms.
