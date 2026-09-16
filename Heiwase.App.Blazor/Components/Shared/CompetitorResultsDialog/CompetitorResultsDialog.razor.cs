@@ -1,4 +1,4 @@
-using Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
+﻿using Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 

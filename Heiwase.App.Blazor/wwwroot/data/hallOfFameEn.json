@@ -1,7 +1,7 @@
-{
+﻿{
   "competitors": [
     {
-      "name": "Zsolt Gábor Zimmermann",
+      "name": "Zsolt GĂˇbor Zimmermann",
       "title": "Senior Male Kumite -75 kg",
       "description": [
         "3rd Place (WUKF World Championship, 2023)",
@@ -23,7 +23,7 @@
       "imagePath": "img/hall_of_fame/Fixler_Daniella.png"
     },
     {
-      "name": "Lea Szabó",
+      "name": "Lea SzabĂł",
       "title": "Junior Female Kumite -65 kg",
       "description": [
         "2nd Place (MWKSZ National Championship)",
@@ -45,7 +45,7 @@
       "imagePath": "img/hall_of_fame/Csernus_Milla.png"
     },
     {
-      "name": "Bálint Varga",
+      "name": "BĂˇlint Varga",
       "title": "Cadet Male Kumite -65 kg",
       "description": [
         "1st Place (MWKSZ National Championship)",
@@ -56,7 +56,7 @@
       "imagePath": "img/hall_of_fame/Varga_Balint.png"
     },
     {
-      "name": "Péter Seres",
+      "name": "PĂ©ter Seres",
       "title": "Cadet Male Kumite -65 kg",
       "description": [
         "3rd Place (MWKSZ National Championship)",
@@ -67,7 +67,7 @@
       "imagePath": "img/hall_of_fame/Seres_Peter.png"
     },
     {
-      "name": "Mátyás Horváth",
+      "name": "MĂˇtyĂˇs HorvĂˇth",
       "title": "Cadet Male Kumite -65 kg",
       "description": [
         "2nd Place (MWKSZ National Championship)",
@@ -78,7 +78,7 @@
       "imagePath": "img/hall_of_fame/Horvath_Matyas.png"
     },
     {
-      "name": "Richárd Szabad",
+      "name": "RichĂˇrd Szabad",
       "title": "Senior Male Kumite -75 kg",
       "description": [
         "2nd Place (MWKSZ National Championship)",
@@ -89,7 +89,7 @@
       "imagePath": "img/hall_of_fame/Szabad_Richard.png"
     },
     {
-      "name": "Zalán Virág",
+      "name": "ZalĂˇn VirĂˇg",
       "title": "Children's Male Kumite -155 cm",
       "description": [
         "3rd Place (MWKSZ National Championship)",
@@ -104,7 +104,7 @@
       "title": "Children's Female Kata",
       "description": [
         "2nd Place (MWKSZ National Championship)",
-        "1st Place (Csongrád County Championship, 2023)",
+        "1st Place (CsongrĂˇd County Championship, 2023)",
         "3rd Place (WKF Budapest Open, 2021)",
         "1st Place (Szeged Cup, 2022)"
       ],
@@ -133,7 +133,7 @@
       "imagePath": "img/hall_of_fame/Kurucz_Lilla.png"
     },
     {
-      "name": "Júlia Pavlovits",
+      "name": "JĂşlia Pavlovits",
       "title": "Cadet Female Kumite -65 kg",
       "description": [
         "2nd Place (MWKSZ National Championship)",
@@ -144,7 +144,7 @@
       "imagePath": "img/hall_of_fame/Pavlovits_Julia.png"
     },
     {
-      "name": "Dávid Török",
+      "name": "DĂˇvid TĂ¶rĂ¶k",
       "title": "Junior Male Kumite -75 kg",
       "description": [
         "3rd Place (MWKSZ National Championship)",
@@ -159,14 +159,14 @@
       "title": "Senior Female Kumite -65 kg",
       "description": [
         "3rd Place (MWKSZ National Championship)",
-        "1st Place (Csongrád County Championship, 2023)",
+        "1st Place (CsongrĂˇd County Championship, 2023)",
         "1st Place (Tisza Cup, 2020)",
         "2nd Place (Student Olympics, 2021)"
       ],
       "imagePath": "img/hall_of_fame/Elek_Anna.png"
     },
     {
-      "name": "Bence Csenkey-Sinkó",
+      "name": "Bence Csenkey-SinkĂł",
       "title": "Cadet Male Kata",
       "description": [
         "3rd Place (MWKSZ National Championship)",
@@ -201,7 +201,7 @@
       "imagePath": "img/hall_of_fame/Stempel_Katica.png"
     },
     {
-      "name": "Zsolt Gábor Zimmermann",
+      "name": "Zsolt GĂˇbor Zimmermann",
       "title": "1st Kyu",
       "description": [
         "2023.05.12 - Successful 2nd Kyu Exam",
@@ -212,7 +212,7 @@
       "imagePath": "img/hall_of_fame/Zimmermann_Zsolt.png"
     },
     {
-      "name": "Richárd Szabad",
+      "name": "RichĂˇrd Szabad",
       "title": "1st Kyu",
       "description": [
         "2023.05.12 - Successful 2nd Kyu Exam",
@@ -245,7 +245,7 @@
       "imagePath": "img/hall_of_fame/Fixler_Daniella.png"
     },
     {
-      "name": "Lea Szabó",
+      "name": "Lea SzabĂł",
       "title": "3rd Kyu",
       "description": [
         "2023.05.12 - Successful 2nd Kyu Exam",
