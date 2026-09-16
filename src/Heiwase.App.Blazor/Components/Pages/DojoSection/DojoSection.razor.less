@@ -85,7 +85,7 @@
         .dojo-video-dialog {
             display: flex;
             justify-content: center;
-            border-top: 10px;
+            margin-top: 20px;
         }
 
         .dojo-features {
@@ -100,13 +100,13 @@
                 margin-bottom: 15px;
                 font-size: 1.1rem;
                 line-height: 1.4;
+            }
 
-                &::before {
-                    content: '✔';
-                    color: @color-accent-purple;
-                    font-weight: bold;
-                    margin-top: 2px;
-                }
+            li::before {
+                content: '✔';
+                color: @color-accent-purple;
+                font-weight: bold;
+                margin-top: 2px;
             }
         }
 
@@ -196,6 +196,7 @@
                 backdrop-filter: blur(5px);
                 border: 1px solid rgba(255, 255, 255, 0.1);
                 transition: transform 0.3s;
+                max-width: calc(100% - 40px);
 
                 &:hover {
                     transform: scale(1.05);
@@ -206,7 +207,109 @@
                     font-size: 1.8rem;
                     letter-spacing: 1px;
                     color: var(--text-light);
+                    text-align: center;
                 }
+            }
+        }
+
+        @media (max-width: @breakpoint-mobile) {
+            .dojo-bubble,
+            .schedule-box {
+                padding: 24px 20px;
+            }
+
+            .dojo-card-header {
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .dojo-card-header h3,
+            .schedule-box .schedule-title,
+            .map-placeholder .map-overlay .map-title {
+                font-size: 1.8rem;
+            }
+
+            .dojo-video-dialog .btn-design,
+            .map-placeholder .btn-info {
+                width: 100%;
+            }
+
+            .schedule-table-wrapper {
+                overflow-x: visible;
+                margin-bottom: 0;
+            }
+
+            .schedule-table {
+                min-width: 0;
+                display: block;
+
+                thead {
+                    display: none;
+                }
+
+                tbody {
+                    display: grid;
+                    gap: 16px;
+                }
+
+                tr {
+                    display: block;
+                    padding: 18px 16px;
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    border-radius: var(--radius);
+                    background: rgba(255, 255, 255, 0.04);
+                }
+
+                tbody th {
+                    display: block;
+                    margin-bottom: 10px;
+                    padding: 0 0 10px;
+                    text-align: left;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+                    font-size: 1.5rem;
+                }
+
+                td {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: space-between;
+                    gap: 12px;
+                    padding: 10px 0;
+                    text-align: right;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                    font-size: 1rem;
+                }
+
+                td:empty {
+                    display: none;
+                }
+
+                td::before {
+                    content: attr(data-label);
+                    color: @color-accent-purple;
+                    font-family: var(--font-heading);
+                    font-size: 1.05rem;
+                    letter-spacing: 1px;
+                    text-align: left;
+                    text-transform: uppercase;
+                    line-height: 1.1;
+                    flex: 1 1 auto;
+                    max-width: 55%;
+                }
+
+                td:last-child {
+                    border-bottom: none;
+                }
+            }
+
+            .map-placeholder {
+                min-height: 220px;
+                height: auto;
+            }
+
+            .map-placeholder .map-overlay {
+                width: calc(100% - 32px);
+                padding: 20px;
             }
         }
     }
