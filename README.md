@@ -78,10 +78,11 @@ The open backlog shows major roadmap focus areas:
 
 ## Repository Layout
 
-- `Heiwase.App.Blazor/Program.cs` – app bootstrap, services, localization culture setup
-- `Heiwase.App.Blazor/App.razor` – routing/root composition
-- `Heiwase.App.Blazor/Components/` – page, layout, and shared UI components
-- `Heiwase.App.Blazor/Resources/` – localization resources
+- `src/Heiwase.App.Blazor/Program.cs` – app bootstrap, services, localization culture setup
+- `src/Heiwase.App.Blazor/App.razor` – routing/root composition
+- `src/Heiwase.App.Blazor/Components/` – page, layout, and shared UI components
+- `src/Heiwase.App.Blazor/Resources/` – localization resources
+- `docs/` – project documentation
 - `.github/workflows/` – CI/CD workflow definition
 
 ## Local Development
