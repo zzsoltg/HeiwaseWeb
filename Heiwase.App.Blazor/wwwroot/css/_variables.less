@@ -1,5 +1,7 @@
 @breakpoint-mobile: 768px;
 
+@media-base-url: 'https://heiwasemedia.blob.core.windows.net/public-media';
+
 @color-black: #000000;
 @color-primary-blue: #3533cd;
 @color-primary-blue-dark: #004aad;
@@ -37,17 +39,17 @@
 }
 
 .responsive-bg(@name, @folder: '/img', @ext: 'jpg') {
-    background-image: ~"url('@{folder}/@{name}.@{ext}')";
+    background-image: ~"url('@{media-base-url}@{folder}/@{name}.@{ext}')";
 
     background-image: -webkit-image-set(
-        ~"url('@{folder}/@{name}.avif')" type('image/avif'),
-        ~"url('@{folder}/@{name}.webp')" type('image/webp'),
-        ~"url('@{folder}/@{name}.@{ext}')" type('image/@{ext}')
+        ~"url('@{media-base-url}@{folder}/@{name}.avif')" type('image/avif'),
+        ~"url('@{media-base-url}@{folder}/@{name}.webp')" type('image/webp'),
+        ~"url('@{media-base-url}@{folder}/@{name}.@{ext}')" type('image/@{ext}')
     );
 
     background-image: image-set(
-        ~"url('@{folder}/@{name}.avif')" type('image/avif'),
-        ~"url('@{folder}/@{name}.webp')" type('image/webp'),
-        ~"url('@{folder}/@{name}.@{ext}')" type('image/@{ext}')
+        ~"url('@{media-base-url}@{folder}/@{name}.avif')" type('image/avif'),
+        ~"url('@{media-base-url}@{folder}/@{name}.webp')" type('image/webp'),
+        ~"url('@{media-base-url}@{folder}/@{name}.@{ext}')" type('image/@{ext}')
     );
 }
