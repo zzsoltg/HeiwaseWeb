@@ -54,5 +54,9 @@
   {
     "outputFile": "Components/Layout/LanguageSelector/LanguageSelector.razor.css",
     "inputFile": "Components/Layout/LanguageSelector/LanguageSelector.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/DojoSection/DojoSection.razor.css",
+    "inputFile": "Components/Pages/DojoSection/DojoSection.razor.less"
   }
 ]
