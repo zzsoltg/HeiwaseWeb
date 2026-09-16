@@ -1,0 +1,41 @@
+HeiwaseWeb Dual-Scope Source-Available License v1.0
+
+Copyright (c) Heiwase Karate Szeged.
+All rights reserved.
+
+This license intentionally applies different rules to technical code reuse and to creative website content.
+
+Definitions:
+- "Path pattern" means a repository-root-relative path rule where `**` includes all nested subdirectories.
+- "Snippet" means a copied block of source lines from one file.
+
+A) Technical Code Reuse Permission
+1. You may view, clone, and fork this repository for evaluation, learning, and internal reference.
+2. You may reuse architectural ideas and implementation patterns conceptually, but direct copying permissions are only those listed in Clause A.3.
+3. You may copy, modify, and redistribute code snippets only from these repository paths:
+   - `Heiwase.App.Blazor/**/*.cs`
+   - `Heiwase.App.Blazor/wwwroot/js/**/*.js`
+4. Snippet limit: each copied Snippet may include at most 40 consecutive lines from one source file (blank lines and comments count).
+5. Multiple snippets from the same source file are permitted only if their combined total does not exceed 120 lines.
+6. You may not use permitted snippets to recreate the protected design, branding, textual content, or media experience of this website.
+
+B) Protected Creative Content (Not Licensed for Reuse)
+Without prior written permission from Heiwase Karate Szeged, you may not copy, reproduce, redistribute, republish, or create derivatives of:
+1. Website visual design, layout, look-and-feel, and styling.
+2. Razor component markup and UI composition (`Heiwase.App.Blazor/**/*.razor`).
+3. Stylesheet assets (`Heiwase.App.Blazor/wwwroot/css/**`, `.less` sources, and equivalent style resources).
+4. Written text content (including headings, marketing copy, labels, and localization/resource texts in `Heiwase.App.Blazor/Resources/**` and markdown text files such as `README.md`).
+5. Media assets (including images, videos, logos, icons, and graphics) in `Heiwase.App.Blazor/wwwroot/**` and equivalent media directories.
+6. Brand identity elements, names, marks, and logos.
+
+C) No Contribution Program
+This project is not accepting external contributions. Submission of unsolicited pull requests or patches does not create any obligation to review, merge, or respond.
+
+D) Disclaimer
+THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+E) Limitation of Liability
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
+
+F) Conditions of Use
+These terms apply to copying, modification, distribution, republication, and other reuse of repository materials.
