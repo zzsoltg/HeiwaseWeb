@@ -47,6 +47,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ContactSectionResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Components\Pages\DojoSection\DojoSectionResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DojoSectionResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Components\Pages\HallOfFameSection\HallOfFameSectionResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -94,6 +99,11 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ContactSectionResource.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.ContactSection</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Components\Pages\DojoSection\DojoSectionResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DojoSectionResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.DojoSection</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Components\Pages\HallOfFameSection\HallOfFameSectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

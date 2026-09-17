@@ -58,5 +58,9 @@
   {
     "outputFile": "Components/Pages/DojoSection/DojoSection.razor.css",
     "inputFile": "Components/Pages/DojoSection/DojoSection.razor.less"
+  },
+  {
+    "outputFile": "Components/Shared/DojoVideoDialog/DojoVideoDialog.razor.css",
+    "inputFile": "Components/Shared/DojoVideoDialog/DojoVideoDialog.razor.less"
   }
 ]

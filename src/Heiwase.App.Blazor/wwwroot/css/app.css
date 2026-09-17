@@ -283,6 +283,18 @@ picture > img {
   flex-direction: column;
   animation: dialogPopIn 0.25s ease-out;
 }
+.rz-dialog.app-dialog .app-dialog-content-flush,
+.rz-dialog.app-dialog .rz-dialog-content-flush,
+.rz-dialog.app-dialog .rz-dialog-side-content-flush {
+  padding: 0;
+}
+@media (max-width: 768px) {
+  .rz-dialog.app-dialog .app-dialog-content-flush,
+  .rz-dialog.app-dialog .rz-dialog-content-flush,
+  .rz-dialog.app-dialog .rz-dialog-side-content-flush {
+    padding: 0;
+  }
+}
 .rz-dialog.app-dialog .rz-dialog-titlebar {
   background: var(--primary-grad);
   padding: 20px 28px;

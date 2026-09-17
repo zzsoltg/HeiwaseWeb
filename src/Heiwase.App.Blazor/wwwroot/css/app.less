@@ -323,6 +323,16 @@ picture > img {
     flex-direction: column;
     animation: dialogPopIn 0.25s ease-out;
 
+    .app-dialog-content-flush,
+    .rz-dialog-content-flush,
+    .rz-dialog-side-content-flush {
+        padding: 0;
+
+        @media (max-width: @breakpoint-mobile) {
+            padding: 0;
+        }
+    }
+
     .rz-dialog-titlebar {
         background: var(--primary-grad);
         padding: 20px 28px;
