@@ -155,6 +155,7 @@ code {
   padding: 15px 30px;
   border-radius: 30px;
   font-size: 1.2rem;
+  font-family: 'Dosis';
   cursor: pointer;
   font-weight: bold;
   transition: transform 0.2s;
@@ -197,6 +198,18 @@ code {
 .feature-card.visible:hover {
   transform: translateY(-10px);
   background: rgba(255, 255, 255, 0.2);
+}
+.feature-card-delay-02 {
+  animation-delay: 0.2s;
+}
+.feature-card-delay-04 {
+  animation-delay: 0.4s;
+}
+.feature-card-delay-06 {
+  animation-delay: 0.6s;
+}
+.feature-card-delay-08 {
+  animation-delay: 0.8s;
 }
 @keyframes fadeInUp {
   0% {
@@ -281,6 +294,18 @@ picture > img {
   display: flex;
   flex-direction: column;
   animation: dialogPopIn 0.25s ease-out;
+}
+.rz-dialog.app-dialog .app-dialog-content-flush,
+.rz-dialog.app-dialog .rz-dialog-content-flush,
+.rz-dialog.app-dialog .rz-dialog-side-content-flush {
+  padding: 0;
+}
+@media (max-width: 768px) {
+  .rz-dialog.app-dialog .app-dialog-content-flush,
+  .rz-dialog.app-dialog .rz-dialog-content-flush,
+  .rz-dialog.app-dialog .rz-dialog-side-content-flush {
+    padding: 0;
+  }
 }
 .rz-dialog.app-dialog .rz-dialog-titlebar {
   background: var(--primary-grad);

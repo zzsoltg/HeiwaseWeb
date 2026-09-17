@@ -1,42 +1,116 @@
 ﻿@import "../../../wwwroot/css/_variables.less";
 
 .timetable-section {
-    .responsive-bg('team');
+    background: var(--primary-grad);
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    color: var(--text-light);
+    padding: 50px 0;
 
     @{deep-combinator} {
-        .timetable-section-overlay {
-            background: rgba(0, 0, 0, 0.7);
-        }
+        .schedule-box {
+            padding: 35px;
+            height: fit-content;
 
-        .schedule-map-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            .schedule-title {
+                font-size: 2.2rem;
+                color: var(--text-light);
+                text-align: center;
+            }
 
-            @media (max-width: @breakpoint-mobile) {
-                grid-template-columns: 1fr;
+            .schedule-intro-text {
+                max-width: 800px;
+                justify-self: center;
+                text-align: center;
+                margin-bottom: 40px;
             }
         }
 
-        .timetable-heading {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: white;
+        .schedule-table-wrapper {
+            width: 85%;
+            overflow-x: visible;
+            margin-bottom: 0;
+            justify-self: center;
         }
 
-        .timetable-image {
+        .schedule-table {
             width: 100%;
-            border-radius: 20px;
-            .box-shadow-black(5px, 15px, 0.1);
+            border-collapse: collapse;
+            text-align: left;
+            font-family: var(--font-body);
+            min-width: 0;
+            display: block;
+
+            tbody {
+                display: flex;
+                gap: 10px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+
+            tr {
+                padding: 18px 16px;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: var(--radius);
+                background: rgba(255, 255, 255, 0.04);
+                align-items: center;
+                width: 19%;
+                min-width: fit-content;
+                height: 250px;
+            }
+
+            tbody th {
+                display: block;
+                margin-bottom: 10px;
+                padding: 0 0 10px;
+                text-align: left;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+                font-size: 1.5rem;
+                color: @color-accent-purple;
+                font-family: var(--font-heading);
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+
+            td {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 10px 0;
+                text-align: right;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                font-size: 1rem;
+            }
+
+            td::before {
+                content: attr(data-label);
+                font-size: 1.05rem;
+                letter-spacing: 1px;
+                text-align: left;
+                line-height: 1.1;
+                flex: 1 1 auto;
+                max-width: 50%;
+            }
+
+            td:last-child {
+                border-bottom: none;
+            }
         }
 
-        .map-frame {
-            width: 100%;
-            height: 400px;
-            border-radius: var(--radius);
-            border: 0;
+        .schedule-cta {
+            text-align: center;
+        }
+
+        @media (max-width: @breakpoint-mobile) {
+            .schedule-box {
+                padding: 24px 20px;
+            }
+
+            .schedule-box .schedule-title {
+                font-size: 1.8rem;
+            }
         }
     }
 }

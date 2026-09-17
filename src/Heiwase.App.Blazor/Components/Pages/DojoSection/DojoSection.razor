@@ -1,0 +1,12 @@
+﻿@using System.Globalization
+
+<section id="dojo" class="dojo-section">
+    @if ( CultureInfo.CurrentCulture.Name == "hu-HU" )
+    {
+        <DojoSection_hu_HU></DojoSection_hu_HU>
+    }
+    else
+    {
+        <DojoSection_en_US></DojoSection_en_US>
+    }
+</section>

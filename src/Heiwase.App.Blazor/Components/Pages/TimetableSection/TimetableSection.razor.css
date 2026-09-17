@@ -1,36 +1,98 @@
 ﻿.timetable-section {
-  background-image: url('https://heiwasemedia.blob.core.windows.net/public-media/img/team.jpg');
-  background-image: -webkit-image-set(url('https://heiwasemedia.blob.core.windows.net/public-media/img/team.avif') type('image/avif'), url('https://heiwasemedia.blob.core.windows.net/public-media/img/team.webp') type('image/webp'), url('https://heiwasemedia.blob.core.windows.net/public-media/img/team.jpg') type('image/jpg'));
-  background-image: image-set(url('https://heiwasemedia.blob.core.windows.net/public-media/img/team.avif') type('image/avif'), url('https://heiwasemedia.blob.core.windows.net/public-media/img/team.webp') type('image/webp'), url('https://heiwasemedia.blob.core.windows.net/public-media/img/team.jpg') type('image/jpg'));
+  background: var(--primary-grad);
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  color: var(--text-light);
+  padding: 50px 0;
 }
-.timetable-section ::deep .timetable-section-overlay {
-  background: rgba(0, 0, 0, 0.7);
+.timetable-section ::deep .schedule-box {
+  padding: 35px;
+  height: fit-content;
 }
-.timetable-section ::deep .schedule-map-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+.timetable-section ::deep .schedule-box .schedule-title {
+  font-size: 2.2rem;
+  color: var(--text-light);
+  text-align: center;
+}
+.timetable-section ::deep .schedule-box .schedule-intro-text {
+  max-width: 800px;
+  justify-self: center;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.timetable-section ::deep .schedule-table-wrapper {
+  width: 85%;
+  overflow-x: visible;
+  margin-bottom: 0;
+  justify-self: center;
+}
+.timetable-section ::deep .schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-family: var(--font-body);
+  min-width: 0;
+  display: block;
+}
+.timetable-section ::deep .schedule-table tbody {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.timetable-section ::deep .schedule-table tr {
+  padding: 18px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.04);
+  align-items: center;
+  width: 19%;
+  min-width: fit-content;
+  height: 250px;
+}
+.timetable-section ::deep .schedule-table tbody th {
+  display: block;
+  margin-bottom: 10px;
+  padding: 0 0 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 1.5rem;
+  color: #cb6ce6;
+  font-family: var(--font-heading);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.timetable-section ::deep .schedule-table td {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  text-align: right;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 1rem;
+}
+.timetable-section ::deep .schedule-table td::before {
+  content: attr(data-label);
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+  text-align: left;
+  line-height: 1.1;
+  flex: 1 1 auto;
+  max-width: 50%;
+}
+.timetable-section ::deep .schedule-table td:last-child {
+  border-bottom: none;
+}
+.timetable-section ::deep .schedule-cta {
+  text-align: center;
 }
 @media (max-width: 768px) {
-  .timetable-section ::deep .schedule-map-container {
-    grid-template-columns: 1fr;
+  .timetable-section ::deep .schedule-box {
+    padding: 24px 20px;
   }
-}
-.timetable-section ::deep .timetable-heading {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: white;
-}
-.timetable-section ::deep .timetable-image {
-  width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-.timetable-section ::deep .map-frame {
-  width: 100%;
-  height: 400px;
-  border-radius: var(--radius);
-  border: 0;
+  .timetable-section ::deep .schedule-box .schedule-title {
+    font-size: 1.8rem;
+  }
 }

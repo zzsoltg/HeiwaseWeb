@@ -1,0 +1,62 @@
+﻿@inherits DojoSection
+
+<div class="dojo-section-overlay section-padding">
+    <div class="section-header section-header-large-gap">
+        <h2 class="heading-xl">The Heiwase Dojo</h2>
+    </div>
+
+    <div class="dojo-grid">
+        <div class="dojo-info-panel">
+            <div class="info-bubble dojo-bubble">
+                <div class="dojo-card-header">
+                    <span class="dojo-icon">📍</span>
+                    <h3>Location</h3>
+                </div>
+                <div class="dojo-address-content">
+                    <p class="dojo-bold-text">Heiwase Karate Szeged</p>
+                    <p>6722 Szeged, Földváry utca 3.</p>
+                    <p class="dojo-note">
+                        The Heiwase headquarters is located in the heart of downtown, just a few steps from the university.
+                        Our private, tatami-matted training facility, professional equipment, and 12 weekly sessions
+                        ensure the utmost satisfaction of our practitioners. The most exceptionally equipped
+                        martial arts facility in Szeged eagerly awaits you!
+                    </p>
+                </div>
+
+                <div class="card-common map-placeholder mt-30">
+                    <iframe class="map-frame"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2758.895392576326!2d20.14728507673322!3d46.25203397109848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47448865664d42d3%3A0xc008e980f278e41e!2sHeiwase%20wado-ryu%20karate%20klub!5e0!3m2!1shu!2shu!4v1700000000000!5m2!1shu!2shu"
+                            allowfullscreen=""
+                            loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-collage">
+            <picture class="gallery-img g-item-1">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/kumite.avif" type="image/avif">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/kumite.webp" type="image/webp">
+                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/kumite.jpg" alt="Description" loading="lazy">
+            </picture>
+            <picture class="gallery-img g-item-2">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/dojoedzes.avif" type="image/avif">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/dojoedzes.webp" type="image/webp">
+                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/dojoedzes.jpg" alt="Description" loading="lazy">
+            </picture>
+            <picture class="gallery-img g-item-3">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/bejarat.avif" type="image/avif">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/bejarat.webp" type="image/webp">
+                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/bejarat.jpg" alt="Description" loading="lazy">
+            </picture>
+            <picture class="gallery-img g-item-4">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/arnyek.avif" type="image/avif">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/arnyek.webp" type="image/webp">
+                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/arnyek.jpg" alt="Description" loading="lazy">
+            </picture>
+        </div>
+    </div>
+    <div class="dojo-video-dialog">
+        <button type="button" class="btn-design" @onclick="OpenVideoDialogAsync">Watch our introductory video showcasing our dojo!</button>
+    </div>
+</div>

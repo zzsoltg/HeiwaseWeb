@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Components\Pages\TimetableSection - Copy\**" />
+    <Content Remove="Components\Pages\TimetableSection - Copy\**" />
+    <EmbeddedResource Remove="Components\Pages\TimetableSection - Copy\**" />
+    <None Remove="Components\Pages\TimetableSection - Copy\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
@@ -46,6 +53,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ContactSectionResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Components\Pages\DojoSection\DojoSectionResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DojoSectionResource.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Components\Pages\HallOfFameSection\HallOfFameSectionResource.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -94,6 +106,11 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ContactSectionResource.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.ContactSection</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Components\Pages\DojoSection\DojoSectionResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DojoSectionResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.DojoSection</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Components\Pages\HallOfFameSection\HallOfFameSectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

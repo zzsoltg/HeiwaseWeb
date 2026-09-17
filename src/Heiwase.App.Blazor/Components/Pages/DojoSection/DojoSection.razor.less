@@ -1,0 +1,212 @@
+﻿@import "../../../wwwroot/css/_variables.less";
+
+.dojo-section {
+    .responsive-bg('dojo-background');
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    color: var(--text-light);
+
+    @{deep-combinator} {
+        .dojo-section-overlay {
+            background: rgba(12, 12, 18, 0.88);
+            width: 100%;
+            min-height: 100%;
+        }
+
+        .text-light {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .mt-30 {
+            margin-top: 30px;
+        }
+
+        .dojo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 40px;
+            max-width: 1500px;
+            margin: 0 auto;
+
+            @media (max-width: @breakpoint-mobile) {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .dojo-bubble {
+            text-align: left;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .dojo-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+
+            h3 {
+                margin: 0;
+                color: var(--text-light);
+                font-size: 2rem;
+            }
+
+            .dojo-icon {
+                font-size: 2.2rem;
+            }
+        }
+
+        .dojo-address-content {
+            p {
+                margin: 5px 0;
+                font-size: 1.1rem;
+            }
+
+            .dojo-bold-text {
+                font-weight: 700;
+                color: @color-accent-purple;
+                font-size: 1.25rem;
+            }
+
+            .dojo-note {
+                margin-top: 15px;
+                font-size: 0.95rem;
+                color: #ccc;
+                font-style: italic;
+            }
+        }
+
+        .dojo-video-dialog {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .schedule-box {
+            padding: 35px;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 5px solid @color-accent-purple;
+            height: fit-content;
+
+            .schedule-title {
+                font-size: 2.2rem;
+                margin: 0 0 25px 0;
+                color: var(--text-light);
+                text-align: center;
+            }
+        }
+
+        .gallery-collage {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 275px);
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+
+            @media (max-width: @breakpoint-mobile) {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius);
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(1.02);
+                z-index: 2;
+                .box-shadow-black(10px, 20px, 0.2);
+            }
+        }
+
+        .grid-span(@columns, @rows) {
+            grid-column: span @columns;
+            grid-row: span @rows;
+        }
+
+        .g-item-1 {
+            .grid-span(2, 2);
+        }
+
+        .g-item-2 {
+            .grid-span(1, 1);
+        }
+
+        .g-item-3 {
+            .grid-span(1, 2);
+        }
+
+        .g-item-4 {
+            .grid-span(1, 1);
+        }
+
+
+        .map-placeholder {
+            height: 280px;
+            background-color: #222;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 5px solid @color-primary-blue;
+            border-radius: var(--radius);
+
+            .map-frame {
+                width: 100%;
+                height: 400px;
+                border-radius: var(--radius);
+                border: 0;
+            }
+        }
+
+        @media (max-width: @breakpoint-mobile) {
+            .dojo-bubble {
+                padding: 24px 20px;
+            }
+
+            .dojo-card-header {
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .dojo-card-header h3,
+            .map-placeholder .map-overlay .map-title {
+                font-size: 1.8rem;
+            }
+
+            .dojo-video-dialog .btn-design,
+            .map-placeholder .btn-info {
+                width: 100%;
+            }
+
+
+            .map-placeholder {
+                min-height: 220px;
+                height: auto;
+            }
+
+            .map-placeholder .map-overlay {
+                width: calc(100% - 32px);
+                padding: 20px;
+            }
+
+            .g-item-1, .g-item-2, .g-item-3, .g-item-4 {
+                .grid-span(1, 1);
+                height: 250px;
+            }
+        }
+    }
+}
