@@ -116,6 +116,15 @@ namespace Heiwase.App.Blazor.Components.Layout.NavigationMenu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edzésidőpontok.
+        /// </summary>
+        public static string Timetable {
+            get {
+                return ResourceManager.GetString("Timetable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edzéstípusok.
         /// </summary>
         public static string WhyUs {

@@ -1,0 +1,12 @@
+﻿@using System.Globalization
+
+<section id="timetable" class="timetable-section">
+    @if ( CultureInfo.CurrentCulture.Name == "hu-HU" )
+    {
+        <TimetableSection_hu_HU></TimetableSection_hu_HU>
+    }
+    else
+    {
+        <TimetableSection_en_US></TimetableSection_en_US>
+    }
+</section>

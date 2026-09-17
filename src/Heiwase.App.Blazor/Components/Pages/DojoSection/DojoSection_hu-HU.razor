@@ -22,9 +22,6 @@
                         küzdősport terme téged is vár!
                     </p>
                 </div>
-                <div class="dojo-video-dialog">
-                    <button type="button" class="btn-design" @onclick="OpenVideoDialogAsync">Nézd meg bemutató videónkat edzőtermünkről!</button>
-                </div>
 
                 <div class="card-common map-placeholder mt-30">
                     <iframe class="map-frame"
@@ -36,43 +33,30 @@
             </div>
         </div>
 
-        <div class="dojo-schedule-panel">
-            <div class="schedule-box card-common">
-                <h3 class="schedule-title">Edzésrend</h3>
-                <div class="schedule-table-wrapper">
-                    <table class="schedule-table">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Hétfő</th>
-                                <td data-label="Wado-ryu gyerek">16:30 - 18:00</td>
-                                <td data-label="Wado-ryu felnőtt">18:00 - 19:30</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Kedd</th>
-                                <td data-label="Wado-ryu gyerek">16:00 - 17:30</td>
-                                <td data-label="Sportkarate">17:30 - 19:00</td>
-                                <td data-label="Wado-ryu felnőtt">19:00 - 20:30</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Szerda</th>
-                                <td data-label="Wado-ryu gyerek">16:30 - 18:00</td>
-                                <td data-label="Wado-ryu felnőtt">18:00 - 19:30</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Csütörtök</th>
-                                <td data-label="Atlétika">16:30 - 17:30</td>
-                                <td data-label="Sportkarate">17:30 - 19:00</td>
-                                <td data-label="Női önvédelem">19:00 - 20:00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Péntek</th>
-                                <td data-label="Wado-ryu gyerek">16:30 - 18:00</td>
-                                <td data-label="Wado-ryu felnőtt">18:00 - 19:30</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="gallery-collage">
+            <picture class="gallery-img g-item-1">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/kumite.avif" type="image/avif">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/kumite.webp" type="image/webp">
+                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/kumite.jpg" alt="Leírás" loading="lazy">
+            </picture>
+            <picture class="gallery-img g-item-2">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/dojoedzes.avif" type="image/avif">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/dojoedzes.webp" type="image/webp">
+                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/dojoedzes.jpg" alt="Leírás" loading="lazy">
+            </picture>
+            <picture class="gallery-img g-item-3">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/bejarat.avif" type="image/avif">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/bejarat.webp" type="image/webp">
+                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/bejarat.jpg" alt="Leírás" loading="lazy">
+            </picture>
+            <picture class="gallery-img g-item-4">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/arnyek.avif" type="image/avif">
+                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/arnyek.webp" type="image/webp">
+                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/arnyek.jpg" alt="Leírás" loading="lazy">
+            </picture>
         </div>
+    </div>
+    <div class="dojo-video-dialog">
+        <button type="button" class="btn-design" @onclick="OpenVideoDialogAsync">Nézd meg bemutató videónkat edzőtermünkről!</button>
     </div>
 </div>
