@@ -21,11 +21,19 @@
   opacity: 0;
 }
 .about-section ::deep .info-bubble.visible {
-  animation: fadeInUp 0.8s backwards;
+  animation-name: fadeInUp;
+  animation-duration: 0.8s;
+  animation-fill-mode: backwards;
   opacity: 1;
 }
 .about-section ::deep .info-bubble.visible:hover {
   transform: translateY(-5px);
+}
+.about-section ::deep .info-bubble.info-bubble-delay-02 {
+  animation-delay: 0.2s;
+}
+.about-section ::deep .info-bubble.info-bubble-delay-04 {
+  animation-delay: 0.4s;
 }
 .about-section ::deep .stat-number {
   font-size: 3rem;

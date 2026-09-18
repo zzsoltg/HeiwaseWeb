@@ -10,7 +10,7 @@ export function initAnimations() {
         });
     }, { threshold: 0.1 });
 
-    const cards = document.querySelectorAll('.feature-card, .info-bubble, .feature-item');
+    const cards = document.querySelectorAll('.feature-card, .info-bubble, .feature-item, .card-common.animated');
     cards.forEach(card => observer.observe(card));
 }
 function getSlotWidth(trackEl) {

@@ -33,7 +33,9 @@
     opacity: 0;
 
     &.visible {
-        animation: fadeInUp 0.8s backwards;
+        animation-name: fadeInUp;
+        animation-duration: 0.8s;
+        animation-fill-mode: backwards;
         opacity: 1;
     }
 }
