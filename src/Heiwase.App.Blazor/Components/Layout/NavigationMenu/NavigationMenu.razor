@@ -3,9 +3,15 @@
 <nav class="sticky-nav">
     <a href="#home"><img src="https://heiwasemedia.blob.core.windows.net/public-media/img/logo.png" width="50" alt="Logo" /></a>
 
-	<div class="hamburger" @onclick="ToggleMenu">
-		<i class="fas fa-bars"></i>
-	</div>
+	<button type="button"
+			class="hamburger @(_isMenuOpen ? "active" : "")"
+			@onclick="ToggleMenu"
+			aria-label="Toggle navigation menu"
+			aria-expanded="@_isMenuOpen">
+		<span></span>
+		<span></span>
+		<span></span>
+	</button>
 
 	<div class="nav-links @(_isMenuOpen ? "active" : "")">
         <LanguageSelector></LanguageSelector>

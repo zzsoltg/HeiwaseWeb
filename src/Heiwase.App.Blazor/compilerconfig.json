@@ -62,5 +62,9 @@
   {
     "outputFile": "Components/Shared/DojoVideoDialog/DojoVideoDialog.razor.css",
     "inputFile": "Components/Shared/DojoVideoDialog/DojoVideoDialog.razor.less"
+  },
+  {
+    "outputFile": "Components/Layout/NavigationMenu/NavigationMenu.razor.css",
+    "inputFile": "Components/Layout/NavigationMenu/NavigationMenu.razor.less"
   }
 ]
