@@ -44,30 +44,30 @@
 
             tbody {
                 display: flex;
-                gap: 10px;
+                gap: 8px;
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: space-around;
             }
 
             tr {
-                padding: 18px 16px;
+                padding: 14px 10px;
                 border: 1px solid rgba(255, 255, 255, 0.12);
                 border-radius: var(--radius);
                 background: rgba(255, 255, 255, 0.04);
                 align-items: center;
-                width: 19%;
+                width: 18%;
                 min-width: fit-content;
-                height: 250px;
+                height: 210px;
             }
 
             tbody th {
                 display: block;
-                margin-bottom: 10px;
-                padding: 0 0 10px;
+                margin-bottom: 6px;
+                padding: 0 0 6px;
                 text-align: left;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-                font-size: 1.5rem;
+                font-size: 1.1rem;
                 color: @color-accent-purple;
                 font-family: var(--font-heading);
                 letter-spacing: 1px;
@@ -76,27 +76,30 @@
 
             td {
                 display: flex;
-                align-items: flex-start;
-                gap: 10px;
-                padding: 10px 0;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 0;
                 text-align: right;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-                font-size: 1rem;
+                font-size: 0.75rem;
+                white-space: nowrap;
+                line-height: 1.2;
             }
 
-            td::before {
-                content: attr(data-label);
-                font-size: 1.05rem;
-                letter-spacing: 1px;
-                text-align: left;
-                line-height: 1.1;
-                flex: 1 1 auto;
-                max-width: 50%;
-            }
+                td::before {
+                    content: attr(data-label);
+                    font-size: 0.72rem;
+                    letter-spacing: 0.3px;
+                    text-align: left;
+                    line-height: 1.2;
+                    flex: 1 1 auto;
+                    max-width: 52%;
+                    white-space: nowrap;
+                }
 
-            td:last-child {
-                border-bottom: none;
-            }
+                td:last-child {
+                    border-bottom: none;
+                }
         }
 
         .schedule-cta {
@@ -104,12 +107,19 @@
         }
 
         @media (max-width: @breakpoint-mobile) {
+            
             .schedule-box {
                 padding: 24px 20px;
-            }
 
-            .schedule-box .schedule-title {
-                font-size: 1.8rem;
+                .schedule-title {
+                    font-size: 1.8rem;
+                }
+
+                .schedule-table {
+                    tr {
+                        height: fit-content;
+                    }
+                }
             }
         }
     }
