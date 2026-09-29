@@ -1,0 +1,27 @@
+﻿<div class="mwksz-gallery-slider">
+	<button type="button" class="gallery-nav-btn" @onclick="OnPreviousClick" aria-label="@PreviousButtonAriaLabel">
+		<i class="fas fa-chevron-left"></i>
+	</button>
+
+	<div class="gallery-slider-viewport">
+		@if (_previousPage.HasValue)
+		{
+			<div class="gallery-collage @GetExitAnimationCssClass()" @key="GetCollageKey(_previousPage.Value, isExiting: true)">
+				@foreach (var image in _pages[_previousPage.Value])
+				{
+					<GalleryPicture Image="image" AltText="@ImageAltText" />
+				}
+			</div>
+		}
+		<div class="gallery-collage @(_previousPage.HasValue ? GetEnterAnimationCssClass() : string.Empty)" @key="GetCollageKey(_currentPage, isExiting: false)">
+			@foreach (var image in _pages[_currentPage])
+			{
+				<GalleryPicture Image="image" AltText="@ImageAltText" />
+			}
+		</div>
+	</div>
+
+	<button type="button" class="gallery-nav-btn" @onclick="OnNextClick" aria-label="@NextButtonAriaLabel">
+		<i class="fas fa-chevron-right"></i>
+	</button>
+</div>

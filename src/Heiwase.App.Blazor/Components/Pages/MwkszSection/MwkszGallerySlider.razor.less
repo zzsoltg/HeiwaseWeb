@@ -1,0 +1,119 @@
+@import "../../../wwwroot/css/_variables.less";
+
+.mwksz-gallery-slider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 1300px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
+
+    @media (max-width: @breakpoint-mobile) {
+        gap: 8px;
+        padding: 0 10px;
+    }
+
+    .gallery-nav-btn {
+        flex: 0 0 48px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--primary-grad);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+        .hover-scale(1.08);
+
+        @media (max-width: @breakpoint-mobile) {
+            flex: 0 0 36px;
+            width: 36px;
+            height: 36px;
+            font-size: 1rem;
+        }
+    }
+
+    .gallery-slider-viewport {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+        display: grid;
+        overflow: hidden;
+        max-width: 1200px;
+    }
+
+    .gallery-collage {
+        display: grid;
+        grid-column: 1;
+        grid-row: 1;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 250px);
+        gap: 15px;
+        width: 100%;
+
+        @media (max-width: @breakpoint-mobile) {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+        }
+    }
+}
+
+@keyframes gallerySlideOutToLeft {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes gallerySlideOutToRight {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes gallerySlideInFromRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes gallerySlideInFromLeft {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.gallery-slide-out-left {
+    animation: gallerySlideOutToLeft 0.6s ease-in-out forwards;
+}
+
+.gallery-slide-out-right {
+    animation: gallerySlideOutToRight 0.6s ease-in-out forwards;
+}
+
+.gallery-slide-in-right {
+    animation: gallerySlideInFromRight 0.6s ease-in-out forwards;
+}
+
+.gallery-slide-in-left {
+    animation: gallerySlideInFromLeft 0.6s ease-in-out forwards;
+}
