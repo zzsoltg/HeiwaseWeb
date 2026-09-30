@@ -16,7 +16,8 @@ public partial class GalleryPicture
     [Parameter]
     public string AltText { get; set; } = string.Empty;
 
-    public async Task OpenImageDialog( ) =>
+    public async Task OpenImageDialog( )
+    {
         await DialogService.OpenAsync<PictureShowDialog>
         (AltText,
             new Dictionary<string, object?>( )
@@ -24,6 +25,7 @@ public partial class GalleryPicture
                 { "ImagePath", Image.Source },
                 { "AltText", AltText }
             },
-            options: DialogDefaults.Options("min(720px, 92vw)", noContentPadding: true)
+            options: DialogDefaults.Options("auto", noContentPadding: true)
         );
+    }
 }
