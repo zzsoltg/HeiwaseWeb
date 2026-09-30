@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
-namespace Heiwase.App.Blazor.Components.Shared.CompetitorResultsDialog;
+namespace Heiwase.App.Blazor.Components.Shared.Dialogs.CompetitorResultsDialog;
 
 public partial class CompetitorResultsDialog
 {

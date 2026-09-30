@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Heiwase.App.Blazor.Components.Shared.PictureShowDialog;
+namespace Heiwase.App.Blazor.Components.Shared.Dialogs.PictureShowDialog;
 
 public partial class PictureShowDialog
 {

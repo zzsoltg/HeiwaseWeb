@@ -1,6 +1,6 @@
 ﻿using Heiwase.App.Blazor.Components.Shared;
-using Heiwase.App.Blazor.Components.Shared.DojoVideoDialog;
-using Heiwase.App.Blazor.Components.Shared.PictureShowDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.DojoVideoDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.PictureShowDialog;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;

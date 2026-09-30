@@ -74,12 +74,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>WhyUsSectionResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Components\Shared\CompetitorResultsDialog\CompetitorResultsDialogResource.Designer.cs">
+    <Compile Update="Resources\Components\Shared\Dialogs\CompetitorResultsDialog\CompetitorResultsDialogResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CompetitorResultsDialogResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Components\Shared\SenpaiResultsDialog\SenpaiResultsDialogResource.Designer.cs">
+    <Compile Update="Resources\Components\Shared\Dialogs\SenpaiResultsDialog\SenpaiResultsDialogResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SenpaiResultsDialogResource.resx</DependentUpon>
@@ -127,15 +127,15 @@
       <LastGenOutput>WhyUsSectionResource.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.WhyUsSection</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Components\Shared\CompetitorResultsDialog\CompetitorResultsDialogResource.resx">
+    <EmbeddedResource Update="Resources\Components\Shared\Dialogs\CompetitorResultsDialog\CompetitorResultsDialogResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CompetitorResultsDialogResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Heiwase.App.Blazor.Components.Shared.CompetitorResultsDialog</CustomToolNamespace>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Shared.Dialogs.CompetitorResultsDialog</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Components\Shared\SenpaiResultsDialog\SenpaiResultsDialogResource.resx">
+    <EmbeddedResource Update="Resources\Components\Shared\Dialogs\SenpaiResultsDialog\SenpaiResultsDialogResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SenpaiResultsDialogResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Heiwase.App.Blazor.Components.Shared.SenpaiResultsDialog</CustomToolNamespace>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Shared.Dialogs.SenpaiResultsDialog</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

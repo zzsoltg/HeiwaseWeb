@@ -4,9 +4,9 @@ using Microsoft.Extensions.Localization;
 using Radzen;
 
 using Heiwase.App.Blazor.Components.Shared;
-using Heiwase.App.Blazor.Components.Shared.CoachZoltanDialog;
-using Heiwase.App.Blazor.Components.Shared.CoachBendeguzDialog;
-using Heiwase.App.Blazor.Components.Shared.CoachBarnabasDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.CoachZoltanDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.CoachBendeguzDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.CoachBarnabasDialog;
 
 namespace Heiwase.App.Blazor.Components.Pages.CoachesSection;
 

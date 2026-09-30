@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Heiwase.App.Blazor.Components.Shared.CompetitorResultsDialog {
+namespace Heiwase.App.Blazor.Components.Shared.Dialogs.CompetitorResultsDialog {
     using System;
     
     
@@ -39,8 +39,8 @@ namespace Heiwase.App.Blazor.Components.Shared.CompetitorResultsDialog {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Shared.CompetitorResultsDialog.Competitor" +
-                            "ResultsDialogResource", typeof(CompetitorResultsDialogResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Shared.Dialogs.CompetitorResultsDialog.Co" +
+                            "mpetitorResultsDialogResource", typeof(CompetitorResultsDialogResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

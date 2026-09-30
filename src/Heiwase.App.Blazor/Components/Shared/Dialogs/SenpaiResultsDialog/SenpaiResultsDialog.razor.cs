@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
-namespace Heiwase.App.Blazor.Components.Shared.SenpaiResultsDialog;
+namespace Heiwase.App.Blazor.Components.Shared.Dialogs.SenpaiResultsDialog;
 
 public partial class SenpaiResultsDialog
 {

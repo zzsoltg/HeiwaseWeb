@@ -8,8 +8,8 @@ using Radzen;
 using System.Net.Http.Json;
 using System.Timers;
 using Microsoft.Extensions.Localization;
-using Heiwase.App.Blazor.Components.Shared.CompetitorResultsDialog;
-using Heiwase.App.Blazor.Components.Shared.SenpaiResultsDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.CompetitorResultsDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.SenpaiResultsDialog;
 using System.Globalization;
 
 namespace Heiwase.App.Blazor.Components.Pages.HallOfFameSection;

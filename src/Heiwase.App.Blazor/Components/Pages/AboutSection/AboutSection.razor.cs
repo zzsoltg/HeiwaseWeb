@@ -4,9 +4,9 @@ using Microsoft.Extensions.Localization;
 using Radzen;
 
 using Heiwase.App.Blazor.Components.Shared;
-using Heiwase.App.Blazor.Components.Shared.ClubHistoryDialog;
-using Heiwase.App.Blazor.Components.Shared.StudentCountDialog;
-using Heiwase.App.Blazor.Components.Shared.MedalDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.ClubHistoryDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.StudentCountDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.MedalDialog;
 
 namespace Heiwase.App.Blazor.Components.Pages.AboutSection;
 

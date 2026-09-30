@@ -4,10 +4,10 @@ using Microsoft.Extensions.Localization;
 using Radzen;
 
 using Heiwase.App.Blazor.Components.Shared;
-using Heiwase.App.Blazor.Components.Shared.BeltExamDialog;
-using Heiwase.App.Blazor.Components.Shared.TrainingCampDialog;
-using Heiwase.App.Blazor.Components.Shared.CompetitionsDialog;
-using Heiwase.App.Blazor.Components.Shared.SeminarsDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.BeltExamDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.TrainingCampDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.CompetitionsDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.SeminarsDialog;
 
 namespace Heiwase.App.Blazor.Components.Pages.MwkszSection;
 

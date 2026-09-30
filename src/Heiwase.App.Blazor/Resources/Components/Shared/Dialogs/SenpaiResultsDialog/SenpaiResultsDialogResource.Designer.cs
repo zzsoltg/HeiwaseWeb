@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Heiwase.App.Blazor.Components.Shared.SenpaiResultsDialog {
+namespace Heiwase.App.Blazor.Components.Shared.Dialogs.SenpaiResultsDialog {
     using System;
     
     
@@ -39,8 +39,8 @@ namespace Heiwase.App.Blazor.Components.Shared.SenpaiResultsDialog {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Shared.SenpaiResultsDialog.SenpaiResultsD" +
-                            "ialogResource", typeof(SenpaiResultsDialogResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Shared.Dialogs.SenpaiResultsDialog.Senpai" +
+                            "ResultsDialogResource", typeof(SenpaiResultsDialogResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,11 +62,11 @@ namespace Heiwase.App.Blazor.Components.Shared.SenpaiResultsDialog {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eredményei.
+        ///   Looks up a localized string similar to Övvizsgái.
         /// </summary>
-        public static string Accomplishments {
+        public static string BeltExams {
             get {
-                return ResourceManager.GetString("Accomplishments", resourceCulture);
+                return ResourceManager.GetString("BeltExams", resourceCulture);
             }
         }
     }

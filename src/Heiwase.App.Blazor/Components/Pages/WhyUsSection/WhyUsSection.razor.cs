@@ -4,10 +4,10 @@ using Microsoft.Extensions.Localization;
 using Radzen;
 
 using Heiwase.App.Blazor.Components.Shared;
-using Heiwase.App.Blazor.Components.Shared.WadoRyuDialog;
-using Heiwase.App.Blazor.Components.Shared.SportkarateDialog;
-using Heiwase.App.Blazor.Components.Shared.WomensSelfDefenseDialog;
-using Heiwase.App.Blazor.Components.Shared.AthleticsDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.WadoRyuDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.SportkarateDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.WomensSelfDefenseDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.AthleticsDialog;
 
 namespace Heiwase.App.Blazor.Components.Pages.WhyUsSection;
 
