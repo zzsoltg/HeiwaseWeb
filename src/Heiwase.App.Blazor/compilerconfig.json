@@ -28,6 +28,14 @@
     "inputFile": "Components/Pages/MwkszSection/MwkszSection.razor.less"
   },
   {
+    "outputFile": "Components/Pages/MwkszSection/MwkszGallerySlider.razor.css",
+    "inputFile": "Components/Pages/MwkszSection/MwkszGallerySlider.razor.less"
+  },
+  {
+    "outputFile": "Components/Pages/MwkszSection/GalleryPicture.razor.css",
+    "inputFile": "Components/Pages/MwkszSection/GalleryPicture.razor.less"
+  },
+  {
     "outputFile": "Components/Pages/NavigationMenu/NavigationMenu.razor.css",
     "inputFile": "Components/Pages/NavigationMenu/NavigationMenu.razor.less"
   },
@@ -66,5 +74,9 @@
   {
     "outputFile": "Components/Layout/NavigationMenu/NavigationMenu.razor.css",
     "inputFile": "Components/Layout/NavigationMenu/NavigationMenu.razor.less"
+  },
+  {
+    "outputFile": "Components/Shared/PictureShowDialog/PictureShowDialog.razor.css",
+    "inputFile": "Components/Shared/PictureShowDialog/PictureShowDialog.razor.less"
   }
 ]

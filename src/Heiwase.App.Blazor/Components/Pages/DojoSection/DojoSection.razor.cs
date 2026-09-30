@@ -1,5 +1,6 @@
 ﻿using Heiwase.App.Blazor.Components.Shared;
 using Heiwase.App.Blazor.Components.Shared.DojoVideoDialog;
+using Heiwase.App.Blazor.Components.Shared.PictureShowDialog;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -15,6 +16,20 @@ public partial class DojoSection
     [Inject]
     public DialogService DialogService { get; set; } = default!;
 
+    protected const string MediaBaseUrl = "https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid";
+
     protected Task OpenVideoDialogAsync( ) =>
         DialogService.OpenAsync<DojoVideoDialog>(L["DojoVideo"], options: DialogDefaults.Options("min(720px, 92vw)", noContentPadding: true));
+
+    protected Task OpenImageDialog(string imagePath) =>
+        DialogService.OpenAsync<PictureShowDialog>
+        (
+            L["DojoVideo"].Value,
+            new Dictionary<string, object?>
+            {
+                { "ImagePath", imagePath },
+                { "AltText", L["DojoVideo"].Value }
+            },
+            options: DialogDefaults.Options("auto", noContentPadding: true)
+        );
 }

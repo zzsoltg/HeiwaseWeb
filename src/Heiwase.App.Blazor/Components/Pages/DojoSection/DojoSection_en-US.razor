@@ -34,25 +34,25 @@
         </div>
 
         <div class="gallery-collage">
-            <picture class="gallery-img g-item-1">
-                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/kumite.avif" type="image/avif">
-                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/kumite.webp" type="image/webp">
-                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/kumite.jpg" alt="Description" loading="lazy">
+            <picture class="gallery-img g-item-1" @onclick="@(( ) => OpenImageDialog($"{MediaBaseUrl}/kumite.jpg"))">
+                <source srcset="@Path.ChangeExtension($"{MediaBaseUrl}/kumite.avif", ".avif")" type="image/avif">
+                <source srcset="@Path.ChangeExtension($"{MediaBaseUrl}/kumite.webp", ".webp")" type="image/webp">
+                <img src="@Path.ChangeExtension($"{MediaBaseUrl}/kumite.jpg", ".jpg")" alt="Description" loading="lazy">
             </picture>
-            <picture class="gallery-img g-item-2">
-                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/dojoedzes.avif" type="image/avif">
-                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/dojoedzes.webp" type="image/webp">
-                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/dojoedzes.jpg" alt="Description" loading="lazy">
+            <picture class="gallery-img g-item-2" @onclick="@(( ) => OpenImageDialog($"{MediaBaseUrl}/dojoedzes.jpg"))">
+                <source srcset="@Path.ChangeExtension($"{MediaBaseUrl}/dojoedzes.avif", ".avif")" type="image/avif">
+                <source srcset="@Path.ChangeExtension($"{MediaBaseUrl}/dojoedzes.webp", ".webp")" type="image/webp">
+                <img src="@Path.ChangeExtension($"{MediaBaseUrl}/dojoedzes.jpg", ".jpg")" alt="Description" loading="lazy">
             </picture>
-            <picture class="gallery-img g-item-3">
-                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/bejarat.avif" type="image/avif">
-                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/bejarat.webp" type="image/webp">
-                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/bejarat.jpg" alt="Description" loading="lazy">
+            <picture class="gallery-img g-item-3" @onclick="@(( ) => OpenImageDialog($"{MediaBaseUrl}/bejarat.jpg"))">
+                <source srcset="@Path.ChangeExtension($"{MediaBaseUrl}/bejarat.avif", ".avif")" type="image/avif">
+                <source srcset="@Path.ChangeExtension($"{MediaBaseUrl}/bejarat.webp", ".webp")" type="image/webp">
+                <img src="@Path.ChangeExtension($"{MediaBaseUrl}/bejarat.jpg", ".jpg")" alt="Description" loading="lazy">
             </picture>
-            <picture class="gallery-img g-item-4">
-                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/arnyek.avif" type="image/avif">
-                <source srcset="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/arnyek.webp" type="image/webp">
-                <img src="https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid/arnyek.jpg" alt="Description" loading="lazy">
+            <picture class="gallery-img g-item-4" @onclick="@(( ) => OpenImageDialog($"{MediaBaseUrl}/arnyek.jpg"))">
+                <source srcset="@Path.ChangeExtension($"{MediaBaseUrl}/arnyek.avif", ".avif")" type="image/avif">
+                <source srcset="@Path.ChangeExtension($"{MediaBaseUrl}/arnyek.webp", ".webp")" type="image/webp">
+                <img src="@Path.ChangeExtension($"{MediaBaseUrl}/arnyek.jpg", ".jpg")" alt="Description" loading="lazy">
             </picture>
         </div>
     </div>

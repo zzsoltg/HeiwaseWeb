@@ -1,6 +1,7 @@
 ﻿.social-section {
   background: var(--secondary-grad);
   text-align: center;
+  color: var(--text-light);
 }
 .social-section ::deep .heading-bottom-gap {
   margin-bottom: 30px;
