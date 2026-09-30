@@ -1,6 +1,6 @@
 ﻿using Radzen;
 
-namespace Heiwase.App.Blazor.Components.Shared;
+namespace Heiwase.App.Blazor.Helpers;
 
 /// <summary>
 /// Provides a single, consistent <see cref="DialogOptions"/> configuration so every

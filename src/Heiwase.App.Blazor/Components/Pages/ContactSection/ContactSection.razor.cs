@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Heiwase.App.Blazor.ViewModels;
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 using System.Net.Http.Json;

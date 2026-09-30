@@ -1,4 +1,6 @@
 ﻿using Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
+using Heiwase.App.Shared.Models;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
@@ -9,7 +11,7 @@ public partial class SenpaiResultsDialog
     [Inject]
     public IStringLocalizer<SenpaiResultsDialogResource> L { get; set; } = default!;
     [Parameter]
-    public HallOfFameSection.Member? Member { get; set; }
+    public HallOfFameMemberDto? Member { get; set; }
     private string RoleTitle =>
     Member?.Title?.EndsWith("dan", StringComparison.OrdinalIgnoreCase) == true
         ? "Sensei"

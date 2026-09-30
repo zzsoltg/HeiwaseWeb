@@ -3,10 +3,10 @@ using Microsoft.Extensions.Localization;
 
 using Radzen;
 
-using Heiwase.App.Blazor.Components.Shared;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.ClubHistoryDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.StudentCountDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.MedalDialog;
+using Heiwase.App.Blazor.Helpers;
 
 namespace Heiwase.App.Blazor.Components.Pages.AboutSection;
 

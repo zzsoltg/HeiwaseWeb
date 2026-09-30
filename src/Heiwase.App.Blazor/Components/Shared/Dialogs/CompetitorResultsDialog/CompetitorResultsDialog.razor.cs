@@ -1,4 +1,6 @@
 ﻿using Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
+using Heiwase.App.Shared.Models;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
@@ -9,5 +11,5 @@ public partial class CompetitorResultsDialog
     [Inject]
     public IStringLocalizer<CompetitorResultsDialogResource> L { get; set; } = default!;
     [Parameter]
-    public HallOfFameSection.Member? Member { get; set; }
+    public HallOfFameMemberDto? Member { get; set; }
 }

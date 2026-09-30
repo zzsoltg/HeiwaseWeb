@@ -3,10 +3,10 @@ using Microsoft.Extensions.Localization;
 
 using Radzen;
 
-using Heiwase.App.Blazor.Components.Shared;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.CoachZoltanDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.CoachBendeguzDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.CoachBarnabasDialog;
+using Heiwase.App.Blazor.Helpers;
 
 namespace Heiwase.App.Blazor.Components.Pages.CoachesSection;
 

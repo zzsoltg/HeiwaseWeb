@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-using Heiwase.App.Blazor.Components.Shared;
-
 using Radzen;
 
 using System.Net.Http.Json;
@@ -11,6 +9,8 @@ using Microsoft.Extensions.Localization;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.CompetitorResultsDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.SenpaiResultsDialog;
 using System.Globalization;
+using Heiwase.App.Blazor.Helpers;
+using Heiwase.App.Shared.Models;
 
 namespace Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
 
@@ -28,8 +28,8 @@ public partial class HallOfFameSection : IAsyncDisposable
     public DialogService DialogService { get; set; } = default!;
 
     protected IJSObjectReference? _module;
-    protected List<Member> _competitors = [];
-    protected List<Member> _senpais = [];
+    protected List<HallOfFameMemberDto> _competitors = [];
+    protected List<HallOfFameMemberDto> _senpais = [];
     protected System.Timers.Timer? _timer;
     protected System.Timers.Timer? _resumeTimer;
 
@@ -83,7 +83,7 @@ public partial class HallOfFameSection : IAsyncDisposable
     {
         try
         {
-            var data = await Http.GetFromJsonAsync<HallOfFameData>(HallOfFameDataString);
+            var data = await Http.GetFromJsonAsync<HallOfFameDataDto>(HallOfFameDataString);
 
             if ( data != null )
             {
@@ -135,7 +135,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         }
     }
 
-    protected List<Member> GetCompetitorItems()
+    protected List<HallOfFameMemberDto> GetCompetitorItems()
     {
         if ( _competitors.Count == 0 )
         {
@@ -153,7 +153,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         ];
     }
 
-    protected List<Member> GetSenpaiItems()
+    protected List<HallOfFameMemberDto> GetSenpaiItems()
     {
         if ( _senpais.Count == 0 )
         {
@@ -296,13 +296,13 @@ public partial class HallOfFameSection : IAsyncDisposable
         }
     }
 
-    protected Task OpenCompetitorResultsDialogAsync(Member member) =>
+    protected Task OpenCompetitorResultsDialogAsync(HallOfFameMemberDto member) =>
         DialogService.OpenAsync<CompetitorResultsDialog>(
             $"{member.Name}{L["Achievements"]}",
             new Dictionary<string, object?> { { "Member", member } },
             DialogDefaults.Options());
 
-    protected Task OpenSenpaiResultsDialogAsync(Member member) =>
+    protected Task OpenSenpaiResultsDialogAsync(HallOfFameMemberDto member) =>
         DialogService.OpenAsync<SenpaiResultsDialog>(
             $"{member.Name}{L["Achievements"]}",
             new Dictionary<string, object?> { { "Member", member } },

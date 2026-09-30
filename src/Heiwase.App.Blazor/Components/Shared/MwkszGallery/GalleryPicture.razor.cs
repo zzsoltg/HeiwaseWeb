@@ -1,18 +1,19 @@
-﻿using Heiwase.App.Blazor.Components.Shared;
-using Heiwase.App.Blazor.Components.Shared.Dialogs.PictureShowDialog;
+﻿using Heiwase.App.Blazor.Components.Shared.Dialogs.PictureShowDialog;
+using Heiwase.App.Blazor.Helpers;
+using Heiwase.App.Blazor.ViewModels;
 
 using Microsoft.AspNetCore.Components;
 
 using Radzen;
 
-namespace Heiwase.App.Blazor.Components.Pages.MwkszSection;
+namespace Heiwase.App.Blazor.Components.Shared.MwkszGallery;
 
 public partial class GalleryPicture
 {
     [Inject]
     public DialogService DialogService { get; set; } = default!;
     [Parameter, EditorRequired]
-    public MwkszGallerySlider.GalleryImage Image { get; set; } = default!;
+    public GalleryImageModel Image { get; set; } = default!;
     [Parameter]
     public string AltText { get; set; } = string.Empty;
 

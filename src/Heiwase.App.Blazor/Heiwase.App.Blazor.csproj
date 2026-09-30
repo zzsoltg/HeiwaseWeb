@@ -34,6 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Heiwase.App.Shared\Heiwase.App.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Resources\Components\Layout\NavigationMenu\NavigationMenuResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

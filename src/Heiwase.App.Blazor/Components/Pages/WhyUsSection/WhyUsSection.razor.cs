@@ -3,11 +3,11 @@ using Microsoft.Extensions.Localization;
 
 using Radzen;
 
-using Heiwase.App.Blazor.Components.Shared;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.WadoRyuDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.SportkarateDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.WomensSelfDefenseDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.AthleticsDialog;
+using Heiwase.App.Blazor.Helpers;
 
 namespace Heiwase.App.Blazor.Components.Pages.WhyUsSection;
 

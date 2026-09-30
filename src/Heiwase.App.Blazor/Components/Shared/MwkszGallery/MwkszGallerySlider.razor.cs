@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Heiwase.App.Blazor.ViewModels;
+
+using Microsoft.AspNetCore.Components;
 
 using System.Timers;
 
-namespace Heiwase.App.Blazor.Components.Pages.MwkszSection;
+namespace Heiwase.App.Blazor.Components.Shared.MwkszGallery;
 
 public partial class MwkszGallerySlider : IDisposable
 {
@@ -12,25 +14,25 @@ public partial class MwkszGallerySlider : IDisposable
 
     private const string MediaBaseUrl = "https://heiwasemedia.blob.core.windows.net/public-media/img/mwkszgrid";
 
-    private static readonly IReadOnlyList<IReadOnlyList<GalleryImage>> _pages =
+    private static readonly IReadOnlyList<IReadOnlyList<GalleryImageModel>> _pages =
     [
         [
-            new GalleryImage($"{MediaBaseUrl}/csoport.jpg", "g-item-1"),
-            new GalleryImage($"{MediaBaseUrl}/katica.jpg", "g-item-2"),
-            new GalleryImage($"{MediaBaseUrl}/technika.jpg", "g-item-3"),
-            new GalleryImage($"{MediaBaseUrl}/verseny.jpg", "g-item-4"),
+            new GalleryImageModel($"{MediaBaseUrl}/csoport.jpg", "g-item-1"),
+            new GalleryImageModel($"{MediaBaseUrl}/katica.jpg", "g-item-2"),
+            new GalleryImageModel($"{MediaBaseUrl}/technika.jpg", "g-item-3"),
+            new GalleryImageModel($"{MediaBaseUrl}/verseny.jpg", "g-item-4"),
         ],
         [
-            new GalleryImage($"{MediaBaseUrl}/biro.jpg", "g-item-5"),
-            new GalleryImage($"{MediaBaseUrl}/vb.jpg", "g-item-6"),
-            new GalleryImage($"{MediaBaseUrl}/kupa.jpg", "g-item-7"),
-            new GalleryImage($"{MediaBaseUrl}/opera_seminar.jpg", "g-item-8"),
+            new GalleryImageModel($"{MediaBaseUrl}/biro.jpg", "g-item-5"),
+            new GalleryImageModel($"{MediaBaseUrl}/vb.jpg", "g-item-6"),
+            new GalleryImageModel($"{MediaBaseUrl}/kupa.jpg", "g-item-7"),
+            new GalleryImageModel($"{MediaBaseUrl}/opera_seminar.jpg", "g-item-8"),
         ],
         [
-            new GalleryImage($"{MediaBaseUrl}/sem_eletkep.jpg", "g-item-9"),
-            new GalleryImage($"{MediaBaseUrl}/opera_csoportkep.jpg", "g-item-10"),
-            new GalleryImage($"{MediaBaseUrl}/akos_kata.jpg", "g-item-11"),
-            new GalleryImage($"{MediaBaseUrl}/verseny_rugas.jpg", "g-item-12"),
+            new GalleryImageModel($"{MediaBaseUrl}/sem_eletkep.jpg", "g-item-9"),
+            new GalleryImageModel($"{MediaBaseUrl}/opera_csoportkep.jpg", "g-item-10"),
+            new GalleryImageModel($"{MediaBaseUrl}/akos_kata.jpg", "g-item-11"),
+            new GalleryImageModel($"{MediaBaseUrl}/verseny_rugas.jpg", "g-item-12"),
         ],
     ];
 

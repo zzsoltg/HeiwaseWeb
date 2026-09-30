@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Heiwase.App.Blazor.Components.Shared.Dialogs.BeltExamDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.CompetitionsDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.SeminarsDialog;
+using Heiwase.App.Blazor.Components.Shared.Dialogs.TrainingCampDialog;
+using Heiwase.App.Blazor.Helpers;
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 using Radzen;
-
-using Heiwase.App.Blazor.Components.Shared;
-using Heiwase.App.Blazor.Components.Shared.Dialogs.BeltExamDialog;
-using Heiwase.App.Blazor.Components.Shared.Dialogs.TrainingCampDialog;
-using Heiwase.App.Blazor.Components.Shared.Dialogs.CompetitionsDialog;
-using Heiwase.App.Blazor.Components.Shared.Dialogs.SeminarsDialog;
 
 namespace Heiwase.App.Blazor.Components.Pages.MwkszSection;
 
