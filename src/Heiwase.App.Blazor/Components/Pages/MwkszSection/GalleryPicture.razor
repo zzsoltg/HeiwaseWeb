@@ -1,4 +1,4 @@
-﻿<picture class="gallery-img gallery-grid-item @Image.GridItemClass">
+﻿<picture class="gallery-img gallery-grid-item @Image.GridItemClass" @onclick="OpenImageDialog">
 	@if (!Image.IsPlaceholder)
 	{
 		<source srcset="@Path.ChangeExtension(Image.Source, ".avif")" type="image/avif">

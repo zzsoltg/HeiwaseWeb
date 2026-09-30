@@ -7,7 +7,7 @@ namespace Heiwase.App.Blazor.Components.Pages.MwkszSection;
 public partial class MwkszGallerySlider : IDisposable
 {
     private const int PageCount = 3;
-    private const int AutoSlideIntervalMilliseconds = 10_000;
+    private const int AutoSlideIntervalMilliseconds = 5000;
     private const int SlideAnimationDurationMilliseconds = 600;
 
     private const string MediaBaseUrl = "https://heiwasemedia.blob.core.windows.net/public-media/img/mwkszgrid";

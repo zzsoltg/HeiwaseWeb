@@ -74,5 +74,9 @@
   {
     "outputFile": "Components/Layout/NavigationMenu/NavigationMenu.razor.css",
     "inputFile": "Components/Layout/NavigationMenu/NavigationMenu.razor.less"
+  },
+  {
+    "outputFile": "Components/Shared/PictureShowDialog/PictureShowDialog.razor.css",
+    "inputFile": "Components/Shared/PictureShowDialog/PictureShowDialog.razor.less"
   }
 ]
