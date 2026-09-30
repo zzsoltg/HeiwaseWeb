@@ -21,16 +21,16 @@ public partial class MwkszGallerySlider : IDisposable
             new GalleryImage($"{MediaBaseUrl}/verseny.jpg", "g-item-4"),
         ],
         [
-            new GalleryImage("https://picsum.photos/seed/mwksz-gallery-2-1/600/400", "g-item-5", IsPlaceholder: true),
-            new GalleryImage("https://picsum.photos/seed/mwksz-gallery-2-2/600/400", "g-item-6", IsPlaceholder: true),
-            new GalleryImage("https://picsum.photos/seed/mwksz-gallery-2-3/600/400", "g-item-7", IsPlaceholder: true),
-            new GalleryImage("https://picsum.photos/seed/mwksz-gallery-2-4/600/400", "g-item-8", IsPlaceholder: true),
+            new GalleryImage($"{MediaBaseUrl}/biro.jpg", "g-item-5"),
+            new GalleryImage($"{MediaBaseUrl}/vb.jpg", "g-item-6"),
+            new GalleryImage($"{MediaBaseUrl}/kupa.jpg", "g-item-7"),
+            new GalleryImage($"{MediaBaseUrl}/opera_seminar.jpg", "g-item-8"),
         ],
         [
-            new GalleryImage("https://picsum.photos/seed/mwksz-gallery-3-1/600/400", "g-item-9", IsPlaceholder: true),
-            new GalleryImage("https://picsum.photos/seed/mwksz-gallery-3-2/600/400", "g-item-10", IsPlaceholder: true),
-            new GalleryImage("https://picsum.photos/seed/mwksz-gallery-3-3/600/400", "g-item-11", IsPlaceholder: true),
-            new GalleryImage("https://picsum.photos/seed/mwksz-gallery-3-4/600/400", "g-item-12", IsPlaceholder: true),
+            new GalleryImage($"{MediaBaseUrl}/sem_eletkep.jpg", "g-item-9"),
+            new GalleryImage($"{MediaBaseUrl}/opera_csoportkep.jpg", "g-item-10"),
+            new GalleryImage($"{MediaBaseUrl}/akos_kata.jpg", "g-item-11"),
+            new GalleryImage($"{MediaBaseUrl}/verseny_rugas.jpg", "g-item-12"),
         ],
     ];
 
