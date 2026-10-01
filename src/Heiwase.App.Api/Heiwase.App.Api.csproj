@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Heiwase.App.Infrasturcture\Heiwase.App.Infrasturcture.csproj" />
     <ProjectReference Include="..\Heiwase.App.Shared\Heiwase.App.Shared.csproj" />
   </ItemGroup>
 
