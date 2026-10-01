@@ -1,6 +1,6 @@
 ﻿@inherits HallOfFameSection
 
-@if (_competitors == null || _competitors.Count == 0)
+@if (Competitors == null || Competitors.Count == 0)
 {
 	<p class="text-center">Loading data...</p>
 }
@@ -36,7 +36,7 @@ else
 	</div>
 }
 
-@if (_senpais != null && _senpais.Count > 0)
+@if (Senpais != null && Senpais.Count > 0)
 {
 	<h3 class="section-subtitle-white section-subtitle-top-gap">Senior Students</h3>
 	<div class="slider-wrapper">
