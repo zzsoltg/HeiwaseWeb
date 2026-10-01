@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Heiwase.App.Api": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7234",
+      "launchBrowser": false
+    }
+  }
+}
