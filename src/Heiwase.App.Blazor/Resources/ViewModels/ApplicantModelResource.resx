@@ -117,25 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Adult" xml:space="preserve">
-    <value>Felnőtt</value>
+  <data name="Above18" xml:space="preserve">
+    <value>A Gyerek edzéstípus 18 éven felüli jelentkező esetén nem választható.</value>
   </data>
-  <data name="Athletics" xml:space="preserve">
-    <value>Atlétika</value>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Érvénytelen e-mail cím formátum</value>
   </data>
-  <data name="Child" xml:space="preserve">
-    <value>Gyerek</value>
+  <data name="MandatoryEmail" xml:space="preserve">
+    <value>Az e-mail cím megadása kötelező.</value>
   </data>
-  <data name="SelfDefense" xml:space="preserve">
-    <value>Női önvédelem</value>
+  <data name="MandatoryName" xml:space="preserve">
+    <value>A jelentkező neve kötelező!</value>
   </data>
-  <data name="Sportkarate" xml:space="preserve">
-    <value>Sportkarate</value>
+  <data name="MandatorySex" xml:space="preserve">
+    <value>A nem megadása kötelező!</value>
   </data>
-  <data name="Female" xml:space="preserve">
-    <value>Nő</value>
+  <data name="MenSelfDefenseApplication" xml:space="preserve">
+    <value>A Női önvédelem edzéstípust csak női jelentkező választhatja.</value>
   </data>
-  <data name="Male" xml:space="preserve">
-    <value>Férfi</value>
+  <data name="NoSameTime" xml:space="preserve">
+    <value>A Gyerek és Felnőtt edzéstípusok egyszerre nem választhatók.</value>
+  </data>
+  <data name="Under18Guradian" xml:space="preserve">
+    <value>18 éven aluli jelentkező esetén a szülő/gondviselő neve kötelező.</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-﻿using Heiwase.App.Blazor.Components.Sections.Home.ContactSection;
+﻿using Heiwase.App.Shared.Enums;
 
 using System.ComponentModel.DataAnnotations;
 
@@ -7,30 +7,30 @@ namespace Heiwase.App.Blazor.ViewModels;
 public sealed class ApplicantModel : IValidatableObject
 {
     [Required(
-        ErrorMessageResourceType = typeof(ContactSectionResource),
-        ErrorMessageResourceName = nameof(ContactSectionResource.MandatoryName))]
+        ErrorMessageResourceType = typeof(ApplicantModelResource),
+        ErrorMessageResourceName = nameof(ApplicantModelResource.MandatoryName))]
     public string Name { get; set; } = String.Empty;
 
     [Required(
-        ErrorMessageResourceType = typeof(ContactSectionResource),
-        ErrorMessageResourceName = nameof(ContactSectionResource.MandatoryEmail))]
+        ErrorMessageResourceType = typeof(ApplicantModelResource),
+        ErrorMessageResourceName = nameof(ApplicantModelResource.MandatoryEmail))]
     [EmailAddress(
-        ErrorMessageResourceType = typeof(ContactSectionResource),
-        ErrorMessageResourceName = nameof(ContactSectionResource.InvalidEmail))]
+        ErrorMessageResourceType = typeof(ApplicantModelResource),
+        ErrorMessageResourceName = nameof(ApplicantModelResource.InvalidEmail))]
     public string Email { get; set; } = String.Empty;
 
     public string Phone { get; set; } = String.Empty;
 
     [Required(
-        ErrorMessageResourceType = typeof(ContactSectionResource),
-        ErrorMessageResourceName = nameof(ContactSectionResource.MandatorySex))]
-    public string Sex { get; set; } = String.Empty;
+        ErrorMessageResourceType = typeof(ApplicantModelResource),
+        ErrorMessageResourceName = nameof(ApplicantModelResource.MandatorySex))]
+    public GenderType Sex { get; set; }
 
     public DateOnly? DateOfBirth { get; set; }
 
     public string GuardianName { get; set; } = String.Empty;
 
-    public List<string> TrainingTypes { get; set; } = [ ];
+    public List<TrainingType> TrainingTypes { get; set; } = [ ];
 
     public string Message { get; set; } = String.Empty;
 
@@ -60,28 +60,28 @@ public sealed class ApplicantModel : IValidatableObject
         if ( IsMinor && string.IsNullOrWhiteSpace(GuardianName) )
         {
             yield return new ValidationResult(
-                ContactSectionResource.Under18Guradian,
+                ApplicantModelResource.Under18Guradian,
                 [ nameof(GuardianName) ]);
         }
 
-        if ( TrainingTypes.Contains(ContactSectionResource.SelfDefense) && Sex != ContactSectionResource.Female )
+        if ( TrainingTypes.Contains(TrainingType.WomenSelfDefense) && Sex != GenderType.Female )
         {
             yield return new ValidationResult(
-                ContactSectionResource.MenSelfDefenseApplication,
+                ApplicantModelResource.MenSelfDefenseApplication,
                 [ nameof(TrainingTypes) ]);
         }
 
-        if ( TrainingTypes.Contains(ContactSectionResource.Child) && TrainingTypes.Contains(ContactSectionResource.Adult) )
+        if ( TrainingTypes.Contains(TrainingType.Child) && TrainingTypes.Contains(TrainingType.Adult) )
         {
             yield return new ValidationResult(
-                ContactSectionResource.NoSameTime,
+                ApplicantModelResource.NoSameTime,
                 [ nameof(TrainingTypes) ]);
         }
 
-        if ( DateOfBirth.HasValue && !IsMinor && TrainingTypes.Contains(ContactSectionResource.Child) )
+        if ( DateOfBirth.HasValue && !IsMinor && TrainingTypes.Contains(TrainingType.Child) )
         {
             yield return new ValidationResult(
-                ContactSectionResource.Above18,
+                ApplicantModelResource.Above18,
                 [ nameof(TrainingTypes) ]);
         }
     }

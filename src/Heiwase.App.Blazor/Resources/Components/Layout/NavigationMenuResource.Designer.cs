@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Heiwase.App.Blazor.Components.Sections.Home.ContactSection {
+namespace Heiwase.App.Blazor.Components.Layout {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Heiwase.App.Blazor.Components.Sections.Home.ContactSection {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ContactSectionResource {
+    public class NavigationMenuResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ContactSectionResource() {
+        internal NavigationMenuResource() {
         }
         
         /// <summary>
@@ -39,8 +39,7 @@ namespace Heiwase.App.Blazor.Components.Sections.Home.ContactSection {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Sections.Home.ContactSection.ContactSecti" +
-                            "onResource", typeof(ContactSectionResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Layout.NavigationMenuResource", typeof(NavigationMenuResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,65 +61,74 @@ namespace Heiwase.App.Blazor.Components.Sections.Home.ContactSection {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Felnőtt.
+        ///   Looks up a localized string similar to Rólunk.
         /// </summary>
-        public static string Adult {
+        public static string About {
             get {
-                return ResourceManager.GetString("Adult", resourceCulture);
+                return ResourceManager.GetString("About", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Atlétika.
+        ///   Looks up a localized string similar to Edzőink.
         /// </summary>
-        public static string Athletics {
+        public static string Coaches {
             get {
-                return ResourceManager.GetString("Athletics", resourceCulture);
+                return ResourceManager.GetString("Coaches", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gyerek.
+        ///   Looks up a localized string similar to Kapcsolat.
         /// </summary>
-        public static string Child {
+        public static string Contact {
             get {
-                return ResourceManager.GetString("Child", resourceCulture);
+                return ResourceManager.GetString("Contact", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nő.
+        ///   Looks up a localized string similar to Büszkeségeink.
         /// </summary>
-        public static string Female {
+        public static string HallOfFame {
             get {
-                return ResourceManager.GetString("Female", resourceCulture);
+                return ResourceManager.GetString("HallOfFame", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Férfi.
+        ///   Looks up a localized string similar to Kezdőlap.
         /// </summary>
-        public static string Male {
+        public static string Home {
             get {
-                return ResourceManager.GetString("Male", resourceCulture);
+                return ResourceManager.GetString("Home", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Női önvédelem.
+        ///   Looks up a localized string similar to Szövetségünk.
         /// </summary>
-        public static string SelfDefense {
+        public static string Mwksz {
             get {
-                return ResourceManager.GetString("SelfDefense", resourceCulture);
+                return ResourceManager.GetString("Mwksz", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sportkarate.
+        ///   Looks up a localized string similar to Edzésidőpontok.
         /// </summary>
-        public static string Sportkarate {
+        public static string Timetable {
             get {
-                return ResourceManager.GetString("Sportkarate", resourceCulture);
+                return ResourceManager.GetString("Timetable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edzéstípusok.
+        /// </summary>
+        public static string WhyUs {
+            get {
+                return ResourceManager.GetString("WhyUs", resourceCulture);
             }
         }
     }

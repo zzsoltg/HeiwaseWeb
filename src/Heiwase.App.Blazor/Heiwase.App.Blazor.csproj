@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Components\Layout\NavigationMenu\NavigationMenuResource.Designer.cs">
+    <Compile Update="Resources\Components\Layout\NavigationMenuResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>NavigationMenuResource.resx</DependentUpon>
@@ -88,13 +88,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SenpaiResultsDialogResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\ViewModels\ApplicantModelResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ApplicantModelResource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Components\Layout\NavigationMenu\NavigationMenuResource.resx">
+    <EmbeddedResource Update="Resources\Components\Layout\NavigationMenuResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NavigationMenuResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Heiwase.App.Blazor.Components.Layout.NavigationMenu</CustomToolNamespace>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Layout</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Components\Sections\Home\AboutSection\AboutSectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -140,6 +145,11 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SenpaiResultsDialogResource.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Heiwase.App.Blazor.Components.Shared.Dialogs.SenpaiResultsDialog</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ViewModels\ApplicantModelResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApplicantModelResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Heiwase.App.Blazor.ViewModels</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

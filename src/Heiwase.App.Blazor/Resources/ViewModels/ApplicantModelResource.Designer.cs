@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Heiwase.App.Blazor.Components.Layout.NavigationMenu {
+namespace Heiwase.App.Blazor.ViewModels {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Heiwase.App.Blazor.Components.Layout.NavigationMenu {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class NavigationMenuResource {
+    public class ApplicantModelResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal NavigationMenuResource() {
+        internal ApplicantModelResource() {
         }
         
         /// <summary>
@@ -39,8 +39,7 @@ namespace Heiwase.App.Blazor.Components.Layout.NavigationMenu {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Layout.NavigationMenu.NavigationMenuResou" +
-                            "rce", typeof(NavigationMenuResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.ViewModels.ApplicantModelResource", typeof(ApplicantModelResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,74 +61,74 @@ namespace Heiwase.App.Blazor.Components.Layout.NavigationMenu {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rólunk.
+        ///   Looks up a localized string similar to A Gyerek edzéstípus 18 éven felüli jelentkező esetén nem választható..
         /// </summary>
-        public static string About {
+        public static string Above18 {
             get {
-                return ResourceManager.GetString("About", resourceCulture);
+                return ResourceManager.GetString("Above18", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edzőink.
+        ///   Looks up a localized string similar to Érvénytelen e-mail cím formátum.
         /// </summary>
-        public static string Coaches {
+        public static string InvalidEmail {
             get {
-                return ResourceManager.GetString("Coaches", resourceCulture);
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kapcsolat.
+        ///   Looks up a localized string similar to Az e-mail cím megadása kötelező..
         /// </summary>
-        public static string Contact {
+        public static string MandatoryEmail {
             get {
-                return ResourceManager.GetString("Contact", resourceCulture);
+                return ResourceManager.GetString("MandatoryEmail", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Büszkeségeink.
+        ///   Looks up a localized string similar to A jelentkező neve kötelező!.
         /// </summary>
-        public static string HallOfFame {
+        public static string MandatoryName {
             get {
-                return ResourceManager.GetString("HallOfFame", resourceCulture);
+                return ResourceManager.GetString("MandatoryName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kezdőlap.
+        ///   Looks up a localized string similar to A nem megadása kötelező!.
         /// </summary>
-        public static string Home {
+        public static string MandatorySex {
             get {
-                return ResourceManager.GetString("Home", resourceCulture);
+                return ResourceManager.GetString("MandatorySex", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Szövetségünk.
+        ///   Looks up a localized string similar to A Női önvédelem edzéstípust csak női jelentkező választhatja..
         /// </summary>
-        public static string Mwksz {
+        public static string MenSelfDefenseApplication {
             get {
-                return ResourceManager.GetString("Mwksz", resourceCulture);
+                return ResourceManager.GetString("MenSelfDefenseApplication", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edzésidőpontok.
+        ///   Looks up a localized string similar to A Gyerek és Felnőtt edzéstípusok egyszerre nem választhatók..
         /// </summary>
-        public static string Timetable {
+        public static string NoSameTime {
             get {
-                return ResourceManager.GetString("Timetable", resourceCulture);
+                return ResourceManager.GetString("NoSameTime", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edzéstípusok.
+        ///   Looks up a localized string similar to 18 éven aluli jelentkező esetén a szülő/gondviselő neve kötelező..
         /// </summary>
-        public static string WhyUs {
+        public static string Under18Guradian {
             get {
-                return ResourceManager.GetString("WhyUs", resourceCulture);
+                return ResourceManager.GetString("Under18Guradian", resourceCulture);
             }
         }
     }

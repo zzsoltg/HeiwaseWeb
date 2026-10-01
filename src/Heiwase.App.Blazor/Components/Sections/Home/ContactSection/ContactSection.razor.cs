@@ -1,4 +1,5 @@
 ﻿using Heiwase.App.Blazor.ViewModels;
+using Heiwase.App.Shared.Enums;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -13,91 +14,101 @@ public partial class ContactSection
     public HttpClient Http { get; set; } = default!;
     [Inject]
     public IStringLocalizer<ContactSectionResource> L { get; set; } = default!;
+    protected ApplicantModel Applicant { get; set; } = new( );
 
-    protected ApplicantModel _applicant = new();
-
-    protected bool _formSubmitted = false;
-    protected bool _formError = false;
+    protected bool FormSubmitted { get; set; } = false;
+    protected bool FormError { get; set; } = false;
 
     protected const string FormspreeEndpoint = "https://formspree.io/f/mrenpyzo";
 
-    protected string[] TrainingTypeOptions = [];
+    protected TrainingType[ ] TrainingTypeOptions { get; set; } = [ ];
 
-    protected override void OnInitialized()
+    protected override void OnInitialized( )
     {
         TrainingTypeOptions = [
-            L["Adult"],
-            L["Child"],
-            L["Sportkarate"],
-            L["SelfDefense"],
-            L["Athletics"]
+            TrainingType.Child,
+            TrainingType.Adult,
+            TrainingType.Sportkarate,
+            TrainingType.WomenSelfDefense,
+            TrainingType.Athletics
         ];
     }
 
-    protected async Task HandleValidSubmit()
+    protected string GetLocalizedTrainingName(TrainingType type) =>
+        type switch
+        {
+            TrainingType.Child => L[ "Child" ],
+            TrainingType.Adult => L[ "Adult" ],
+            TrainingType.Sportkarate => L[ "Sportkarate" ],
+            TrainingType.WomenSelfDefense => L[ "SelfDefense" ],
+            TrainingType.Athletics => L[ "Athletics" ],
+            _ => string.Empty
+        };
+
+    protected async Task HandleValidSubmit( )
     {
-        _formSubmitted = false;
-        _formError = false;
+        FormSubmitted = false;
+        FormError = false;
 
         var payload = new
         {
-            name = _applicant.Name,
-            email = _applicant.Email,
-            phone = _applicant.Phone,
-            sex = _applicant.Sex,
-            dateOfBirth = _applicant.DateOfBirth?.ToString("yyyy-MM-dd"),
-            guardianName = _applicant.GuardianName,
-            trainingTypes = string.Join(", ", _applicant.TrainingTypes),
-            message = _applicant.Message
+            name = Applicant.Name,
+            email = Applicant.Email,
+            phone = Applicant.Phone,
+            sex = Applicant.Sex,
+            dateOfBirth = Applicant.DateOfBirth?.ToString("yyyy-MM-dd"),
+            guardianName = Applicant.GuardianName,
+            trainingTypes = string.Join(", ", Applicant.TrainingTypes),
+            message = Applicant.Message
         };
 
         var response = await Http.PostAsJsonAsync(FormspreeEndpoint, payload);
 
         if ( response.IsSuccessStatusCode )
         {
-            _formSubmitted = true;
-            _applicant = new ApplicantModel();
+            FormSubmitted = true;
+            Applicant = new ApplicantModel( );
         }
         else
         {
-            _formError = true;
+            FormError = true;
         }
     }
 
-    protected bool IsTrainingTypeDisabled(string type)
+    protected bool IsTrainingTypeDisabled(TrainingType type)
     {
-        if ( type == L["SelfDefense"] )
+        if ( type == TrainingType.WomenSelfDefense )
         {
-            return _applicant.Sex == L["Male"];
+            return Applicant.Sex == GenderType.Male;
         }
 
-        if ( type == L["Child"] )
+        if ( type == TrainingType.Child )
         {
-            return ( _applicant.DateOfBirth.HasValue && !_applicant.IsMinor )
-                   || _applicant.TrainingTypes.Contains(L["Adult"]);
+            return ( Applicant.DateOfBirth.HasValue && !Applicant.IsMinor )
+                   || Applicant.TrainingTypes.Contains(TrainingType.Adult);
         }
 
-        if ( type == L["Adult"] )
+        if ( type == TrainingType.Adult )
         {
-            return _applicant.TrainingTypes.Contains(L["Child"]);
+            return Applicant.TrainingTypes.Contains(TrainingType.Child);
         }
 
         return false;
     }
 
-    protected void OnTrainingTypeChanged(string type, bool isChecked)
+    protected void OnTrainingTypeChanged(TrainingType type, bool isChecked)
     {
         if ( isChecked )
         {
-            if ( !IsTrainingTypeDisabled(type) && !_applicant.TrainingTypes.Contains(type) )
-                _applicant.TrainingTypes.Add(type);
+            if ( !IsTrainingTypeDisabled(type) && !Applicant.TrainingTypes.Contains(type) )
+                Applicant.TrainingTypes.Add(type);
         }
         else
         {
-            _applicant.TrainingTypes.Remove(type);
+            Applicant.TrainingTypes.Remove(type);
         }
     }
 
-    protected void SanitizeTrainingTypes() =>
-        _applicant.TrainingTypes.RemoveAll(t => IsTrainingTypeDisabled(t));
+    protected void SanitizeTrainingTypes( ) =>
+        Applicant.TrainingTypes.RemoveAll(t => IsTrainingTypeDisabled(t));
 }

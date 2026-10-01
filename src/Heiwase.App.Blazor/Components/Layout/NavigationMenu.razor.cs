@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 
 using System.Globalization;
 
-namespace Heiwase.App.Blazor.Components.Layout.NavigationMenu;
+namespace Heiwase.App.Blazor.Components.Layout;
 
 public partial class NavigationMenu
 {

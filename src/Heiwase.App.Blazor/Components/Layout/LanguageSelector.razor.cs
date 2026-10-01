@@ -1,10 +1,9 @@
-﻿
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 using System.Globalization;
 
-namespace Heiwase.App.Blazor.Components.Layout.LanguageSelector;
+namespace Heiwase.App.Blazor.Components.Layout;
 
 public partial class LanguageSelector
 {

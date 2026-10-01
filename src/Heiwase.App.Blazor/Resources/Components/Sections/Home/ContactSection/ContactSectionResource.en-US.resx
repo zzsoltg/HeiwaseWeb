@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Above18" xml:space="preserve">
-    <value>The Child trainings cannot be choosen by applicants above the age of 18.</value>
-  </data>
   <data name="Adult" xml:space="preserve">
     <value>Adult</value>
   </data>
@@ -129,32 +126,11 @@
   <data name="Child" xml:space="preserve">
     <value>Child</value>
   </data>
-  <data name="InvalidEmail" xml:space="preserve">
-    <value>Invalid email address!</value>
-  </data>
-  <data name="MandatoryEmail" xml:space="preserve">
-    <value>Providing an email addrees is mandatory!</value>
-  </data>
-  <data name="MandatoryName" xml:space="preserve">
-    <value>Providing a name is mandatory!</value>
-  </data>
-  <data name="MandatorySex" xml:space="preserve">
-    <value>Providing the applicant's sex is mandatory!</value>
-  </data>
-  <data name="MenSelfDefenseApplication" xml:space="preserve">
-    <value>The Women's Self Defense is only available for women!</value>
-  </data>
-  <data name="NoSameTime" xml:space="preserve">
-    <value>The Child and Adult types cannot be choosen at the same time!</value>
-  </data>
   <data name="SelfDefense" xml:space="preserve">
     <value>Women's Self-Defense</value>
   </data>
   <data name="Sportkarate" xml:space="preserve">
     <value>Sport Karate</value>
-  </data>
-  <data name="Under18Guradian" xml:space="preserve">
-    <value>Provide the name of a parent or guradian!</value>
   </data>
   <data name="Female" xml:space="preserve">
     <value>Female</value>
