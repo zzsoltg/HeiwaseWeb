@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="Heiwase.App.Api/Heiwase.App.Api.csproj" Id="b2d45eb0-0722-409a-bf34-baa22339da2f" />
   <Project Path="Heiwase.App.Blazor/Heiwase.App.Blazor.csproj" Id="9f27e564-5c86-84b5-2fb0-782261d6772c" />
+  <Project Path="Heiwase.App.Infrasturcture/Heiwase.App.Infrasturcture.csproj" Id="2d2cc28d-e87e-40b2-bd1f-249fa90bd3cf" />
   <Project Path="Heiwase.App.Shared/Heiwase.App.Shared.csproj" Id="65142e8c-d030-4ce8-93fa-08118ba06f65" />
 </Solution>
