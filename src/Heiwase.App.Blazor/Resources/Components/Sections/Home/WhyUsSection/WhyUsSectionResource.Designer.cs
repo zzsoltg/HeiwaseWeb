@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Heiwase.App.Blazor.Components.Pages.DojoSection {
+namespace Heiwase.App.Blazor.Components.Sections.Home.WhyUsSection {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Heiwase.App.Blazor.Components.Pages.DojoSection {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class DojoSectionResource {
+    public class WhyUsSectionResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DojoSectionResource() {
+        internal WhyUsSectionResource() {
         }
         
         /// <summary>
@@ -39,7 +39,8 @@ namespace Heiwase.App.Blazor.Components.Pages.DojoSection {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Pages.DojoSection.DojoSectionResource", typeof(DojoSectionResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Sections.Home.WhyUsSection.WhyUsSectionRe" +
+                            "source", typeof(WhyUsSectionResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +62,38 @@ namespace Heiwase.App.Blazor.Components.Pages.DojoSection {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ismerd meg edzőtermünket!.
+        ///   Looks up a localized string similar to Atlétika.
         /// </summary>
-        public static string DojoVideo {
+        public static string Athletics {
             get {
-                return ResourceManager.GetString("DojoVideo", resourceCulture);
+                return ResourceManager.GetString("Athletics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Női önvédelem.
+        /// </summary>
+        public static string SelfDefense {
+            get {
+                return ResourceManager.GetString("SelfDefense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sportkarate.
+        /// </summary>
+        public static string Sportkarate {
+            get {
+                return ResourceManager.GetString("Sportkarate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wado-ryu.
+        /// </summary>
+        public static string WadoRyu {
+            get {
+                return ResourceManager.GetString("WadoRyu", resourceCulture);
             }
         }
     }

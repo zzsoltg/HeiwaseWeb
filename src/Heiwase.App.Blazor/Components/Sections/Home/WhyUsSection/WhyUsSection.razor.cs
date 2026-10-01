@@ -9,7 +9,7 @@ using Heiwase.App.Blazor.Components.Shared.Dialogs.WomensSelfDefenseDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.AthleticsDialog;
 using Heiwase.App.Blazor.Helpers;
 
-namespace Heiwase.App.Blazor.Components.Pages.WhyUsSection;
+namespace Heiwase.App.Blazor.Components.Sections.Home.WhyUsSection;
 
 public partial class WhyUsSection
 {

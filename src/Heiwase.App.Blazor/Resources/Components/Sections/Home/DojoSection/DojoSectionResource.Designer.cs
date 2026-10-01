@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Heiwase.App.Blazor.Components.Pages.AboutSection {
+namespace Heiwase.App.Blazor.Components.Sections.Home.DojoSection {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Heiwase.App.Blazor.Components.Pages.AboutSection {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AboutSectionResource {
+    public class DojoSectionResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AboutSectionResource() {
+        internal DojoSectionResource() {
         }
         
         /// <summary>
@@ -39,7 +39,8 @@ namespace Heiwase.App.Blazor.Components.Pages.AboutSection {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Pages.AboutSection.AboutSectionResource", typeof(AboutSectionResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Sections.Home.DojoSection.DojoSectionReso" +
+                            "urce", typeof(DojoSectionResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +62,11 @@ namespace Heiwase.App.Blazor.Components.Pages.AboutSection {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eredményeink.
+        ///   Looks up a localized string similar to Ismerd meg edzőtermünket!.
         /// </summary>
-        public static string Achievements {
+        public static string DojoVideo {
             get {
-                return ResourceManager.GetString("Achievements", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Történetünk.
-        /// </summary>
-        public static string History {
-            get {
-                return ResourceManager.GetString("History", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Küldetésünk.
-        /// </summary>
-        public static string Mission {
-            get {
-                return ResourceManager.GetString("Mission", resourceCulture);
+                return ResourceManager.GetString("DojoVideo", resourceCulture);
             }
         }
     }

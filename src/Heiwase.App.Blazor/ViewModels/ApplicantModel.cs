@@ -1,4 +1,4 @@
-﻿using Heiwase.App.Blazor.Components.Pages.ContactSection;
+﻿using Heiwase.App.Blazor.Components.Sections.Home.ContactSection;
 
 using System.ComponentModel.DataAnnotations;
 

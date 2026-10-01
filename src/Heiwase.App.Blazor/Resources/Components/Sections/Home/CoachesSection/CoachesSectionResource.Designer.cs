@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Heiwase.App.Blazor.Components.Pages.CoachesSection {
+namespace Heiwase.App.Blazor.Components.Sections.Home.CoachesSection {
     using System;
     
     
@@ -39,8 +39,8 @@ namespace Heiwase.App.Blazor.Components.Pages.CoachesSection {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Pages.CoachesSection.CoachesSectionResour" +
-                            "ce", typeof(CoachesSectionResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Sections.Home.CoachesSection.CoachesSecti" +
+                            "onResource", typeof(CoachesSectionResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -58,6 +58,33 @@ namespace Heiwase.App.Blazor.Components.Pages.CoachesSection {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Benkó Barnabás.
+        /// </summary>
+        public static string Barni {
+            get {
+                return ResourceManager.GetString("Barni", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tálas Bendegúz.
+        /// </summary>
+        public static string Bendi {
+            get {
+                return ResourceManager.GetString("Bendi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stempel Zoltán.
+        /// </summary>
+        public static string Zoli {
+            get {
+                return ResourceManager.GetString("Zoli", resourceCulture);
             }
         }
     }

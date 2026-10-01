@@ -1,5 +1,4 @@
-﻿using Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
-using Heiwase.App.Shared.Models;
+﻿using Heiwase.App.Shared.Models;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;

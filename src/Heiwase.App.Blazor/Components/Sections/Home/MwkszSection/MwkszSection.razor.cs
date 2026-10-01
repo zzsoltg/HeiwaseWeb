@@ -9,7 +9,7 @@ using Microsoft.Extensions.Localization;
 
 using Radzen;
 
-namespace Heiwase.App.Blazor.Components.Pages.MwkszSection;
+namespace Heiwase.App.Blazor.Components.Sections.Home.MwkszSection;
 
 public partial class MwkszSection
 {

@@ -8,7 +8,7 @@ using Heiwase.App.Blazor.Components.Shared.Dialogs.CoachBendeguzDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.CoachBarnabasDialog;
 using Heiwase.App.Blazor.Helpers;
 
-namespace Heiwase.App.Blazor.Components.Pages.CoachesSection;
+namespace Heiwase.App.Blazor.Components.Sections.Home.CoachesSection;
 
 public partial class CoachesSection
 {

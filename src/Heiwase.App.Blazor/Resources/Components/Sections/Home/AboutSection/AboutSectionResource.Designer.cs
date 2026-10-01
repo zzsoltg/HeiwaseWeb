@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Heiwase.App.Blazor.Components.Pages.MwkszSection {
+namespace Heiwase.App.Blazor.Components.Sections.Home.AboutSection {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Heiwase.App.Blazor.Components.Pages.MwkszSection {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MwkszSectionResource {
+    public class AboutSectionResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MwkszSectionResource() {
+        internal AboutSectionResource() {
         }
         
         /// <summary>
@@ -39,7 +39,8 @@ namespace Heiwase.App.Blazor.Components.Pages.MwkszSection {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Pages.MwkszSection.MwkszSectionResource", typeof(MwkszSectionResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Sections.Home.AboutSection.AboutSectionRe" +
+                            "source", typeof(AboutSectionResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +62,29 @@ namespace Heiwase.App.Blazor.Components.Pages.MwkszSection {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Övvizsgák.
+        ///   Looks up a localized string similar to Eredményeink.
         /// </summary>
-        public static string BeltExams {
+        public static string Achievements {
             get {
-                return ResourceManager.GetString("BeltExams", resourceCulture);
+                return ResourceManager.GetString("Achievements", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Versenyek.
+        ///   Looks up a localized string similar to Történetünk.
         /// </summary>
-        public static string Competitions {
+        public static string History {
             get {
-                return ResourceManager.GetString("Competitions", resourceCulture);
+                return ResourceManager.GetString("History", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Szemináriumok.
+        ///   Looks up a localized string similar to Küldetésünk.
         /// </summary>
-        public static string Seminars {
+        public static string Mission {
             get {
-                return ResourceManager.GetString("Seminars", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edzőtáborok.
-        /// </summary>
-        public static string TrainingCamps {
-            get {
-                return ResourceManager.GetString("TrainingCamps", resourceCulture);
+                return ResourceManager.GetString("Mission", resourceCulture);
             }
         }
     }

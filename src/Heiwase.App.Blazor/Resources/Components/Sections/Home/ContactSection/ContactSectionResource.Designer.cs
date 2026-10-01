@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Heiwase.App.Blazor.Components.Pages.ContactSection {
+namespace Heiwase.App.Blazor.Components.Sections.Home.ContactSection {
     using System;
     
     
@@ -39,8 +39,8 @@ namespace Heiwase.App.Blazor.Components.Pages.ContactSection {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Pages.ContactSection.ContactSectionResour" +
-                            "ce", typeof(ContactSectionResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Sections.Home.ContactSection.ContactSecti" +
+                            "onResource", typeof(ContactSectionResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

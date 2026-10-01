@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Heiwase.App.Blazor.Components.Pages.HallOfFameSection {
+namespace Heiwase.App.Blazor.Components.Sections.Home.HallOfFameSection {
     using System;
     
     
@@ -39,8 +39,8 @@ namespace Heiwase.App.Blazor.Components.Pages.HallOfFameSection {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Pages.HallOfFameSection.HallOfFameSection" +
-                            "Resource", typeof(HallOfFameSectionResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Heiwase.App.Blazor.Resources.Components.Sections.Home.HallOfFameSection.HallOfFam" +
+                            "eSectionResource", typeof(HallOfFameSectionResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

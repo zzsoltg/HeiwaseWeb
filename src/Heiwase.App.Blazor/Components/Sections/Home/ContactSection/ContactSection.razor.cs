@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 
 using System.Net.Http.Json;
 
-namespace Heiwase.App.Blazor.Components.Pages.ContactSection;
+namespace Heiwase.App.Blazor.Components.Sections.Home.ContactSection;
 
 public partial class ContactSection
 {

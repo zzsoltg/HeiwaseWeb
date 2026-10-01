@@ -8,7 +8,7 @@ using Heiwase.App.Blazor.Components.Shared.Dialogs.StudentCountDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.MedalDialog;
 using Heiwase.App.Blazor.Helpers;
 
-namespace Heiwase.App.Blazor.Components.Pages.AboutSection;
+namespace Heiwase.App.Blazor.Components.Sections.Home.AboutSection;
 
 public partial class AboutSection
 {

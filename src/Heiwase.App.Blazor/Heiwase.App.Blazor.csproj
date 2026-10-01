@@ -43,37 +43,37 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>NavigationMenuResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Components\Pages\AboutSection\AboutSectionResource.Designer.cs">
+    <Compile Update="Resources\Components\Sections\Home\AboutSection\AboutSectionResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AboutSectionResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Components\Pages\CoachesSection\CoachesSectionResource.Designer.cs">
+    <Compile Update="Resources\Components\Sections\Home\CoachesSection\CoachesSectionResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CoachesSectionResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Components\Pages\ContactSection\ContactSectionResource.Designer.cs">
+    <Compile Update="Resources\Components\Sections\Home\ContactSection\ContactSectionResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ContactSectionResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Components\Pages\DojoSection\DojoSectionResource.Designer.cs">
+    <Compile Update="Resources\Components\Sections\Home\DojoSection\DojoSectionResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DojoSectionResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Components\Pages\HallOfFameSection\HallOfFameSectionResource.Designer.cs">
+    <Compile Update="Resources\Components\Sections\Home\HallOfFameSection\HallOfFameSectionResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>HallOfFameSectionResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Components\Pages\MwkszSection\MwkszSectionResource.Designer.cs">
+    <Compile Update="Resources\Components\Sections\Home\MwkszSection\MwkszSectionResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MwkszSectionResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Components\Pages\WhyUsSection\WhyUsSectionResource.Designer.cs">
+    <Compile Update="Resources\Components\Sections\Home\WhyUsSection\WhyUsSectionResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>WhyUsSectionResource.resx</DependentUpon>
@@ -96,40 +96,40 @@
       <LastGenOutput>NavigationMenuResource.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Heiwase.App.Blazor.Components.Layout.NavigationMenu</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Components\Pages\AboutSection\AboutSectionResource.resx">
+    <EmbeddedResource Update="Resources\Components\Sections\Home\AboutSection\AboutSectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AboutSectionResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.AboutSection</CustomToolNamespace>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Sections.Home.AboutSection</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Components\Pages\CoachesSection\CoachesSectionResource.resx">
+    <EmbeddedResource Update="Resources\Components\Sections\Home\CoachesSection\CoachesSectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CoachesSectionResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.CoachesSection</CustomToolNamespace>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Sections.Home.CoachesSection</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Components\Pages\ContactSection\ContactSectionResource.resx">
+    <EmbeddedResource Update="Resources\Components\Sections\Home\ContactSection\ContactSectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ContactSectionResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.ContactSection</CustomToolNamespace>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Sections.Home.ContactSection</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Components\Pages\DojoSection\DojoSectionResource.resx">
+    <EmbeddedResource Update="Resources\Components\Sections\Home\DojoSection\DojoSectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DojoSectionResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.DojoSection</CustomToolNamespace>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Sections.Home.DojoSection</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Components\Pages\HallOfFameSection\HallOfFameSectionResource.resx">
+    <EmbeddedResource Update="Resources\Components\Sections\Home\HallOfFameSection\HallOfFameSectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HallOfFameSectionResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.HallOfFameSection</CustomToolNamespace>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Sections.Home.HallOfFameSection</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Components\Pages\MwkszSection\MwkszSectionResource.resx">
+    <EmbeddedResource Update="Resources\Components\Sections\Home\MwkszSection\MwkszSectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MwkszSectionResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.MwkszSection</CustomToolNamespace>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Sections.Home.MwkszSection</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Components\Pages\WhyUsSection\WhyUsSectionResource.resx">
+    <EmbeddedResource Update="Resources\Components\Sections\Home\WhyUsSection\WhyUsSectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WhyUsSectionResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Heiwase.App.Blazor.Components.Pages.WhyUsSection</CustomToolNamespace>
+      <CustomToolNamespace>Heiwase.App.Blazor.Components.Sections.Home.WhyUsSection</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Components\Shared\Dialogs\CompetitorResultsDialog\CompetitorResultsDialogResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

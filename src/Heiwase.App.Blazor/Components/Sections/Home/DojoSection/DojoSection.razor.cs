@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 
 using Radzen;
 
-namespace Heiwase.App.Blazor.Components.Pages.DojoSection;
+namespace Heiwase.App.Blazor.Components.Sections.Home.DojoSection;
 
 public partial class DojoSection
 {

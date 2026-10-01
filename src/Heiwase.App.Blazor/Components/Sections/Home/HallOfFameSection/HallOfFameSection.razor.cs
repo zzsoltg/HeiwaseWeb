@@ -12,7 +12,7 @@ using System.Globalization;
 using Heiwase.App.Blazor.Helpers;
 using Heiwase.App.Shared.Models;
 
-namespace Heiwase.App.Blazor.Components.Pages.HallOfFameSection;
+namespace Heiwase.App.Blazor.Components.Sections.Home.HallOfFameSection;
 
 public partial class HallOfFameSection : IAsyncDisposable
 {
