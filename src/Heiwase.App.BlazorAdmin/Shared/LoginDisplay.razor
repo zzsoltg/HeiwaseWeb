@@ -1,8 +1,3 @@
-@using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-
-@inject NavigationManager Navigation
-
 <AuthorizeView>
     <Authorized>
         Hello, @context.User.Identity?.Name!
@@ -12,10 +7,3 @@
         <a href="authentication/login">Log in</a>
     </NotAuthorized>
 </AuthorizeView>
-
-@code{
-    private void BeginLogout()
-    {
-        Navigation.NavigateToLogout("authentication/logout");
-    }
-}
