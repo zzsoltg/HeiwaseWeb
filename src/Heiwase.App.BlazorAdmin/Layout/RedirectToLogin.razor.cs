@@ -10,6 +10,6 @@ public partial class RedirectToLogin
 
     protected override void OnInitialized()
     {
-        Navigation.NavigateTo("authentication/login");
+        Navigation.NavigateToLogin("authentication/login");
     }
 }
