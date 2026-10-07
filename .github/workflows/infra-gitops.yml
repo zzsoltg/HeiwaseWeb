@@ -1,0 +1,98 @@
+name: Infra GitOps
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - master
+    paths:
+      - 'infra/**/*.bicep'
+
+env:
+  RESOURCE_GROUP: rg-heiwase-prod-weu
+  TEMPLATE_FILE: infra/main.bicep
+  AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+jobs:
+  what_if:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ env.AZURE_CLIENT_ID }}
+          tenant-id: ${{ env.AZURE_TENANT_ID }}
+          subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Run what-if
+        id: whatif
+        shell: bash
+        run: |
+          output=$(az deployment group what-if \
+            --resource-group "$RESOURCE_GROUP" \
+            --template-file "$TEMPLATE_FILE" \
+            --no-pretty-print 2>&1)
+
+          {
+            echo 'result<<EOF'
+            echo "$output"
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Comment what-if result on PR
+        uses: actions/github-script@v7
+        env:
+          WHAT_IF_RESULT: ${{ steps.whatif.outputs.result }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const raw = process.env.WHAT_IF_RESULT || 'No output.';
+            const max = 60000;
+            const body = [
+              '### Azure What-If Result',
+              '',
+              '```text',
+              raw.length > max ? `${raw.substring(0, max)}\n... (truncated)` : raw,
+              '```'
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
+
+  deploy:
+    if: github.event.action == 'closed' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout merged code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ env.AZURE_CLIENT_ID }}
+          tenant-id: ${{ env.AZURE_TENANT_ID }}
+          subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Apply Bicep changes
+        run: az deployment group create --resource-group "$RESOURCE_GROUP" --template-file "$TEMPLATE_FILE" --name "heiwase-${{ github.run_id }}"
