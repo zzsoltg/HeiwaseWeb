@@ -1,9 +1,25 @@
-﻿namespace Heiwase.App.Infrasturcture.Entities;
+﻿using System.Text.Json.Serialization;
 
-public class HallOfFameMember
+namespace Heiwase.App.Infrastructure.Entities;
+
+public sealed class HallOfFameMemberEntity : BaseEntity
 {
-    public string Name { get; set; } = String.Empty;
-    public string Title { get; set; } = String.Empty;
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [JsonPropertyName("title")]
+    public string Title { get; set; } = string.Empty;
+
+    [JsonPropertyName("description")]
     public List<string> Description { get; set; } = [ ];
-    public string ImagePath { get; set; } = String.Empty;
+
+    [JsonPropertyName("imagePath")]
+    public string ImagePath { get; set; } = string.Empty;
+
+
+    [JsonPropertyName("type")]
+    public string Type { get; set; } = string.Empty;
+
+    [JsonPropertyName("order")]
+    public int Order { get; set; }
 }

@@ -1,9 +1,9 @@
 ﻿
-namespace Heiwase.App.Infrasturcture.Interface;
+namespace Heiwase.App.Infrastructure.Interface;
 
 public interface IRepository<T> where T : class
 {
-    Task<T?> GetByIdAsync(Guid id);
+    Task<T?> GetByIdAsync(string id);
     Task<IEnumerable<T>> GetAllAsync();
     Task AddAsync(T entity);
     Task UpdateAsync(T entity);

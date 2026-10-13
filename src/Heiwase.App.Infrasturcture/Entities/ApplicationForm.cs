@@ -1,13 +1,36 @@
-﻿namespace Heiwase.App.Infrasturcture.Entities;
+﻿using System.Text.Json.Serialization;
 
-public class ApplicationForm
+namespace Heiwase.App.Infrastructure.Entities;
+
+public sealed class ApplicationFormEntity : BaseEntity
 {
-    public string Name { get; set; } = String.Empty;
-    public string Email { get; set; } = String.Empty;
-    public string Phone { get; set; } = String.Empty;
-    public string Sex { get; set; } = String.Empty;
+    [JsonPropertyName("applicantName")]
+    public string Name { get; set; } = string.Empty;
+
+    [JsonPropertyName("email")]
+    public string Email { get; set; } = string.Empty;
+
+    [JsonPropertyName("phone")]
+    public string Phone { get; set; } = string.Empty;
+
+    [JsonPropertyName("sex")]
+    public string Sex { get; set; } = string.Empty;
+
+    [JsonPropertyName("dateOfBirth")]
     public DateOnly? DateOfBirth { get; set; }
-    public string GuardianName { get; set; } = String.Empty;
+
+    [JsonPropertyName("guardianName")]
+    public string GuardianName { get; set; } = string.Empty;
+
+    [JsonPropertyName("trainingTypes")]
     public List<string> TrainingTypes { get; set; } = [ ];
-    public string Message { get; set; } = String.Empty;
+
+    [JsonPropertyName("message")]
+    public string Message { get; set; } = string.Empty;
+
+    [JsonPropertyName("submittedAt")]
+    public DateTime SubmittedAt { get; set; }
+
+    [JsonPropertyName("isReviewed")]
+    public bool IsReviewed { get; set; }
 }

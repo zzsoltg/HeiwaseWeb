@@ -1,6 +1,6 @@
-﻿using Heiwase.App.Infrasturcture.Interface;
+﻿using Heiwase.App.Infrastructure.Interface;
 
-namespace Heiwase.App.Infrasturcture.Repository;
+namespace Heiwase.App.Infrastructure.Repository;
 
 internal class Repository<T> : IRepository<T> where T : class
 {
@@ -19,7 +19,7 @@ internal class Repository<T> : IRepository<T> where T : class
         throw new NotImplementedException( );
     }
 
-    public Task<T?> GetByIdAsync(Guid id)
+    public Task<T?> GetByIdAsync(string id)
     {
         throw new NotImplementedException( );
     }
