@@ -109,7 +109,7 @@ resource hallOfFameContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases
       id: 'hallOfFame'
       partitionKey: {
         paths: [
-          '/type'
+          '/id'
         ]
         kind: 'Hash'
       }
@@ -125,7 +125,7 @@ resource applicationsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabas
       id: 'applications'
       partitionKey: {
         paths: [
-          '/SelectedCourse'
+          '/id'
         ]
         kind: 'Hash'
       }
