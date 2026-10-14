@@ -1,7 +1,9 @@
-﻿using Heiwase.App.Infrastructure.Entities;
+using Heiwase.App.Infrastructure.Entities;
 
 namespace Heiwase.App.Infrastructure.Interface;
 
-public interface IApplicationFormRepository : IRepository<ApplicationForm>
+public interface IApplicationFormRepository : IRepository<ApplicationFormEntity>
 {
+    /// <summary>Returns applications not yet reviewed, oldest first.</summary>
+    Task<IReadOnlyList<ApplicationFormEntity>> GetPendingAsync(CancellationToken cancellationToken = default);
 }
