@@ -1,7 +1,9 @@
-﻿using Heiwase.App.Infrasturcture.Entities;
+using Heiwase.App.Infrastructure.Entities;
 
-namespace Heiwase.App.Infrasturcture.Interface;
+namespace Heiwase.App.Infrastructure.Interface;
 
-public interface IArticleRepository : IRepository<Article>
+public interface IArticleRepository : IRepository<ArticleEntity>
 {
+    /// <summary>Returns published articles, newest first.</summary>
+    Task<IReadOnlyList<ArticleEntity>> GetPublishedAsync(CancellationToken cancellationToken = default);
 }

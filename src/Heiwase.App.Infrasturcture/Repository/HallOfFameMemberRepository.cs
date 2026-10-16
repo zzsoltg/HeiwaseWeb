@@ -1,8 +1,19 @@
-﻿using Heiwase.App.Infrasturcture.Entities;
-using Heiwase.App.Infrasturcture.Interface;
+using Heiwase.App.Infrastructure.Configuration;
+using Heiwase.App.Infrastructure.DataAccess;
+using Heiwase.App.Infrastructure.Entities;
+using Heiwase.App.Infrastructure.Interface;
 
-namespace Heiwase.App.Infrasturcture.Repository;
+using Microsoft.Extensions.Options;
 
-internal class HallOfFameMemberRepository : Repository<HallOfFameMember>, IHallOfFameMemberRepository
+namespace Heiwase.App.Infrastructure.Repository;
+
+internal sealed class HallOfFameMemberRepository : Repository<HallOfFameMemberEntity>, IHallOfFameMemberRepository
 {
+    public HallOfFameMemberRepository(ICosmosContainerProvider containerProvider, IOptions<CosmosDbOptions> options)
+        : base(containerProvider, options.Value.HallOfFameContainerName)
+    {
+    }
+
+    public Task<IReadOnlyList<HallOfFameMemberEntity>> GetOrderedAsync(CancellationToken cancellationToken = default)
+        => QueryAsync(query => query.OrderBy(member => member.Order), cancellationToken);
 }
