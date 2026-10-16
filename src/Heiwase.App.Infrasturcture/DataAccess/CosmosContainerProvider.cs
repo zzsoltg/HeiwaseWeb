@@ -58,7 +58,6 @@ internal sealed class CosmosContainerProvider : ICosmosContainerProvider, IDispo
                     .GetConnectionStringAsync(cancellationToken)
                     .ConfigureAwait(false);
 
-                // Entities are annotated with System.Text.Json attributes, so the SDK must use that serializer.
                 _client = new CosmosClient(connectionString, new CosmosClientOptions
                 {
                     UseSystemTextJsonSerializerWithOptions = SerializerOptions,

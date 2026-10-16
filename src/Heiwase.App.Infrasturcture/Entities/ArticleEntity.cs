@@ -2,7 +2,7 @@
 
 namespace Heiwase.App.Infrastructure.Entities;
 
-public sealed class Article : BaseEntity
+public sealed class ArticleEntity : BaseEntity
 {
     [JsonPropertyName("title")]
     public string Title { get; set; } = string.Empty;
