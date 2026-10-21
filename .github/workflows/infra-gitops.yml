@@ -50,7 +50,7 @@ jobs:
 
           echo "$output"
 
-          delimiter="WHAT_IF_RESULT_$(date +%s)_${RANDOM}_${RANDOM}"
+          delimiter="WHAT_IF_RESULT_$(openssl rand -hex 16)"
 
           {
             echo "result<<$delimiter"
