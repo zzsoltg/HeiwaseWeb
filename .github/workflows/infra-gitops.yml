@@ -76,12 +76,15 @@ jobs:
             const raw = process.env.WHAT_IF_RESULT || 'No output.';
             const exitCode = process.env.WHAT_IF_EXIT_CODE || 'unknown';
             const max = 60000;
+            const displayed = raw.length > max ? `${raw.substring(0, max)}\n... (truncated)` : raw;
+            const longestBacktickRun = Math.max(0, ...(displayed.match(/`+/g) || []).map(run => run.length));
+            const fence = '`'.repeat(Math.max(3, longestBacktickRun + 1));
             const body = [
               `### Azure What-If Result (exit code: ${exitCode})`,
               '',
-              '```text',
-              raw.length > max ? `${raw.substring(0, max)}\n... (truncated)` : raw,
-              '```'
+              `${fence}text`,
+              displayed,
+              fence
             ].join('\n');
 
             await github.rest.issues.createComment({
