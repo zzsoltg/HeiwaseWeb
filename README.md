@@ -118,3 +118,13 @@ In short:
 - copying/reusing the site design, visual identity, media assets, and written page content is prohibited
 
 See `LICENSE` for full terms.
+
+## Media storage (local development)
+
+`IMediaService` uploads images to the `public-media` container of the `heiwasemedia` storage account using `DefaultAzureCredential` (no keys). Required Api settings (e.g. in the git-ignored `local.settings.json`, section `Values`), next to `CosmosDb__KeyVaultUri`:
+
+- `Media__AccountName` = `heiwasemedia`
+- `Media__ContainerName` = `public-media` (default)
+- optional `Media__BlobEndpoint` (e.g. an Azurite endpoint)
+
+Locally, run `az login` with an account that has the *Storage Blob Data Contributor* role on `heiwasemedia`. The host fails fast at startup if `Media__AccountName` is missing.
