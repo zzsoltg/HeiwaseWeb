@@ -39,28 +39,42 @@ jobs:
         id: whatif
         shell: bash
         run: |
-          output=$(az deployment group what-if \
+          if output=$(az deployment group what-if \
             --resource-group "$RESOURCE_GROUP" \
             --template-file "$TEMPLATE_FILE" \
-            --no-pretty-print 2>&1)
+            --no-pretty-print 2>&1); then
+            exit_code=0
+          else
+            exit_code=$?
+          fi
+
+          echo "$output"
+
+          delimiter="WHAT_IF_RESULT_$(date +%s)_${RANDOM}_${RANDOM}"
 
           {
-            echo 'result<<EOF'
+            echo "result<<$delimiter"
             echo "$output"
-            echo 'EOF'
+            echo "$delimiter"
+            echo "exit_code=$exit_code"
           } >> "$GITHUB_OUTPUT"
 
+          exit "$exit_code"
+
       - name: Comment what-if result on PR
+        if: always()
         uses: actions/github-script@v7
         env:
           WHAT_IF_RESULT: ${{ steps.whatif.outputs.result }}
+          WHAT_IF_EXIT_CODE: ${{ steps.whatif.outputs.exit_code }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const raw = process.env.WHAT_IF_RESULT || 'No output.';
+            const exitCode = process.env.WHAT_IF_EXIT_CODE || 'unknown';
             const max = 60000;
             const body = [
-              '### Azure What-If Result',
+              `### Azure What-If Result (exit code: ${exitCode})`,
               '',
               '```text',
               raw.length > max ? `${raw.substring(0, max)}\n... (truncated)` : raw,
