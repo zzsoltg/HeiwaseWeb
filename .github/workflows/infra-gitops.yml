@@ -48,15 +48,18 @@ jobs:
             exit_code=$?
           fi
 
-          echo "$output"
+          printf '%s\n' "$output"
 
-          delimiter="WHAT_IF_RESULT_$(openssl rand -hex 16 2>/dev/null || printf '%s%s%s%s' "$RANDOM" "$RANDOM" "$RANDOM" "$RANDOM")"
+          if ! delimiter_suffix=$(openssl rand -hex 16 2>/dev/null); then
+            delimiter_suffix=$(od -An -N16 -tx1 /dev/urandom | tr -d ' \n')
+          fi
+          delimiter="WHAT_IF_RESULT_$delimiter_suffix"
 
           {
-            echo "result<<$delimiter"
-            echo "$output"
-            echo "$delimiter"
-            echo "exit_code=$exit_code"
+            printf 'result<<%s\n' "$delimiter"
+            printf '%s\n' "$output"
+            printf '%s\n' "$delimiter"
+            printf 'exit_code=%s\n' "$exit_code"
           } >> "$GITHUB_OUTPUT"
 
           exit "$exit_code"
