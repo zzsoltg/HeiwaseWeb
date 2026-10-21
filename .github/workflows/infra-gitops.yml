@@ -56,7 +56,7 @@ jobs:
             BEGIN { remaining = limit }
             remaining > 0 {
               line = $0
-              if (length(line) >= remaining) {
+              if (length(line) + 1 > remaining) {
                 printf "%s", substr(line, 1, remaining)
                 remaining = 0
               } else {
@@ -94,14 +94,13 @@ jobs:
           script: |
             const raw = process.env.WHAT_IF_RESULT || 'No output.';
             const exitCode = process.env.WHAT_IF_EXIT_CODE || 'unknown';
-            const displayed = raw;
-            const longestBacktickRun = (displayed.match(/`+/g) || []).reduce((longest, run) => Math.max(longest, run.length), 0);
+            const longestBacktickRun = (raw.match(/`+/g) || []).reduce((longest, run) => Math.max(longest, run.length), 0);
             const fence = '`'.repeat(Math.max(3, longestBacktickRun + 1));
             const body = [
               `### Azure What-If Result (exit code: ${exitCode})`,
               '',
               `${fence}text`,
-              displayed,
+              raw,
               fence
             ].join('\n');
 
