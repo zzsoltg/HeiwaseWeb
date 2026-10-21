@@ -53,7 +53,12 @@ jobs:
           output_bytes=$(printf '%s' "$output" | wc -c)
           if [[ "$output_bytes" -gt "$WHAT_IF_COMMENT_MAX_BYTES" ]]; then
             output_limit=$((WHAT_IF_COMMENT_MAX_BYTES - ${#truncation_marker} - 1))
-            comment_output=$(printf '%s' "$output" 2>/dev/null | head -c "$output_limit" | iconv -c -f UTF-8 -t UTF-8 || true)
+            comment_bytes=$(printf '%s' "$output" 2>/dev/null | head -c "$output_limit" || true)
+            if comment_output=$(printf '%s' "$comment_bytes" | iconv -c -f UTF-8 -t UTF-8 2>/dev/null); then
+              :
+            else
+              comment_output=$comment_bytes
+            fi
             comment_output+=$'\n'"$truncation_marker"
           else
             comment_output=$output
@@ -83,6 +88,7 @@ jobs:
 
       - name: Comment what-if result on PR
         if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.whatif.outcome != 'skipped' }}
+        continue-on-error: true
         uses: actions/github-script@v7
         env:
           WHAT_IF_RESULT: ${{ steps.whatif.outputs.result }}
