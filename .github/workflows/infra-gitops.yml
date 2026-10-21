@@ -11,6 +11,7 @@ on:
 env:
   RESOURCE_GROUP: rg-heiwase-prod-weu
   TEMPLATE_FILE: infra/main.bicep
+  WHAT_IF_COMMENT_MAX_BYTES: 20000
   AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
   AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -51,8 +52,8 @@ jobs:
           printf '%s\n' "$output"
 
           output_bytes=$(printf '%s' "$output" | wc -c)
-          comment_output=$(printf '%s\n' "$output" | LC_ALL=C awk '
-            BEGIN { remaining = 20000 }
+          comment_output=$(printf '%s\n' "$output" | LC_ALL=C awk -v limit="$WHAT_IF_COMMENT_MAX_BYTES" '
+            BEGIN { remaining = limit }
             remaining > 0 {
               line = $0
               if (length(line) >= remaining) {
@@ -64,7 +65,7 @@ jobs:
               }
             }
           ' | iconv -c -f UTF-8 -t UTF-8)
-          if [[ "$output_bytes" -gt 20000 ]]; then
+          if [[ "$output_bytes" -gt "$WHAT_IF_COMMENT_MAX_BYTES" ]]; then
             comment_output+=$'\n... (truncated by workflow)'
           fi
 
@@ -93,10 +94,7 @@ jobs:
           script: |
             const raw = process.env.WHAT_IF_RESULT || 'No output.';
             const exitCode = process.env.WHAT_IF_EXIT_CODE || 'unknown';
-            const max = 20000;
-            let truncated = raw.substring(0, max);
-            if (/[\uD800-\uDBFF]$/.test(truncated)) truncated = truncated.slice(0, -1);
-            const displayed = raw.length > max ? `${truncated}\n... (truncated)` : raw;
+            const displayed = raw;
             const longestBacktickRun = (displayed.match(/`+/g) || []).reduce((longest, run) => Math.max(longest, run.length), 0);
             const fence = '`'.repeat(Math.max(3, longestBacktickRun + 1));
             const body = [
