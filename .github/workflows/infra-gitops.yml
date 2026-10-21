@@ -76,7 +76,9 @@ jobs:
             const raw = process.env.WHAT_IF_RESULT || 'No output.';
             const exitCode = process.env.WHAT_IF_EXIT_CODE || 'unknown';
             const max = 60000;
-            const displayed = raw.length > max ? `${raw.substring(0, max)}\n... (truncated)` : raw;
+            let truncated = raw.substring(0, max);
+            if (/[\uD800-\uDBFF]$/.test(truncated)) truncated = truncated.slice(0, -1);
+            const displayed = raw.length > max ? `${truncated}\n... (truncated)` : raw;
             const longestBacktickRun = Math.max(0, ...(displayed.match(/`+/g) || []).map(run => run.length));
             const fence = '`'.repeat(Math.max(3, longestBacktickRun + 1));
             const body = [
