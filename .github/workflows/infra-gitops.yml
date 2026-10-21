@@ -52,7 +52,8 @@ jobs:
           truncation_marker='... (truncated by workflow)'
           output_bytes=$(printf '%s' "$output" | wc -c)
           if [[ "$output_bytes" -gt "$WHAT_IF_COMMENT_MAX_BYTES" ]]; then
-            output_limit=$((WHAT_IF_COMMENT_MAX_BYTES - ${#truncation_marker} - 1))
+            marker_bytes=$(printf '%s' "$truncation_marker" | wc -c)
+            output_limit=$((WHAT_IF_COMMENT_MAX_BYTES - marker_bytes - 1))
             comment_bytes=$(printf '%s' "$output" 2>/dev/null | head -c "$output_limit" || true)
             if comment_output=$(printf '%s' "$comment_bytes" | iconv -c -f UTF-8 -t UTF-8 2>/dev/null); then
               :
@@ -108,12 +109,16 @@ jobs:
               fence
             ].join('\n');
 
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body
-            });
+            try {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body
+              });
+            } catch (error) {
+              core.warning(`Could not post Azure what-if result: ${error.message}`);
+            }
 
   deploy:
     if: github.event.action == 'closed' && github.event.pull_request.merged == true
