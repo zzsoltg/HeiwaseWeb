@@ -167,7 +167,6 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-02-01' = {
 }
 
 // ---------------------------------------------------------------------------
-// Api layer: Azure Functions (Flex Consumption, .NET 10 isolated)
 
 param functionAppName string = 'func-heiwase-${substring(uniqueString(resourceGroup().id), 0, 8)}'
 
