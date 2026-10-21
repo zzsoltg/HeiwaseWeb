@@ -49,24 +49,22 @@ jobs:
             exit_code=$?
           fi
 
-          printf '%s\n' "$output"
-
+          truncation_marker='... (truncated by workflow)'
           output_bytes=$(printf '%s' "$output" | wc -c)
-          comment_output=$(printf '%s\n' "$output" | LC_ALL=C awk -v limit="$WHAT_IF_COMMENT_MAX_BYTES" '
-            BEGIN { remaining = limit }
-            remaining > 0 {
-              line = $0
-              if (length(line) + 1 > remaining) {
-                printf "%s", substr(line, 1, remaining)
-                remaining = 0
-              } else {
-                printf "%s\n", line
-                remaining -= length(line) + 1
-              }
-            }
-          ' | iconv -c -f UTF-8 -t UTF-8)
           if [[ "$output_bytes" -gt "$WHAT_IF_COMMENT_MAX_BYTES" ]]; then
-            comment_output+=$'\n... (truncated by workflow)'
+            output_limit=$((WHAT_IF_COMMENT_MAX_BYTES - ${#truncation_marker} - 1))
+            comment_output=$(printf '%s' "$output" 2>/dev/null | head -c "$output_limit" | iconv -c -f UTF-8 -t UTF-8 || true)
+            comment_output+=$'\n'"$truncation_marker"
+          else
+            comment_output=$output
+          fi
+
+          if [[ "$exit_code" -ne 0 ]]; then
+            echo '::group::Azure what-if error output'
+            printf '%s\n' "$output"
+            echo '::endgroup::'
+          else
+            printf '%s\n' 'Azure what-if succeeded; the result is in the PR comment.'
           fi
 
           if ! delimiter_suffix=$(openssl rand -hex 16 2>/dev/null); then
