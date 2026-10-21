@@ -165,3 +165,125 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-02-01' = {
     enableRbacAuthorization: true
   }
 }
+
+
+param functionAppName string = 'func-heiwase-${substring(uniqueString(resourceGroup().id), 0, 8)}'
+
+var functionStorageName = 'stfunc${uniqueString(resourceGroup().id)}'
+var deploymentContainerName = 'app-package'
+var keyVaultSecretsUserRoleId = '4633458b-17de-408a-b874-0de5f3ec6b3d'
+var storageBlobDataOwnerRoleId = 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b'
+
+resource functionStorage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
+  name: functionStorageName
+  location: location
+  sku: {
+    name: 'Standard_LRS'
+  }
+  kind: 'StorageV2'
+  properties: {
+    allowBlobPublicAccess: false
+    minimumTlsVersion: 'TLS1_2'
+    supportsHttpsTrafficOnly: true
+  }
+}
+
+resource functionBlobService 'Microsoft.Storage/storageAccounts/blobServices@2023-01-01' = {
+  parent: functionStorage
+  name: 'default'
+}
+
+resource functionDeploymentContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2023-01-01' = {
+  parent: functionBlobService
+  name: deploymentContainerName
+  properties: {
+    publicAccess: 'None'
+  }
+}
+
+resource functionPlan 'Microsoft.Web/serverfarms@2023-12-01' = {
+  name: 'plan-heiwase-func-${uniqueString(resourceGroup().id)}'
+  location: location
+  kind: 'functionapp'
+  sku: {
+    name: 'FC1'
+    tier: 'FlexConsumption'
+  }
+  properties: {
+    reserved: true
+  }
+}
+
+resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
+  name: functionAppName
+  location: location
+  kind: 'functionapp,linux'
+  identity: {
+    type: 'SystemAssigned'
+  }
+  properties: {
+    serverFarmId: functionPlan.id
+    httpsOnly: true
+    functionAppConfig: {
+      deployment: {
+        storage: {
+          type: 'blobContainer'
+          value: '${functionStorage.properties.primaryEndpoints.blob}${deploymentContainerName}'
+          authentication: {
+            type: 'SystemAssignedIdentity'
+          }
+        }
+      }
+      scaleAndConcurrency: {
+        maximumInstanceCount: 40
+        instanceMemoryMB: 2048
+      }
+      runtime: {
+        name: 'dotnet-isolated'
+        version: '10.0'
+      }
+    }
+    siteConfig: {
+      appSettings: [
+        {
+          name: 'AzureWebJobsStorage__accountName'
+          value: functionStorage.name
+        }
+        {
+          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+          value: appInsights.properties.ConnectionString
+        }
+        {
+          name: 'CosmosDb__KeyVaultUri'
+          value: keyVault.properties.vaultUri
+        }
+      ]
+    }
+  }
+  dependsOn: [
+    functionDeploymentContainer
+  ]
+}
+
+resource functionStorageRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: functionStorage
+  name: guid(functionStorage.id, functionApp.id, storageBlobDataOwnerRoleId)
+  properties: {
+    principalId: functionApp.identity.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', storageBlobDataOwnerRoleId)
+  }
+}
+
+resource functionKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: keyVault
+  name: guid(keyVault.id, functionApp.id, keyVaultSecretsUserRoleId)
+  properties: {
+    principalId: functionApp.identity.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', keyVaultSecretsUserRoleId)
+  }
+}
+
+output functionAppName string = functionApp.name
+output functionAppHostName string = functionApp.properties.defaultHostName
