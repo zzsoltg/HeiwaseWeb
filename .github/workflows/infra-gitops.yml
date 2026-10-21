@@ -62,7 +62,7 @@ jobs:
           exit "$exit_code"
 
       - name: Comment what-if result on PR
-        if: ${{ always() && !cancelled() && github.event_name == 'pull_request' && steps.whatif.outcome != 'skipped' }}
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.whatif.outcome != 'skipped' }}
         uses: actions/github-script@v7
         env:
           WHAT_IF_RESULT: ${{ steps.whatif.outputs.result }}
