@@ -11,6 +11,7 @@ on:
 env:
   RESOURCE_GROUP: rg-heiwase-prod-weu
   TEMPLATE_FILE: infra/main.bicep
+  WHAT_IF_COMMENT_MAX_BYTES: 20000
   AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
   AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -39,40 +40,85 @@ jobs:
         id: whatif
         shell: bash
         run: |
-          output=$(az deployment group what-if \
+          if output=$(az deployment group what-if \
             --resource-group "$RESOURCE_GROUP" \
             --template-file "$TEMPLATE_FILE" \
-            --no-pretty-print 2>&1)
+            --no-pretty-print 2>&1); then
+            exit_code=0
+          else
+            exit_code=$?
+          fi
+
+          truncation_marker='... (truncated by workflow)'
+          output_bytes=$(printf '%s' "$output" | wc -c)
+          if [[ "$output_bytes" -gt "$WHAT_IF_COMMENT_MAX_BYTES" ]]; then
+            marker_bytes=$(printf '%s' "$truncation_marker" | wc -c)
+            output_limit=$((WHAT_IF_COMMENT_MAX_BYTES - marker_bytes - 1))
+            comment_bytes=$(printf '%s' "$output" 2>/dev/null | head -c "$output_limit" || true)
+            if comment_output=$(printf '%s' "$comment_bytes" | iconv -c -f UTF-8 -t UTF-8 2>/dev/null); then
+              :
+            else
+              comment_output=$comment_bytes
+            fi
+            comment_output+=$'\n'"$truncation_marker"
+          else
+            comment_output=$output
+          fi
+
+          if [[ "$exit_code" -ne 0 ]]; then
+            echo '::group::Azure what-if error output'
+            printf '%s\n' "$output"
+            echo '::endgroup::'
+          else
+            printf '%s\n' 'Azure what-if succeeded; the result is in the PR comment.'
+          fi
+
+          if ! delimiter_suffix=$(openssl rand -hex 16 2>/dev/null); then
+            delimiter_suffix=$(od -An -N16 -tx1 /dev/urandom | tr -d ' \n')
+          fi
+          delimiter="WHAT_IF_RESULT_$delimiter_suffix"
 
           {
-            echo 'result<<EOF'
-            echo "$output"
-            echo 'EOF'
+            printf 'result<<%s\n' "$delimiter"
+            printf '%s\n' "$comment_output"
+            printf '%s\n' "$delimiter"
+            printf 'exit_code=%s\n' "$exit_code"
           } >> "$GITHUB_OUTPUT"
 
+          exit "$exit_code"
+
       - name: Comment what-if result on PR
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.whatif.outcome != 'skipped' }}
+        continue-on-error: true
         uses: actions/github-script@v7
         env:
           WHAT_IF_RESULT: ${{ steps.whatif.outputs.result }}
+          WHAT_IF_EXIT_CODE: ${{ steps.whatif.outputs.exit_code }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const raw = process.env.WHAT_IF_RESULT || 'No output.';
-            const max = 60000;
+            const exitCode = process.env.WHAT_IF_EXIT_CODE || 'unknown';
+            const longestBacktickRun = (raw.match(/`+/g) || []).reduce((longest, run) => Math.max(longest, run.length), 0);
+            const fence = '`'.repeat(Math.max(3, longestBacktickRun + 1));
             const body = [
-              '### Azure What-If Result',
+              `### Azure What-If Result (exit code: ${exitCode})`,
               '',
-              '```text',
-              raw.length > max ? `${raw.substring(0, max)}\n... (truncated)` : raw,
-              '```'
+              `${fence}text`,
+              raw,
+              fence
             ].join('\n');
 
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body
-            });
+            try {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body
+              });
+            } catch (error) {
+              core.warning(`Could not post Azure what-if result: ${error.message}`);
+            }
 
   deploy:
     if: github.event.action == 'closed' && github.event.pull_request.merged == true
