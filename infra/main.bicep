@@ -166,7 +166,6 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-02-01' = {
   }
 }
 
-// ---------------------------------------------------------------------------
 
 param functionAppName string = 'func-heiwase-${substring(uniqueString(resourceGroup().id), 0, 8)}'
 
