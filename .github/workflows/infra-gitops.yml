@@ -50,7 +50,7 @@ jobs:
 
           echo "$output"
 
-          delimiter="WHAT_IF_RESULT_$(openssl rand -hex 16)"
+          delimiter="WHAT_IF_RESULT_$(openssl rand -hex 16 2>/dev/null || printf '%s%s%s%s' "$RANDOM" "$RANDOM" "$RANDOM" "$RANDOM")"
 
           {
             echo "result<<$delimiter"
