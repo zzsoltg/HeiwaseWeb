@@ -9,6 +9,8 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   kind: 'StorageV2'
   properties: {
     allowBlobPublicAccess: true
+    minimumTlsVersion: 'TLS1_2'
+    supportsHttpsTrafficOnly: true
   }
 }
 
@@ -173,6 +175,7 @@ var functionStorageName = 'stfunc${uniqueString(resourceGroup().id)}'
 var deploymentContainerName = 'app-package'
 var keyVaultSecretsUserRoleId = '4633458b-17de-408a-b874-0445c86b69e6'
 var storageBlobDataOwnerRoleId = 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b'
+var storageBlobDataContributorRoleId = 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
 
 resource functionStorage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: functionStorageName
@@ -257,6 +260,14 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
           name: 'CosmosDb__KeyVaultUri'
           value: keyVault.properties.vaultUri
         }
+        {
+          name: 'Media__AccountName'
+          value: storageAccount.name
+        }
+        {
+          name: 'Media__ContainerName'
+          value: publicContainer.name
+        }
       ]
     }
   }
@@ -272,6 +283,16 @@ resource functionStorageRole 'Microsoft.Authorization/roleAssignments@2022-04-01
     principalId: functionApp.identity.principalId
     principalType: 'ServicePrincipal'
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', storageBlobDataOwnerRoleId)
+  }
+}
+
+resource mediaStorageRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: storageAccount
+  name: guid(storageAccount.id, functionApp.id, storageBlobDataContributorRoleId)
+  properties: {
+    principalId: functionApp.identity.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', storageBlobDataContributorRoleId)
   }
 }
 

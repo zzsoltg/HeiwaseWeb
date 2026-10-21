@@ -4,6 +4,7 @@ using Azure.Identity;
 using Heiwase.App.Infrastructure.Configuration;
 using Heiwase.App.Infrastructure.DataAccess;
 using Heiwase.App.Infrastructure.Interface;
+using Heiwase.App.Infrastructure.Media;
 using Heiwase.App.Infrastructure.Repository;
 
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,7 @@ namespace Heiwase.App.Infrastructure;
 public static class DependencyInjection
 {
     /// <summary>
-    /// Registers the Cosmos DB repositories. The connection string is read from Azure Key Vault
+    /// Registers the Cosmos DB repositories and the blob media service. The connection string is read from Azure Key Vault
     /// using <see cref="DefaultAzureCredential"/> (managed identity in Azure, developer login locally).
     /// </summary>
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
@@ -28,9 +29,16 @@ public static class DependencyInjection
             .ValidateDataAnnotations( )
             .ValidateOnStart( );
 
+        services.AddOptions<MediaOptions>( )
+            .Bind(configuration.GetSection(MediaOptions.SectionName))
+            .ValidateDataAnnotations( )
+            .ValidateOnStart( );
+
         services.TryAddSingleton<TokenCredential>(_ => new DefaultAzureCredential( ));
         services.AddSingleton<ICosmosConnectionStringProvider, KeyVaultCosmosConnectionStringProvider>( );
         services.AddSingleton<ICosmosContainerProvider, CosmosContainerProvider>( );
+
+        services.AddSingleton<IMediaService, BlobMediaService>( );
 
         services.AddSingleton<IArticleRepository, ArticleRepository>( );
         services.AddSingleton<IHallOfFameMemberRepository, HallOfFameMemberRepository>( );

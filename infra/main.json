@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.48.1.52935",
-      "templateHash": "16792631652926742173"
+      "templateHash": "10600359734030852689"
     }
   },
   "parameters": {
@@ -25,8 +25,9 @@
   "variables": {
     "functionStorageName": "[format('stfunc{0}', uniqueString(resourceGroup().id))]",
     "deploymentContainerName": "app-package",
-    "keyVaultSecretsUserRoleId": "4633458b-17de-408a-b874-0de5f3ec6b3d",
-    "storageBlobDataOwnerRoleId": "b7e6dc6d-f1e8-4753-8033-0f276bb0955b"
+    "keyVaultSecretsUserRoleId": "4633458b-17de-408a-b874-0445c86b69e6",
+    "storageBlobDataOwnerRoleId": "b7e6dc6d-f1e8-4753-8033-0f276bb0955b",
+    "storageBlobDataContributorRoleId": "ba92f5b4-2d11-453d-a403-e96b0029c9fe"
   },
   "resources": [
     {
@@ -39,7 +40,9 @@
       },
       "kind": "StorageV2",
       "properties": {
-        "allowBlobPublicAccess": true
+        "allowBlobPublicAccess": true,
+        "minimumTlsVersion": "TLS1_2",
+        "supportsHttpsTrafficOnly": true
       }
     },
     {
@@ -312,6 +315,14 @@
             {
               "name": "CosmosDb__KeyVaultUri",
               "value": "[reference(resourceId('Microsoft.KeyVault/vaults', format('kv-heiwase-{0}', substring(uniqueString(resourceGroup().id), 0, 13))), '2023-02-01').vaultUri]"
+            },
+            {
+              "name": "Media__AccountName",
+              "value": "heiwasemedia"
+            },
+            {
+              "name": "Media__ContainerName",
+              "value": "public-media"
             }
           ]
         }
@@ -321,7 +332,9 @@
         "[resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', variables('functionStorageName'), 'default', variables('deploymentContainerName'))]",
         "[resourceId('Microsoft.Web/serverfarms', format('plan-heiwase-func-{0}', uniqueString(resourceGroup().id)))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('functionStorageName'))]",
-        "[resourceId('Microsoft.KeyVault/vaults', format('kv-heiwase-{0}', substring(uniqueString(resourceGroup().id), 0, 13)))]"
+        "[resourceId('Microsoft.KeyVault/vaults', format('kv-heiwase-{0}', substring(uniqueString(resourceGroup().id), 0, 13)))]",
+        "[resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', 'heiwasemedia', 'default', 'public-media')]",
+        "[resourceId('Microsoft.Storage/storageAccounts', 'heiwasemedia')]"
       ]
     },
     {
@@ -337,6 +350,21 @@
       "dependsOn": [
         "[resourceId('Microsoft.Web/sites', parameters('functionAppName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('functionStorageName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "scope": "[resourceId('Microsoft.Storage/storageAccounts', 'heiwasemedia')]",
+      "name": "[guid(resourceId('Microsoft.Storage/storageAccounts', 'heiwasemedia'), resourceId('Microsoft.Web/sites', parameters('functionAppName')), variables('storageBlobDataContributorRoleId'))]",
+      "properties": {
+        "principalId": "[reference(resourceId('Microsoft.Web/sites', parameters('functionAppName')), '2023-12-01', 'full').identity.principalId]",
+        "principalType": "ServicePrincipal",
+        "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('storageBlobDataContributorRoleId'))]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('functionAppName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', 'heiwasemedia')]"
       ]
     },
     {
