@@ -171,7 +171,7 @@ param functionAppName string = 'func-heiwase-${substring(uniqueString(resourceGr
 
 var functionStorageName = 'stfunc${uniqueString(resourceGroup().id)}'
 var deploymentContainerName = 'app-package'
-var keyVaultSecretsUserRoleId = '4633458b-17de-408a-b874-0de5f3ec6b3d'
+var keyVaultSecretsUserRoleId = '4633458b-17de-408a-b874-0445c86b69e6'
 var storageBlobDataOwnerRoleId = 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b'
 
 resource functionStorage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
