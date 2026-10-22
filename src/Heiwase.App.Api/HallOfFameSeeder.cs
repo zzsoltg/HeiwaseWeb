@@ -9,14 +9,12 @@ namespace Heiwase.App.Api;
 public sealed record HallOfFameSeedResult(int Created, int Updated);
 
 /// <summary>
-/// Imports the static Hall of Fame JSON files into Cosmos DB. The Hungarian and English files describe the same members
-/// in the same order, so they are merged by position into one document per member. Ids are deterministic, which makes
-/// the import safe to re-run.
+/// Imports the static Hall of Fame JSON file into Cosmos DB. Every member already carries its own id, so the import is
+/// safe to re-run: existing documents are replaced, missing ones are created.
 /// </summary>
 public sealed class HallOfFameSeeder
 {
-    private const string HungarianFile = "halloffame.json";
-    private const string EnglishFile = "hallOfFameEn.json";
+    private const string DataFile = "halloffame.json";
 
     private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
 
@@ -30,14 +28,18 @@ public sealed class HallOfFameSeeder
 
     public async Task<HallOfFameSeedResult> SeedAsync(string dataDirectory, CancellationToken cancellationToken)
     {
-        HallOfFameDataDto hungarian = await ReadAsync(Path.Combine(dataDirectory, HungarianFile), cancellationToken).ConfigureAwait(false);
-        HallOfFameDataDto english = await ReadAsync(Path.Combine(dataDirectory, EnglishFile), cancellationToken).ConfigureAwait(false);
+        HallOfFameDataDto data = await ReadAsync(Path.Combine(dataDirectory, DataFile), cancellationToken).ConfigureAwait(false);
 
         List<HallOfFameMemberEntity> entities =
         [
-            .. Merge(HallOfFameMemberEntity.CompetitorType, hungarian.Competitors, english.Competitors),
-            .. Merge(HallOfFameMemberEntity.SenpaiType, hungarian.Senpais, english.Senpais)
+            .. data.Competitors.Select(member => ToEntity(member, HallOfFameMemberEntity.CompetitorType)),
+            .. data.Senpais.Select(member => ToEntity(member, HallOfFameMemberEntity.SenpaiType))
         ];
+
+        if ( entities.Select(entity => entity.Id).Distinct(StringComparer.Ordinal).Count( ) != entities.Count )
+        {
+            throw new InvalidOperationException($"'{DataFile}' contains duplicate member ids.");
+        }
 
         int created = 0;
         int updated = 0;
@@ -59,46 +61,24 @@ public sealed class HallOfFameSeeder
         return new HallOfFameSeedResult(created, updated);
     }
 
-    private static IEnumerable<HallOfFameMemberEntity> Merge(
-        string type,
-        IReadOnlyList<HallOfFameMemberDto> hungarian,
-        IReadOnlyList<HallOfFameMemberDto> english)
+    private static HallOfFameMemberEntity ToEntity(HallOfFameMemberDto dto, string type)
     {
-        if ( hungarian.Count != english.Count )
+        if ( string.IsNullOrWhiteSpace(dto.Id) )
         {
-            throw new InvalidOperationException(
-                $"The Hungarian ({hungarian.Count}) and English ({english.Count}) '{type}' lists must have the same length.");
+            throw new InvalidOperationException($"A '{type}' entry in '{DataFile}' has no id.");
         }
 
-        for ( int i = 0; i < hungarian.Count; i++ )
+        return new HallOfFameMemberEntity
         {
-            if ( !string.Equals(hungarian[ i ].ImagePath, english[ i ].ImagePath, StringComparison.Ordinal) )
-            {
-                throw new InvalidOperationException(
-                    $"The '{type}' entries at position {i} do not match: '{hungarian[ i ].ImagePath}' vs '{english[ i ].ImagePath}'.");
-            }
-
-            yield return new HallOfFameMemberEntity
-            {
-                Id = $"{type}-{i + 1:D3}",
-                Type = type,
-                Order = i + 1,
-                ImagePath = hungarian[ i ].ImagePath,
-                Translations = new Dictionary<string, HallOfFameMemberTranslationEntity>
-                {
-                    [ "hu" ] = ToTranslation(hungarian[ i ]),
-                    [ "en" ] = ToTranslation(english[ i ])
-                }
-            };
-        }
+            Id = dto.Id,
+            Type = type,
+            Order = dto.Order,
+            ImagePath = dto.ImagePath,
+            Name = new Dictionary<string, string>(dto.Names),
+            Title = new Dictionary<string, string>(dto.Titles),
+            Description = dto.Descriptions.ToDictionary(pair => pair.Key, pair => new List<string>(pair.Value))
+        };
     }
-
-    private static HallOfFameMemberTranslationEntity ToTranslation(HallOfFameMemberDto dto) => new( )
-    {
-        Name = dto.Name,
-        Title = dto.Title,
-        Description = [ .. dto.Description ]
-    };
 
     private static async Task<HallOfFameDataDto> ReadAsync(string path, CancellationToken cancellationToken)
     {
