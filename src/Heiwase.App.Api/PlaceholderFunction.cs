@@ -5,11 +5,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Heiwase.App.Api;
 
-public class PlacholderFunction
+public class PlaceholderFunction
 {
-    private readonly ILogger<PlacholderFunction> _logger;
+    private readonly ILogger<PlaceholderFunction> _logger;
 
-    public PlacholderFunction(ILogger<PlacholderFunction> logger)
+    public PlaceholderFunction(ILogger<PlaceholderFunction> logger)
     {
         _logger = logger;
     }
