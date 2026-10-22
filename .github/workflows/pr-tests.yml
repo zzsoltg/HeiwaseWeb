@@ -1,34 +1,37 @@
-name: Tests
+name: PR Tests
 
+# Independent of "Azure Static Web Apps CI/CD" and "Infra GitOps": no `needs` on them,
+# so all three workflows start in parallel on every pull request.
 on:
   pull_request:
-    branches: [master]
-    paths:
-      - 'src/**'
-      - 'tests/**'
-      - '.github/workflows/tests.yml'
-  push:
-    branches: [master]
-    paths:
-      - 'src/**'
-      - 'tests/**'
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
+concurrency:
+  group: pr-tests-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
+  pull-requests: write
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
-  unit:
+  test:
+    name: Unit tests and coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
 
-      - name: Test (with coverage)
+      - name: Test with coverage
         run: >
           dotnet test src/Heiwase.App.slnx
           --settings tests/coverage.runsettings
@@ -36,8 +39,16 @@ jobs:
           --results-directory ./TestResults
           --logger "trx;LogFileName=results.trx"
 
-      - name: Coverage gate (logic layers)
-        run: python3 tests/check-coverage.py ./TestResults
+      - name: Coverage gate
+        run: python3 tests/check-coverage.py ./TestResults | tee coverage-summary.txt
+
+      - name: Summary
+        if: always()
+        run: |
+          echo '### Coverage' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat coverage-summary.txt >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v4
         if: always()
@@ -46,10 +57,10 @@ jobs:
           path: TestResults/
 
   mutation:
-    # Measurement only for now: reports the score, does not block (thresholds.break = 0).
-    if: github.event_name == 'pull_request'
+    name: Mutation tests (informational)
     runs-on: ubuntu-latest
-    needs: unit
+    # Measurement only (thresholds.break = 0); never blocks the PR.
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
         with:
