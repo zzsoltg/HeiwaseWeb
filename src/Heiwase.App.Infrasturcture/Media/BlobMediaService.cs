@@ -113,8 +113,10 @@ internal sealed partial class BlobMediaService : IMediaService
         }
 
         string containerPath = _container.Uri.AbsolutePath.TrimEnd('/') + "/";
-        if ( !string.Equals(uri.Host, _container.Uri.Host, StringComparison.OrdinalIgnoreCase)
-            || !uri.AbsolutePath.StartsWith(containerPath, StringComparison.OrdinalIgnoreCase) )
+        if ( !string.Equals(uri.Scheme, _container.Uri.Scheme, StringComparison.OrdinalIgnoreCase)
+            || uri.Port != _container.Uri.Port
+            || !string.Equals(uri.Host, _container.Uri.Host, StringComparison.OrdinalIgnoreCase)
+            || !uri.AbsolutePath.StartsWith(containerPath, StringComparison.Ordinal) )
         {
             return;
         }
