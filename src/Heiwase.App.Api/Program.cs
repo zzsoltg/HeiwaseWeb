@@ -15,6 +15,7 @@ var builder = FunctionsApplication.CreateBuilder(args);
 builder.ConfigureFunctionsWebApplication( );
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddSingleton<Heiwase.App.Api.HallOfFameSeeder>( );
 
 if ( !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("APPLICATIONINSIGHTS_CONNECTION_STRING")) )
 {
