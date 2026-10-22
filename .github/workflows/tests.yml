@@ -1,0 +1,72 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - '.github/workflows/tests.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'src/**'
+      - 'tests/**'
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Test (with coverage)
+        run: >
+          dotnet test src/Heiwase.App.slnx
+          --settings tests/coverage.runsettings
+          --collect:"XPlat Code Coverage"
+          --results-directory ./TestResults
+          --logger "trx;LogFileName=results.trx"
+
+      - name: Coverage gate (logic layers)
+        run: python3 tests/check-coverage.py ./TestResults
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: TestResults/
+
+  mutation:
+    # Measurement only for now: reports the score, does not block (thresholds.break = 0).
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    needs: unit
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - run: dotnet tool restore
+
+      - name: Stryker (changed files only)
+        working-directory: tests/Heiwase.App.Tests.Unit
+        run: dotnet tool run dotnet-stryker --since:origin/${{ github.base_ref }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mutation-report
+          path: tests/Heiwase.App.Tests.Unit/StrykerOutput/

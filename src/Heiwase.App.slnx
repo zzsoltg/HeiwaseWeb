@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/tests/">
+    <Project Path="../tests/Heiwase.App.Tests.Blazor/Heiwase.App.Tests.Blazor.csproj" />
+    <Project Path="../tests/Heiwase.App.Tests.Unit/Heiwase.App.Tests.Unit.csproj" />
+  </Folder>
   <Project Path="Heiwase.App.Api/Heiwase.App.Api.csproj" Id="b2d45eb0-0722-409a-bf34-baa22339da2f" />
   <Project Path="Heiwase.App.Blazor/Heiwase.App.Blazor.csproj" Id="9f27e564-5c86-84b5-2fb0-782261d6772c" />
   <Project Path="Heiwase.App.BlazorAdmin/Heiwase.App.BlazorAdmin.csproj" Id="b6be9161-e631-4dc2-9c45-8be0e50039ec" />

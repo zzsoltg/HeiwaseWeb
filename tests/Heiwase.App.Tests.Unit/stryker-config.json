@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stryker-mutator/stryker-net/master/src/Stryker.Core/Stryker.Core/stryker-config.schema.json",
+  "stryker-config": {
+    "test-projects": [ "Heiwase.App.Tests.Unit.csproj" ],
+    "project": "Heiwase.App.Infrastructure.csproj",
+    "mutate": [
+      "!**/DependencyInjection.cs",
+      "!**/Entities/**",
+      "!**/Configuration/**"
+    ],
+    "reporters": [ "html", "progress", "json" ],
+    "thresholds": { "high": 80, "low": 60, "break": 0 },
+    "since": { "enabled": false }
+  }
+}
