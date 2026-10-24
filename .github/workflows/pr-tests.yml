@@ -1,0 +1,83 @@
+name: PR Tests
+
+# Independent of "Azure Static Web Apps CI/CD" and "Infra GitOps": no `needs` on them,
+# so all three workflows start in parallel on every pull request.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
+concurrency:
+  group: pr-tests-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  test:
+    name: Unit tests and coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Test with coverage
+        run: >
+          dotnet test src/Heiwase.App.slnx
+          --settings tests/coverage.runsettings
+          --collect:"XPlat Code Coverage"
+          --results-directory ./TestResults
+          --logger "trx;LogFileName=results.trx"
+
+      - name: Coverage gate
+        run: python3 tests/check-coverage.py ./TestResults | tee coverage-summary.txt
+
+      - name: Summary
+        if: always()
+        run: |
+          echo '### Coverage' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat coverage-summary.txt >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: TestResults/
+
+  mutation:
+    name: Mutation tests (informational)
+    runs-on: ubuntu-latest
+    # Measurement only (thresholds.break = 0); never blocks the PR.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - run: dotnet tool restore
+
+      - name: Stryker (changed files only)
+        working-directory: tests/Heiwase.App.Tests.Unit
+        run: dotnet tool run dotnet-stryker --since:origin/${{ github.base_ref }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mutation-report
+          path: tests/Heiwase.App.Tests.Unit/StrykerOutput/
