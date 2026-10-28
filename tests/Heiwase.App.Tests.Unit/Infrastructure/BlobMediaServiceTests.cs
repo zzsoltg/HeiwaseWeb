@@ -154,8 +154,10 @@ public sealed class BlobMediaServiceTests
     [InlineData("image/jpeg", new byte[] { 0xFF })]
     public async Task Upload_Rejects_Content_That_Does_Not_Match_The_Declared_Type(string contentType, byte[] data)
     {
+        using MemoryStream stream = new(data);
+
         var ex = await Assert.ThrowsAsync<MediaValidationException>(
-            () => Upload(CreateSut(), new MemoryStream(data), contentType));
+            () => Upload(CreateSut(), stream, contentType));
 
         Assert.Contains("does not match", ex.Message);
     }
