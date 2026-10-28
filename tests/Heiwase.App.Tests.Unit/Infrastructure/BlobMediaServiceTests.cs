@@ -117,8 +117,9 @@ public sealed class BlobMediaServiceTests
     [Fact]
     public async Task Upload_Rejects_Oversized_Seekable_Stream()
     {
+        using MemoryStream stream = new(Jpeg);
         MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(
-            () => Upload(CreateSut(maxFileSize: 8), new MemoryStream(Jpeg)));
+            () => Upload(CreateSut(maxFileSize: 8), stream));
 
         Assert.Contains("limit", ex.Message);
     }
