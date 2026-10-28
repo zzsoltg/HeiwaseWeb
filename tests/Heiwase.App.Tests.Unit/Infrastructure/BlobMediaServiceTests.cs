@@ -60,13 +60,19 @@ public sealed class BlobMediaServiceTests
     [InlineData("")]
     [InlineData(" ")]
     public async Task Upload_Rejects_Blank_ContentType(string contentType)
-        => await Assert.ThrowsAsync<ArgumentException>(() => Upload(CreateSut(), new MemoryStream(Jpeg), contentType));
+    {
+        using MemoryStream stream = new(Jpeg);
+        await Assert.ThrowsAsync<ArgumentException>(() => Upload(CreateSut(), stream, contentType));
+    }
 
     [Theory]
     [InlineData("")]
     [InlineData(" ")]
     public async Task Upload_Rejects_Blank_Folder(string folder)
-        => await Assert.ThrowsAsync<ArgumentException>(() => Upload(CreateSut(), new MemoryStream(Jpeg), folder: folder));
+    {
+        using MemoryStream stream = new(Jpeg);
+        await Assert.ThrowsAsync<ArgumentException>(() => Upload(CreateSut(), stream, folder: folder));
+    }
 
     [Fact]
     public async Task Upload_Rejects_Unreadable_Stream()
@@ -85,8 +91,10 @@ public sealed class BlobMediaServiceTests
     [InlineData("text/html")]
     public async Task Upload_Rejects_Disallowed_Content_Types(string contentType)
     {
+        using MemoryStream stream = new(Jpeg);
+
         var ex = await Assert.ThrowsAsync<MediaValidationException>(
-            () => Upload(CreateSut(), new MemoryStream(Jpeg), contentType));
+            () => Upload(CreateSut(), stream, contentType));
 
         Assert.Contains("not allowed", ex.Message);
     }
@@ -109,8 +117,9 @@ public sealed class BlobMediaServiceTests
     [Fact]
     public async Task Upload_Rejects_Oversized_Seekable_Stream()
     {
+        using MemoryStream stream = new(Jpeg);
         var ex = await Assert.ThrowsAsync<MediaValidationException>(
-            () => Upload(CreateSut(maxFileSize: 8), new MemoryStream(Jpeg)));
+            () => Upload(CreateSut(maxFileSize: 8), stream));
 
         Assert.Contains("limit", ex.Message);
     }
@@ -129,7 +138,7 @@ public sealed class BlobMediaServiceTests
     [InlineData(false)]
     public async Task Upload_Rejects_Empty_Files(bool seekable)
     {
-        Stream stream = seekable ? new MemoryStream([]) : new NonSeekableStream([]);
+        using Stream stream = seekable ? new MemoryStream([]) : new NonSeekableStream([]);
 
         var ex = await Assert.ThrowsAsync<MediaValidationException>(() => Upload(CreateSut(), stream));
 
@@ -154,8 +163,10 @@ public sealed class BlobMediaServiceTests
     [Fact]
     public async Task Upload_Content_Type_Check_Is_Case_Insensitive_And_Reaches_Signature_Validation()
     {
+        using MemoryStream stream = new([1, 2, 3]);
+
         var ex = await Assert.ThrowsAsync<MediaValidationException>(
-            () => Upload(CreateSut(), new MemoryStream([1, 2, 3]), "IMAGE/PNG"));
+            () => Upload(CreateSut(), stream, "IMAGE/PNG"));
 
         Assert.Contains("does not match", ex.Message);
     }
