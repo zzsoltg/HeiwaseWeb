@@ -1,0 +1,177 @@
+name: PR Tests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
+concurrency:
+  group: pr-tests-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  test:
+    name: Unit tests and coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore .NET local tools
+        run: dotnet tool restore
+
+      - name: Test with coverage
+        run: >
+          dotnet test src/Heiwase.App.slnx
+          --settings tests/coverage.runsettings
+          --collect:"XPlat Code Coverage"
+          --results-directory ./TestResults
+          --logger "trx;LogFilePrefix=results"
+
+      - name: Coverage gate and report generation
+        run: |
+          dotnet tool run reportgenerator \
+            "-reports:TestResults/**/coverage.cobertura.xml" \
+            "-targetdir:TestResults/CoverageReport" \
+            "-reporttypes:HtmlInline_AzurePipelines;TextSummary;MarkdownSummaryGithub" \
+            "-minimumcoverage:80"
+          cat TestResults/CoverageReport/Summary.txt
+
+      - name: Test report (pass/fail)
+        if: always()
+        shell: python
+        run: |
+          import glob, os, xml.etree.ElementTree as ET
+          ns = {"t": "http://microsoft.com/schemas/VisualStudio/TeamTest/2010"}
+          total = passed = failed = skipped = 0
+          failures = []
+          for path in glob.glob("TestResults/**/*.trx", recursive=True):
+              root = ET.parse(path).getroot()
+              for r in root.iterfind(".//t:UnitTestResult", ns):
+                  total += 1
+                  outcome = r.get("outcome")
+                  if outcome == "Passed":
+                      passed += 1
+                  elif outcome == "Failed":
+                      failed += 1
+                      msg = r.findtext(".//t:Message", default="", namespaces=ns).strip().splitlines()
+                      failures.append((r.get("testName"), msg[0] if msg else ""))
+                  else:
+                      skipped += 1
+          icon = "✅" if failed == 0 and total > 0 else "❌"
+          lines = [
+              f"## {icon} Test results",
+              "",
+              "| Total | Passed | Failed | Skipped |",
+              "|---|---|---|---|",
+              f"| {total} | {passed} | {failed} | {skipped} |",
+          ]
+          if failures:
+              lines += ["", "### Failed tests", ""]
+              lines += [f"- `{n}`: {m}" for n, m in failures]
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
+              f.write("\n".join(lines) + "\n")
+
+      - name: Summary
+        if: always()
+        run: |
+          if [ -f TestResults/CoverageReport/SummaryGithub.md ]; then
+            cat TestResults/CoverageReport/SummaryGithub.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: TestResults/
+
+  code-analysis:
+    name: Static Code Analysis (CodeQL & Roslyn)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: csharp
+          queries: security-and-quality
+
+      - name: Build Solution with Roslyn Analyzers
+        run: dotnet build src/Heiwase.App.slnx --configuration Release
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:csharp"
+
+  mutation:
+    name: Mutation tests (informational)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - run: dotnet tool restore
+
+      - name: Stryker (changed files only)
+        working-directory: tests/Heiwase.App.Tests.Unit
+        run: dotnet tool run dotnet-stryker --since:origin/${{ github.base_ref }}
+
+      - name: Mutation summary
+        if: always()
+        shell: python
+        run: |
+          import glob, json, os
+          from collections import Counter
+          files = sorted(glob.glob("tests/Heiwase.App.Tests.Unit/StrykerOutput/**/mutation-report.json", recursive=True))
+          out = open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8")
+          if not files:
+              out.write("## 🧬 Mutation testing\n\nNo mutation report was produced (no changed mutable files).\n")
+              raise SystemExit(0)
+          report = json.load(open(files[-1], encoding="utf-8"))
+          rows = []
+          overall = Counter()
+          for name, data in report["files"].items():
+              c = Counter(m["status"] for m in data["mutants"])
+              overall.update(c)
+              rows.append((name, c))
+          def score(c):
+              detected = c["Killed"] + c["Timeout"]
+              valid = detected + c["Survived"] + c["NoCoverage"]
+              return "n/a" if valid == 0 else f"{100 * detected / valid:.1f}%"
+          out.write("## 🧬 Mutation testing (informational)\n\n")
+          out.write(f"**Mutation score: {score(overall)}** — killed {overall['Killed']}, timeout {overall['Timeout']}, "
+                    f"survived {overall['Survived']}, no coverage {overall['NoCoverage']}\n\n")
+          out.write("| File | Score | Killed | Survived | No coverage |\n|---|---|---|---|---|\n")
+          for name, c in rows:
+              out.write(f"| `{name}` | {score(c)} | {c['Killed'] + c['Timeout']} | {c['Survived']} | {c['NoCoverage']} |\n")
+          out.write("\nThe full HTML report is in the `mutation-report` artifact.\n")
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mutation-report
+          path: tests/Heiwase.App.Tests.Unit/StrykerOutput/

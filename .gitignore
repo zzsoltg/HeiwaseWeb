@@ -81,3 +81,8 @@ yarn-debug.log
 ehthumbs.db
 Thumbs.db
 Desktop.ini
+
+# Testing
+StrykerOutput/
+TestResults/
+coverage-report/

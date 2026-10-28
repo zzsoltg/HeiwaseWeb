@@ -30,16 +30,16 @@ internal abstract class Repository<T> : IRepository<T> where T : BaseEntity
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(id);
 
-        Container container = await GetContainerAsync(cancellationToken).ConfigureAwait(false);
+        var container = await GetContainerAsync(cancellationToken).ConfigureAwait(false);
         try
         {
-            ItemResponse<T> response = await container
+            var response = await container
                 .ReadItemAsync<T>(id, new PartitionKey(id), cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 
             return response.Resource;
         }
-        catch ( CosmosException ex ) when ( ex.StatusCode == HttpStatusCode.NotFound )
+        catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
             return null;
         }
@@ -52,12 +52,12 @@ internal abstract class Repository<T> : IRepository<T> where T : BaseEntity
     {
         ArgumentNullException.ThrowIfNull(entity);
 
-        if ( string.IsNullOrWhiteSpace(entity.Id) )
+        if (string.IsNullOrWhiteSpace(entity.Id))
         {
-            entity.Id = Guid.NewGuid( ).ToString( );
+            entity.Id = Guid.NewGuid().ToString();
         }
 
-        Container container = await GetContainerAsync(cancellationToken).ConfigureAwait(false);
+        var container = await GetContainerAsync(cancellationToken).ConfigureAwait(false);
         await container
             .CreateItemAsync(entity, new PartitionKey(entity.Id), cancellationToken: cancellationToken)
             .ConfigureAwait(false);
@@ -68,7 +68,7 @@ internal abstract class Repository<T> : IRepository<T> where T : BaseEntity
         ArgumentNullException.ThrowIfNull(entity);
         ArgumentException.ThrowIfNullOrWhiteSpace(entity.Id);
 
-        Container container = await GetContainerAsync(cancellationToken).ConfigureAwait(false);
+        var container = await GetContainerAsync(cancellationToken).ConfigureAwait(false);
         await container
             .ReplaceItemAsync(entity, entity.Id, new PartitionKey(entity.Id), cancellationToken: cancellationToken)
             .ConfigureAwait(false);
@@ -79,7 +79,7 @@ internal abstract class Repository<T> : IRepository<T> where T : BaseEntity
         ArgumentNullException.ThrowIfNull(entity);
         ArgumentException.ThrowIfNullOrWhiteSpace(entity.Id);
 
-        Container container = await GetContainerAsync(cancellationToken).ConfigureAwait(false);
+        var container = await GetContainerAsync(cancellationToken).ConfigureAwait(false);
         await container
             .DeleteItemAsync<T>(entity.Id, new PartitionKey(entity.Id), cancellationToken: cancellationToken)
             .ConfigureAwait(false);
@@ -89,14 +89,14 @@ internal abstract class Repository<T> : IRepository<T> where T : BaseEntity
         Func<IQueryable<T>, IQueryable<T>> buildQuery,
         CancellationToken cancellationToken)
     {
-        Container container = await GetContainerAsync(cancellationToken).ConfigureAwait(false);
-        IQueryable<T> query = buildQuery(container.GetItemLinqQueryable<T>( ));
+        var container = await GetContainerAsync(cancellationToken).ConfigureAwait(false);
+        var query = buildQuery(container.GetItemLinqQueryable<T>());
 
-        List<T> results = [ ];
-        using FeedIterator<T> iterator = query.ToFeedIterator( );
-        while ( iterator.HasMoreResults )
+        List<T> results = [];
+        using var iterator = query.ToFeedIterator();
+        while (iterator.HasMoreResults)
         {
-            FeedResponse<T> page = await iterator.ReadNextAsync(cancellationToken).ConfigureAwait(false);
+            var page = await iterator.ReadNextAsync(cancellationToken).ConfigureAwait(false);
             results.AddRange(page);
         }
 

@@ -21,13 +21,13 @@ public class HallOfFameMemberDto
     public int Order { get; set; }
 
     [JsonPropertyName("name")]
-    public Dictionary<string, string> Names { get; set; } = [ ];
+    public Dictionary<string, string> Names { get; set; } = [];
 
     [JsonPropertyName("title")]
-    public Dictionary<string, string> Titles { get; set; } = [ ];
+    public Dictionary<string, string> Titles { get; set; } = [];
 
     [JsonPropertyName("description")]
-    public Dictionary<string, List<string>> Descriptions { get; set; } = [ ];
+    public Dictionary<string, List<string>> Descriptions { get; set; } = [];
 
     [JsonPropertyName("imagePath")]
     public string ImagePath { get; set; } = String.Empty;
@@ -39,7 +39,7 @@ public class HallOfFameMemberDto
     public string Title => Resolve(Titles) ?? String.Empty;
 
     [JsonIgnore]
-    public List<string> Description => Resolve(Descriptions) ?? [ ];
+    public List<string> Description => Resolve(Descriptions) ?? [];
 
     [JsonIgnore]
     public string AvifPath => Path.ChangeExtension(ImagePath, ".avif");
@@ -55,13 +55,13 @@ public class HallOfFameMemberDto
 
     private static T? Resolve<T>(Dictionary<string, T> values)
     {
-        string language = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+        var language = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
-        if ( values.TryGetValue(language, out T? value) || values.TryGetValue(DefaultLanguage, out value) )
+        if (values.TryGetValue(language, out var value) || values.TryGetValue(DefaultLanguage, out value))
         {
             return value;
         }
 
-        return values.Values.FirstOrDefault( );
+        return values.Values.FirstOrDefault();
     }
 }

@@ -1,12 +1,12 @@
-﻿using Heiwase.App.Blazor;
+﻿using System.Globalization;
+
+using Heiwase.App.Blazor;
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
 
 using Radzen;
-
-using System.Globalization;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -22,7 +22,7 @@ var result = await jsInterop.InvokeAsync<string>("localStorage.getItem", "blazor
 
 CultureInfo culture;
 
-if ( result is not null )
+if (result is not null)
 {
     culture = new CultureInfo(result);
 }

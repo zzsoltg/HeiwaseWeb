@@ -24,25 +24,25 @@ public static class DependencyInjection
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configuration);
 
-        services.AddOptions<CosmosDbOptions>( )
+        services.AddOptions<CosmosDbOptions>()
             .Bind(configuration.GetSection(CosmosDbOptions.SectionName))
-            .ValidateDataAnnotations( )
-            .ValidateOnStart( );
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
-        services.AddOptions<MediaOptions>( )
+        services.AddOptions<MediaOptions>()
             .Bind(configuration.GetSection(MediaOptions.SectionName))
-            .ValidateDataAnnotations( )
-            .ValidateOnStart( );
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
-        services.TryAddSingleton<TokenCredential>(_ => new DefaultAzureCredential( ));
-        services.AddSingleton<ICosmosConnectionStringProvider, KeyVaultCosmosConnectionStringProvider>( );
-        services.AddSingleton<ICosmosContainerProvider, CosmosContainerProvider>( );
+        services.TryAddSingleton<TokenCredential>(_ => new DefaultAzureCredential());
+        services.AddSingleton<ICosmosConnectionStringProvider, KeyVaultCosmosConnectionStringProvider>();
+        services.AddSingleton<ICosmosContainerProvider, CosmosContainerProvider>();
 
-        services.AddSingleton<IMediaService, BlobMediaService>( );
+        services.AddSingleton<IMediaService, BlobMediaService>();
 
-        services.AddSingleton<IArticleRepository, ArticleRepository>( );
-        services.AddSingleton<IHallOfFameMemberRepository, HallOfFameMemberRepository>( );
-        services.AddSingleton<IApplicationFormRepository, ApplicationFormRepository>( );
+        services.AddSingleton<IArticleRepository, ArticleRepository>();
+        services.AddSingleton<IHallOfFameMemberRepository, HallOfFameMemberRepository>();
+        services.AddSingleton<IApplicationFormRepository, ApplicationFormRepository>();
 
         return services;
     }
