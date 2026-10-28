@@ -108,8 +108,9 @@ public sealed class BlobMediaServiceTests
     [InlineData("articles//x")]
     public async Task Upload_Rejects_Invalid_Folder_Names(string folder)
     {
+        using MemoryStream stream = new(Jpeg);
         var ex = await Assert.ThrowsAsync<MediaValidationException>(
-            () => Upload(CreateSut(), new MemoryStream(Jpeg), folder: folder));
+            () => Upload(CreateSut(), stream, folder: folder));
 
         Assert.Contains("Folder", ex.Message);
     }
