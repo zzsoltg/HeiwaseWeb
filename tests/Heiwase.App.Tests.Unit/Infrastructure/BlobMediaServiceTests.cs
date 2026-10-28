@@ -60,13 +60,19 @@ public sealed class BlobMediaServiceTests
     [InlineData("")]
     [InlineData(" ")]
     public async Task Upload_Rejects_Blank_ContentType(string contentType)
-        => await Assert.ThrowsAsync<ArgumentException>(() => Upload(CreateSut(), new MemoryStream(Jpeg), contentType));
+    {
+        using MemoryStream stream = new(Jpeg);
+        await Assert.ThrowsAsync<ArgumentException>(() => Upload(CreateSut(), stream, contentType));
+    }
 
     [Theory]
     [InlineData("")]
     [InlineData(" ")]
     public async Task Upload_Rejects_Blank_Folder(string folder)
-        => await Assert.ThrowsAsync<ArgumentException>(() => Upload(CreateSut(), new MemoryStream(Jpeg), folder: folder));
+    {
+        using MemoryStream stream = new(Jpeg);
+        await Assert.ThrowsAsync<ArgumentException>(() => Upload(CreateSut(), stream, folder: folder));
+    }
 
     [Fact]
     public async Task Upload_Rejects_Unreadable_Stream()
