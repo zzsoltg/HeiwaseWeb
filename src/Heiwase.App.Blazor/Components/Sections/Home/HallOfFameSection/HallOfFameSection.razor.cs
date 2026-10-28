@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
-
-using Radzen;
-
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using System.Timers;
-using Microsoft.Extensions.Localization;
+
 using Heiwase.App.Blazor.Components.Shared.Dialogs.CompetitorResultsDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.SenpaiResultsDialog;
 using Heiwase.App.Blazor.Helpers;
 using Heiwase.App.Shared.Models;
+
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
+
+using Radzen;
 
 namespace Heiwase.App.Blazor.Components.Sections.Home.HallOfFameSection;
 
@@ -32,12 +33,12 @@ public partial class HallOfFameSection : IAsyncDisposable
     protected System.Timers.Timer? Timer { get; set; }
     protected System.Timers.Timer? ResumeTimer { get; set; }
 
-    protected bool TrackInitialized { get; set; } = false;
-    protected bool TrackResetPending { get; set; } = false;
-    protected bool IsAnimating { get; set; } = false;
-    protected bool UserInteractionPaused { get; set; } = false;
-    protected int CompetitorIndex { get; set; } = 0;
-    protected int SenpaiIndex { get; set; } = 0;
+    protected bool TrackInitialized { get; set; }
+    protected bool TrackResetPending { get; set; }
+    protected bool IsAnimating { get; set; }
+    protected bool UserInteractionPaused { get; set; }
+    protected int CompetitorIndex { get; set; }
+    protected int SenpaiIndex { get; set; }
 
     protected const string HallOfFameDataString = "data/halloffame.json";
     protected const string CompetitorGridId = "competitors-grid";
@@ -45,17 +46,17 @@ public partial class HallOfFameSection : IAsyncDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if ( firstRender )
+        if (firstRender)
         {
             Module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/animations.js");
 
-            if ( Module is not null )
+            if (Module is not null)
             {
                 await Module.InvokeVoidAsync("initAnimations");
             }
         }
 
-        if ( !TrackInitialized && Module is not null && Competitors.Count > 0 )
+        if (!TrackInitialized && Module is not null && Competitors.Count > 0)
         {
             TrackInitialized = true;
             await Module.InvokeVoidAsync("initTrack", CompetitorGridId);
@@ -63,14 +64,14 @@ public partial class HallOfFameSection : IAsyncDisposable
             StartTimer();
         }
 
-        if ( TrackResetPending && Module is not null )
+        if (TrackResetPending && Module is not null)
         {
             TrackResetPending = false;
             await Module.InvokeVoidAsync("resetTrack", CompetitorGridId);
             await Module.InvokeVoidAsync("resetTrack", SenpaiGridId);
             IsAnimating = false;
 
-            if ( !UserInteractionPaused )
+            if (!UserInteractionPaused)
             {
                 Timer?.Start();
             }
@@ -83,13 +84,13 @@ public partial class HallOfFameSection : IAsyncDisposable
         {
             var data = await Http.GetFromJsonAsync<HallOfFameDataDto>(HallOfFameDataString);
 
-            if ( data != null )
+            if (data != null)
             {
                 Competitors = data.Competitors;
                 Senpais = data.Senpais;
             }
         }
-        catch ( Exception ex )
+        catch (Exception ex)
         {
             Console.WriteLine($"Hiba a JSON betöltésekor: {ex.Message}");
         }
@@ -108,7 +109,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         Timer!.Stop();
         IsAnimating = true;
 
-        if ( Module is not null )
+        if (Module is not null)
         {
             var compTask = Module.InvokeAsync<object>("slideTrackRight", CompetitorGridId).AsTask();
             var senpTask = Module.InvokeAsync<object>("slideTrackLeft", SenpaiGridId).AsTask();
@@ -127,7 +128,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         ResumeTimer?.Dispose();
         GC.SuppressFinalize(this);
 
-        if ( Module is not null )
+        if (Module is not null)
         {
             await Module.DisposeAsync();
         }
@@ -135,7 +136,7 @@ public partial class HallOfFameSection : IAsyncDisposable
 
     protected List<HallOfFameMemberDto> GetCompetitorItems()
     {
-        if ( Competitors.Count == 0 )
+        if (Competitors.Count == 0)
         {
             return [];
         }
@@ -153,7 +154,7 @@ public partial class HallOfFameSection : IAsyncDisposable
 
     protected List<HallOfFameMemberDto> GetSenpaiItems()
     {
-        if ( Senpais.Count == 0 )
+        if (Senpais.Count == 0)
         {
             return [];
         }
@@ -177,22 +178,22 @@ public partial class HallOfFameSection : IAsyncDisposable
         ResumeTimer?.Stop();
         ResumeTimer?.Dispose();
         ResumeTimer = new System.Timers.Timer(15_000);
-        ResumeTimer.Elapsed  += OnResumeTimerElapsed;
+        ResumeTimer.Elapsed += OnResumeTimerElapsed;
         ResumeTimer.AutoReset = false;
-        ResumeTimer.Enabled   = true;
+        ResumeTimer.Enabled = true;
     }
 
     protected void OnResumeTimerElapsed(object? sender, ElapsedEventArgs e)
     {
         UserInteractionPaused = false;
 
-        if ( !IsAnimating )
+        if (!IsAnimating)
         {
             Timer?.Start();
         }
     }
 
-    protected Task OnCompetitorLeftClick() 
+    protected Task OnCompetitorLeftClick()
         => PerformCompetitorSlide(slidesLeft: true);
 
     protected Task OnCompetitorRightClick()
@@ -208,19 +209,19 @@ public partial class HallOfFameSection : IAsyncDisposable
     {
         PauseAutoAnimation();
 
-        if ( IsAnimating )
+        if (IsAnimating)
         {
             return;
         }
 
         IsAnimating = true;
 
-        if ( Module is not null )
+        if (Module is not null)
         {
             await Module.InvokeAsync<object>(slidesLeft ? "slideTrackLeft" : "slideTrackRight", CompetitorGridId);
         }
 
-        if ( slidesLeft )
+        if (slidesLeft)
         {
             NextCompetitor();
         }
@@ -237,19 +238,19 @@ public partial class HallOfFameSection : IAsyncDisposable
     {
         PauseAutoAnimation();
 
-        if ( IsAnimating )
+        if (IsAnimating)
         {
             return;
         }
 
         IsAnimating = true;
 
-        if ( Module is not null )
+        if (Module is not null)
         {
             await Module.InvokeAsync<object>(slidesLeft ? "slideTrackLeft" : "slideTrackRight", SenpaiGridId);
         }
 
-        if ( slidesLeft )
+        if (slidesLeft)
         {
             NextSenpai();
         }
@@ -264,33 +265,33 @@ public partial class HallOfFameSection : IAsyncDisposable
 
     protected void NextCompetitor()
     {
-        if ( Competitors.Count > 0 )
+        if (Competitors.Count > 0)
         {
-            CompetitorIndex = ( CompetitorIndex + 1 ) % Competitors.Count;
+            CompetitorIndex = (CompetitorIndex + 1) % Competitors.Count;
         }
     }
 
     protected void PrevCompetitor()
     {
-        if ( Competitors.Count > 0 )
+        if (Competitors.Count > 0)
         {
-            CompetitorIndex = ( CompetitorIndex - 1 + Competitors.Count ) % Competitors.Count;
+            CompetitorIndex = (CompetitorIndex - 1 + Competitors.Count) % Competitors.Count;
         }
     }
 
     protected void NextSenpai()
     {
-        if ( Senpais.Count > 0 )
+        if (Senpais.Count > 0)
         {
-            SenpaiIndex = ( SenpaiIndex + 1 ) % Senpais.Count;
+            SenpaiIndex = (SenpaiIndex + 1) % Senpais.Count;
         }
     }
 
     protected void PrevSenpai()
     {
-        if ( Senpais.Count > 0 )
+        if (Senpais.Count > 0)
         {
-            SenpaiIndex = ( SenpaiIndex - 1 + Senpais.Count ) % Senpais.Count;
+            SenpaiIndex = (SenpaiIndex - 1 + Senpais.Count) % Senpais.Count;
         }
     }
 

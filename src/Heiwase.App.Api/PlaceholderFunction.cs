@@ -19,7 +19,7 @@ public class PlaceholderFunction
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-        string? name = req.Query[ "name" ];
+        string? name = req.Query["name"];
         return new OkObjectResult(string.IsNullOrWhiteSpace(name)
             ? "Welcome to Azure Functions!"
             : $"Welcome to Azure Functions! Hello, {name}");

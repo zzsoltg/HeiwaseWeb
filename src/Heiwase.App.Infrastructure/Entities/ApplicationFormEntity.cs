@@ -23,7 +23,7 @@ public sealed class ApplicationFormEntity : BaseEntity
     public string GuardianName { get; set; } = string.Empty;
 
     [JsonPropertyName("trainingTypes")]
-    public List<string> TrainingTypes { get; set; } = [ ];
+    public List<string> TrainingTypes { get; set; } = [];
 
     [JsonPropertyName("message")]
     public string Message { get; set; } = string.Empty;

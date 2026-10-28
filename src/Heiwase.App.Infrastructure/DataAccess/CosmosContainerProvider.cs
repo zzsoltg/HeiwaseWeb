@@ -36,15 +36,15 @@ internal sealed class CosmosContainerProvider : ICosmosContainerProvider, IDispo
         return client.GetContainer(_databaseName, containerName);
     }
 
-    public void Dispose( )
+    public void Dispose()
     {
-        _client?.Dispose( );
-        _initializationLock.Dispose( );
+        _client?.Dispose();
+        _initializationLock.Dispose();
     }
 
     private async Task<CosmosClient> GetClientAsync(CancellationToken cancellationToken)
     {
-        if ( _client is not null )
+        if (_client is not null)
         {
             return _client;
         }
@@ -52,7 +52,7 @@ internal sealed class CosmosContainerProvider : ICosmosContainerProvider, IDispo
         await _initializationLock.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
         {
-            if ( _client is null )
+            if (_client is null)
             {
                 string connectionString = await _connectionStringProvider
                     .GetConnectionStringAsync(cancellationToken)
@@ -69,7 +69,7 @@ internal sealed class CosmosContainerProvider : ICosmosContainerProvider, IDispo
         }
         finally
         {
-            _initializationLock.Release( );
+            _initializationLock.Release();
         }
     }
 }

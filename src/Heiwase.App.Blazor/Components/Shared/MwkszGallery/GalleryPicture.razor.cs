@@ -17,11 +17,11 @@ public partial class GalleryPicture
     [Parameter]
     public string AltText { get; set; } = string.Empty;
 
-    public async Task OpenImageDialog( )
+    public async Task OpenImageDialog()
     {
         await DialogService.OpenAsync<PictureShowDialog>
         (AltText,
-            new Dictionary<string, object?>( )
+            new Dictionary<string, object?>()
             {
                 { "ImagePath", Image.Source },
                 { "AltText", AltText }

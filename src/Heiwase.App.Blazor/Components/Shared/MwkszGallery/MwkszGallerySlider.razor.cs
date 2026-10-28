@@ -1,8 +1,8 @@
-﻿using Heiwase.App.Blazor.ViewModels;
+﻿using System.Timers;
+
+using Heiwase.App.Blazor.ViewModels;
 
 using Microsoft.AspNetCore.Components;
-
-using System.Timers;
 
 namespace Heiwase.App.Blazor.Components.Shared.MwkszGallery;
 

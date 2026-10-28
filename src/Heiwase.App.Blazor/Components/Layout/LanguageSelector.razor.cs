@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+﻿using System.Globalization;
 
-using System.Globalization;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Heiwase.App.Blazor.Components.Layout;
 
@@ -19,7 +19,7 @@ public partial class LanguageSelector
         NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
     }
 
-    private string GetCurrentPicturePath()
+    private static string GetCurrentPicturePath()
     {
         return CultureInfo.CurrentCulture.Name == "hu-HU" ? "img/eng-lang-ico.svg" : "img/hun-lang-ico.svg";
     }

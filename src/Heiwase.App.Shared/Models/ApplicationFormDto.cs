@@ -10,6 +10,6 @@ public class ApplicationFormDto
     public GenderType Sex { get; set; }
     public DateOnly? DateOfBirth { get; set; }
     public string GuardianName { get; set; } = String.Empty;
-    public List<TrainingType> TrainingTypes { get; set; } = [ ];
+    public List<TrainingType> TrainingTypes { get; set; } = [];
     public string Message { get; set; } = String.Empty;
 }

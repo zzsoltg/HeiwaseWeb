@@ -1,10 +1,11 @@
-﻿using Heiwase.App.Blazor.ViewModels;
+﻿using System.Globalization;
+using System.Net.Http.Json;
+
+using Heiwase.App.Blazor.ViewModels;
 using Heiwase.App.Shared.Enums;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-
-using System.Net.Http.Json;
 
 namespace Heiwase.App.Blazor.Components.Sections.Home.ContactSection;
 
@@ -14,16 +15,16 @@ public partial class ContactSection
     public HttpClient Http { get; set; } = default!;
     [Inject]
     public IStringLocalizer<ContactSectionResource> L { get; set; } = default!;
-    protected ApplicantModel Applicant { get; set; } = new( );
+    protected ApplicantModel Applicant { get; set; } = new();
 
-    protected bool FormSubmitted { get; set; } = false;
-    protected bool FormError { get; set; } = false;
+    protected bool FormSubmitted { get; set; }
+    protected bool FormError { get; set; }
 
     protected const string FormspreeEndpoint = "https://formspree.io/f/mrenpyzo";
 
-    protected TrainingType[ ] TrainingTypeOptions { get; set; } = [ ];
+    protected TrainingType[] TrainingTypeOptions { get; set; } = [];
 
-    protected override void OnInitialized( )
+    protected override void OnInitialized()
     {
         TrainingTypeOptions = [
             TrainingType.Child,
@@ -37,15 +38,15 @@ public partial class ContactSection
     protected string GetLocalizedTrainingName(TrainingType type) =>
         type switch
         {
-            TrainingType.Child => L[ "Child" ],
-            TrainingType.Adult => L[ "Adult" ],
-            TrainingType.Sportkarate => L[ "Sportkarate" ],
-            TrainingType.WomenSelfDefense => L[ "SelfDefense" ],
-            TrainingType.Athletics => L[ "Athletics" ],
+            TrainingType.Child => L["Child"],
+            TrainingType.Adult => L["Adult"],
+            TrainingType.Sportkarate => L["Sportkarate"],
+            TrainingType.WomenSelfDefense => L["SelfDefense"],
+            TrainingType.Athletics => L["Athletics"],
             _ => string.Empty
         };
 
-    protected async Task HandleValidSubmit( )
+    protected async Task HandleValidSubmit()
     {
         FormSubmitted = false;
         FormError = false;
@@ -56,7 +57,7 @@ public partial class ContactSection
             email = Applicant.Email,
             phone = Applicant.Phone,
             sex = Applicant.Sex,
-            dateOfBirth = Applicant.DateOfBirth?.ToString("yyyy-MM-dd"),
+            dateOfBirth = Applicant.DateOfBirth?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
             guardianName = Applicant.GuardianName,
             trainingTypes = string.Join(", ", Applicant.TrainingTypes),
             message = Applicant.Message
@@ -64,10 +65,10 @@ public partial class ContactSection
 
         var response = await Http.PostAsJsonAsync(FormspreeEndpoint, payload);
 
-        if ( response.IsSuccessStatusCode )
+        if (response.IsSuccessStatusCode)
         {
             FormSubmitted = true;
-            Applicant = new ApplicantModel( );
+            Applicant = new ApplicantModel();
         }
         else
         {
@@ -77,18 +78,18 @@ public partial class ContactSection
 
     protected bool IsTrainingTypeDisabled(TrainingType type)
     {
-        if ( type == TrainingType.WomenSelfDefense )
+        if (type == TrainingType.WomenSelfDefense)
         {
             return Applicant.Sex == GenderType.Male;
         }
 
-        if ( type == TrainingType.Child )
+        if (type == TrainingType.Child)
         {
-            return ( Applicant.DateOfBirth.HasValue && !Applicant.IsMinor )
+            return (Applicant.DateOfBirth.HasValue && !Applicant.IsMinor)
                    || Applicant.TrainingTypes.Contains(TrainingType.Adult);
         }
 
-        if ( type == TrainingType.Adult )
+        if (type == TrainingType.Adult)
         {
             return Applicant.TrainingTypes.Contains(TrainingType.Child);
         }
@@ -98,9 +99,9 @@ public partial class ContactSection
 
     protected void OnTrainingTypeChanged(TrainingType type, bool isChecked)
     {
-        if ( isChecked )
+        if (isChecked)
         {
-            if ( !IsTrainingTypeDisabled(type) && !Applicant.TrainingTypes.Contains(type) )
+            if (!IsTrainingTypeDisabled(type) && !Applicant.TrainingTypes.Contains(type))
                 Applicant.TrainingTypes.Add(type);
         }
         else
@@ -109,6 +110,6 @@ public partial class ContactSection
         }
     }
 
-    protected void SanitizeTrainingTypes( ) =>
+    protected void SanitizeTrainingTypes() =>
         Applicant.TrainingTypes.RemoveAll(t => IsTrainingTypeDisabled(t));
 }

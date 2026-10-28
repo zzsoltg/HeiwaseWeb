@@ -18,7 +18,7 @@ public partial class DojoSection
 
     protected const string MediaBaseUrl = "https://heiwasemedia.blob.core.windows.net/public-media/img/dojogrid";
 
-    protected Task OpenVideoDialogAsync( ) =>
+    protected Task OpenVideoDialogAsync() =>
         DialogService.OpenAsync<DojoVideoDialog>(L["DojoVideo"], options: DialogDefaults.Options("min(720px, 92vw)", noContentPadding: true));
 
     protected Task OpenImageDialog(string imagePath) =>

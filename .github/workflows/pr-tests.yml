@@ -1,7 +1,5 @@
 name: PR Tests
 
-# Independent of "Azure Static Web Apps CI/CD" and "Infra GitOps": no `needs` on them,
-# so all three workflows start in parallel on every pull request.
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -31,6 +29,9 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      - name: Restore .NET local tools
+        run: dotnet tool restore
+
       - name: Test with coverage
         run: >
           dotnet test src/Heiwase.App.slnx
@@ -39,16 +40,21 @@ jobs:
           --results-directory ./TestResults
           --logger "trx;LogFileName=results.trx"
 
-      - name: Coverage gate
-        run: python3 tests/check-coverage.py ./TestResults | tee coverage-summary.txt
+      - name: Coverage gate and report generation
+        run: |
+          dotnet tool run reportgenerator \
+            "-reports:TestResults/**/coverage.cobertura.xml" \
+            "-targetdir:TestResults/CoverageReport" \
+            "-reporttypes:HtmlInline_AzurePipelines;TextSummary;MarkdownSummaryGithub" \
+            "-minimumcoverage:80"
+          cat TestResults/CoverageReport/Summary.txt
 
       - name: Summary
         if: always()
         run: |
-          echo '### Coverage' >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          cat coverage-summary.txt >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          if [ -f TestResults/CoverageReport/SummaryGithub.md ]; then
+            cat TestResults/CoverageReport/SummaryGithub.md >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - uses: actions/upload-artifact@v4
         if: always()
@@ -56,10 +62,33 @@ jobs:
           name: test-results
           path: TestResults/
 
+  code-analysis:
+    name: Static Code Analysis (CodeQL & Roslyn)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: csharp
+          queries: security-and-quality
+
+      - name: Build Solution with Roslyn Analyzers
+        run: dotnet build src/Heiwase.App.slnx --configuration Release
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:csharp"
+
   mutation:
     name: Mutation tests (informational)
     runs-on: ubuntu-latest
-    # Measurement only (thresholds.break = 0); never blocks the PR.
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4

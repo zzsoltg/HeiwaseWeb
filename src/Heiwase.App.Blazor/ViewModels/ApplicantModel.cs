@@ -1,6 +1,6 @@
-﻿using Heiwase.App.Shared.Enums;
+﻿using System.ComponentModel.DataAnnotations;
 
-using System.ComponentModel.DataAnnotations;
+using Heiwase.App.Shared.Enums;
 
 namespace Heiwase.App.Blazor.ViewModels;
 
@@ -30,7 +30,7 @@ public sealed class ApplicantModel : IValidatableObject
 
     public string GuardianName { get; set; } = String.Empty;
 
-    public List<TrainingType> TrainingTypes { get; set; } = [ ];
+    public List<TrainingType> TrainingTypes { get; set; } = [];
 
     public string Message { get; set; } = String.Empty;
 
@@ -38,7 +38,7 @@ public sealed class ApplicantModel : IValidatableObject
     {
         get
         {
-            if ( !DateOfBirth.HasValue )
+            if (!DateOfBirth.HasValue)
             {
                 return false;
             }
@@ -46,7 +46,7 @@ public sealed class ApplicantModel : IValidatableObject
             var today = DateOnly.FromDateTime(DateTime.Today);
             var age = today.Year - DateOfBirth.Value.Year;
 
-            if ( today < DateOfBirth.Value.AddYears(age) )
+            if (today < DateOfBirth.Value.AddYears(age))
             {
                 age--;
             }
@@ -57,32 +57,32 @@ public sealed class ApplicantModel : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if ( IsMinor && string.IsNullOrWhiteSpace(GuardianName) )
+        if (IsMinor && string.IsNullOrWhiteSpace(GuardianName))
         {
             yield return new ValidationResult(
                 ApplicantModelResource.Under18Guradian,
-                [ nameof(GuardianName) ]);
+                [nameof(GuardianName)]);
         }
 
-        if ( TrainingTypes.Contains(TrainingType.WomenSelfDefense) && Sex != GenderType.Female )
+        if (TrainingTypes.Contains(TrainingType.WomenSelfDefense) && Sex != GenderType.Female)
         {
             yield return new ValidationResult(
                 ApplicantModelResource.MenSelfDefenseApplication,
-                [ nameof(TrainingTypes) ]);
+                [nameof(TrainingTypes)]);
         }
 
-        if ( TrainingTypes.Contains(TrainingType.Child) && TrainingTypes.Contains(TrainingType.Adult) )
+        if (TrainingTypes.Contains(TrainingType.Child) && TrainingTypes.Contains(TrainingType.Adult))
         {
             yield return new ValidationResult(
                 ApplicantModelResource.NoSameTime,
-                [ nameof(TrainingTypes) ]);
+                [nameof(TrainingTypes)]);
         }
 
-        if ( DateOfBirth.HasValue && !IsMinor && TrainingTypes.Contains(TrainingType.Child) )
+        if (DateOfBirth.HasValue && !IsMinor && TrainingTypes.Contains(TrainingType.Child))
         {
             yield return new ValidationResult(
                 ApplicantModelResource.Above18,
-                [ nameof(TrainingTypes) ]);
+                [nameof(TrainingTypes)]);
         }
     }
 }

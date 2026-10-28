@@ -17,10 +17,10 @@ internal sealed partial class BlobMediaService : IMediaService
 
     private static readonly Dictionary<string, string> Extensions = new(StringComparer.OrdinalIgnoreCase)
     {
-        [ "image/jpeg" ] = ".jpg",
-        [ "image/png" ] = ".png",
-        [ "image/webp" ] = ".webp",
-        [ "image/gif" ] = ".gif",
+        ["image/jpeg"] = ".jpg",
+        ["image/png"] = ".png",
+        ["image/webp"] = ".webp",
+        ["image/gif"] = ".gif",
     };
 
     private readonly BlobContainerClient _container;
@@ -46,17 +46,17 @@ internal sealed partial class BlobMediaService : IMediaService
         ArgumentException.ThrowIfNullOrWhiteSpace(contentType);
         ArgumentException.ThrowIfNullOrWhiteSpace(folder);
 
-        if ( !content.CanRead )
+        if (!content.CanRead)
         {
             throw new MediaValidationException("The file stream is not readable.");
         }
 
-        if ( !Extensions.TryGetValue(contentType, out string? extension) )
+        if (!Extensions.TryGetValue(contentType, out string? extension))
         {
             throw new MediaValidationException($"Content type '{contentType}' is not allowed.");
         }
 
-        if ( !FolderPattern( ).IsMatch(folder) )
+        if (!FolderPattern().IsMatch(folder))
         {
             throw new MediaValidationException("Folder name is invalid.");
         }
@@ -65,17 +65,17 @@ internal sealed partial class BlobMediaService : IMediaService
         try
         {
             Stream source = content;
-            if ( !content.CanSeek )
+            if (!content.CanSeek)
             {
                 buffer = await CopyWithLimitAsync(content, cancellationToken).ConfigureAwait(false);
                 source = buffer;
             }
-            else if ( content.Length > _maxFileSize )
+            else if (content.Length > _maxFileSize)
             {
                 throw new MediaValidationException($"The file exceeds the {_maxFileSize} byte limit.");
             }
 
-            if ( source.Length == 0 )
+            if (source.Length == 0)
             {
                 throw new MediaValidationException("The file is empty.");
             }
@@ -83,7 +83,7 @@ internal sealed partial class BlobMediaService : IMediaService
             await ValidateSignatureAsync(source, contentType, cancellationToken).ConfigureAwait(false);
 
             DateTime now = DateTime.UtcNow;
-            string blobName = $"{folder}/{now:yyyy}/{now:MM}/{Guid.NewGuid( ):N}{extension}";
+            string blobName = $"{folder}/{now:yyyy}/{now:MM}/{Guid.NewGuid():N}{extension}";
             BlobClient blob = _container.GetBlobClient(blobName);
 
             await blob.UploadAsync(
@@ -94,35 +94,35 @@ internal sealed partial class BlobMediaService : IMediaService
                 },
                 cancellationToken).ConfigureAwait(false);
 
-            return blob.Uri.ToString( );
+            return blob.Uri.ToString();
         }
         finally
         {
-            if ( buffer is not null )
+            if (buffer is not null)
             {
-                await buffer.DisposeAsync( ).ConfigureAwait(false);
+                await buffer.DisposeAsync().ConfigureAwait(false);
             }
         }
     }
 
     public async Task DeleteAsync(string blobUrl, CancellationToken cancellationToken = default)
     {
-        if ( !Uri.TryCreate(blobUrl, UriKind.Absolute, out Uri? uri) )
+        if (!Uri.TryCreate(blobUrl, UriKind.Absolute, out Uri? uri))
         {
             return;
         }
 
         string containerPath = _container.Uri.AbsolutePath.TrimEnd('/') + "/";
-        if ( !string.Equals(uri.Scheme, _container.Uri.Scheme, StringComparison.OrdinalIgnoreCase)
+        if (!string.Equals(uri.Scheme, _container.Uri.Scheme, StringComparison.OrdinalIgnoreCase)
             || uri.Port != _container.Uri.Port
             || !string.Equals(uri.Host, _container.Uri.Host, StringComparison.OrdinalIgnoreCase)
-            || !uri.AbsolutePath.StartsWith(containerPath, StringComparison.Ordinal) )
+            || !uri.AbsolutePath.StartsWith(containerPath, StringComparison.Ordinal))
         {
             return;
         }
 
-        string blobName = Uri.UnescapeDataString(uri.AbsolutePath[ containerPath.Length.. ]);
-        if ( string.IsNullOrEmpty(blobName) )
+        string blobName = Uri.UnescapeDataString(uri.AbsolutePath[containerPath.Length..]);
+        if (string.IsNullOrEmpty(blobName))
         {
             return;
         }
@@ -134,14 +134,14 @@ internal sealed partial class BlobMediaService : IMediaService
 
     private async Task<MemoryStream> CopyWithLimitAsync(Stream content, CancellationToken cancellationToken)
     {
-        MemoryStream buffer = new( );
-        byte[] chunk = new byte[ 81920 ];
+        MemoryStream buffer = new();
+        byte[] chunk = new byte[81920];
         int read;
-        while ( (read = await content.ReadAsync(chunk, cancellationToken).ConfigureAwait(false)) > 0 )
+        while ((read = await content.ReadAsync(chunk, cancellationToken).ConfigureAwait(false)) > 0)
         {
-            if ( buffer.Length + read > _maxFileSize )
+            if (buffer.Length + read > _maxFileSize)
             {
-                await buffer.DisposeAsync( ).ConfigureAwait(false);
+                await buffer.DisposeAsync().ConfigureAwait(false);
                 throw new MediaValidationException($"The file exceeds the {_maxFileSize} byte limit.");
             }
 
@@ -155,11 +155,11 @@ internal sealed partial class BlobMediaService : IMediaService
     private static async Task ValidateSignatureAsync(Stream stream, string contentType, CancellationToken cancellationToken)
     {
         long start = stream.Position;
-        byte[] header = new byte[ 12 ];
+        byte[] header = new byte[12];
         int total = 0;
         int read;
-        while ( total < header.Length
-            && (read = await stream.ReadAsync(header.AsMemory(total), cancellationToken).ConfigureAwait(false)) > 0 )
+        while (total < header.Length
+            && (read = await stream.ReadAsync(header.AsMemory(total), cancellationToken).ConfigureAwait(false)) > 0)
         {
             total += read;
         }
@@ -167,21 +167,21 @@ internal sealed partial class BlobMediaService : IMediaService
         stream.Position = start;
 
         ReadOnlySpan<byte> bytes = header.AsSpan(0, total);
-        bool valid = contentType.ToLowerInvariant( ) switch
+        bool valid = contentType.ToLowerInvariant() switch
         {
-            "image/jpeg" => bytes.StartsWith(new byte[ ] { 0xFF, 0xD8, 0xFF }),
-            "image/png" => bytes.StartsWith(new byte[ ] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A }),
+            "image/jpeg" => bytes.StartsWith(new byte[] { 0xFF, 0xD8, 0xFF }),
+            "image/png" => bytes.StartsWith(new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A }),
             "image/gif" => bytes.StartsWith("GIF87a"u8) || bytes.StartsWith("GIF89a"u8),
-            "image/webp" => bytes.Length >= 12 && bytes[ ..4 ].SequenceEqual("RIFF"u8) && bytes[ 8..12 ].SequenceEqual("WEBP"u8),
+            "image/webp" => bytes.Length >= 12 && bytes[..4].SequenceEqual("RIFF"u8) && bytes[8..12].SequenceEqual("WEBP"u8),
             _ => false,
         };
 
-        if ( !valid )
+        if (!valid)
         {
             throw new MediaValidationException("The file content does not match the declared content type.");
         }
     }
 
     [GeneratedRegex("^[a-z0-9-]+(/[a-z0-9-]+)*$")]
-    private static partial Regex FolderPattern( );
+    private static partial Regex FolderPattern();
 }
