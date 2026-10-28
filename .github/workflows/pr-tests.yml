@@ -34,7 +34,7 @@ jobs:
 
       - name: Test with coverage
         run: >
-          dotnet test src/Heiwase.App.slnx
+          dotnet test Heiwase.App.slnx
           --settings tests/coverage.runsettings
           --collect:"XPlat Code Coverage"
           --results-directory ./TestResults
@@ -51,38 +51,7 @@ jobs:
 
       - name: Test report (pass/fail)
         if: always()
-        shell: python
-        run: |
-          import glob, os, xml.etree.ElementTree as ET
-          ns = {"t": "http://microsoft.com/schemas/VisualStudio/TeamTest/2010"}
-          total = passed = failed = skipped = 0
-          failures = []
-          for path in glob.glob("TestResults/**/*.trx", recursive=True):
-              root = ET.parse(path).getroot()
-              for r in root.iterfind(".//t:UnitTestResult", ns):
-                  total += 1
-                  outcome = r.get("outcome")
-                  if outcome == "Passed":
-                      passed += 1
-                  elif outcome == "Failed":
-                      failed += 1
-                      msg = r.findtext(".//t:Message", default="", namespaces=ns).strip().splitlines()
-                      failures.append((r.get("testName"), msg[0] if msg else ""))
-                  else:
-                      skipped += 1
-          icon = "✅" if failed == 0 and total > 0 else "❌"
-          lines = [
-              f"## {icon} Test results",
-              "",
-              "| Total | Passed | Failed | Skipped |",
-              "|---|---|---|---|",
-              f"| {total} | {passed} | {failed} | {skipped} |",
-          ]
-          if failures:
-              lines += ["", "### Failed tests", ""]
-              lines += [f"- `{n}`: {m}" for n, m in failures]
-          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
-              f.write("\n".join(lines) + "\n")
+        run: python .github/scripts/test_report.py
 
       - name: Summary
         if: always()
@@ -114,7 +83,7 @@ jobs:
           queries: security-and-quality
 
       - name: Build Solution with Roslyn Analyzers
-        run: dotnet build src/Heiwase.App.slnx --configuration Release
+        run: dotnet build Heiwase.App.slnx --configuration Release
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
@@ -142,33 +111,7 @@ jobs:
 
       - name: Mutation summary
         if: always()
-        shell: python
-        run: |
-          import glob, json, os
-          from collections import Counter
-          files = sorted(glob.glob("tests/Heiwase.App.Tests.Unit/StrykerOutput/**/mutation-report.json", recursive=True))
-          out = open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8")
-          if not files:
-              out.write("## 🧬 Mutation testing\n\nNo mutation report was produced (no changed mutable files).\n")
-              raise SystemExit(0)
-          report = json.load(open(files[-1], encoding="utf-8"))
-          rows = []
-          overall = Counter()
-          for name, data in report["files"].items():
-              c = Counter(m["status"] for m in data["mutants"])
-              overall.update(c)
-              rows.append((name, c))
-          def score(c):
-              detected = c["Killed"] + c["Timeout"]
-              valid = detected + c["Survived"] + c["NoCoverage"]
-              return "n/a" if valid == 0 else f"{100 * detected / valid:.1f}%"
-          out.write("## 🧬 Mutation testing (informational)\n\n")
-          out.write(f"**Mutation score: {score(overall)}** — killed {overall['Killed']}, timeout {overall['Timeout']}, "
-                    f"survived {overall['Survived']}, no coverage {overall['NoCoverage']}\n\n")
-          out.write("| File | Score | Killed | Survived | No coverage |\n|---|---|---|---|---|\n")
-          for name, c in rows:
-              out.write(f"| `{name}` | {score(c)} | {c['Killed'] + c['Timeout']} | {c['Survived']} | {c['NoCoverage']} |\n")
-          out.write("\nThe full HTML report is in the `mutation-report` artifact.\n")
+        run: python .github/scripts/mutation_summary.py
 
       - uses: actions/upload-artifact@v4
         if: always()
