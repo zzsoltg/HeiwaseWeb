@@ -138,7 +138,7 @@ public sealed class BlobMediaServiceTests
     [InlineData(false)]
     public async Task Upload_Rejects_Empty_Files(bool seekable)
     {
-        Stream stream = seekable ? new MemoryStream([]) : new NonSeekableStream([]);
+        using Stream stream = seekable ? new MemoryStream([]) : new NonSeekableStream([]);
 
         MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(() => Upload(CreateSut(), stream));
 
