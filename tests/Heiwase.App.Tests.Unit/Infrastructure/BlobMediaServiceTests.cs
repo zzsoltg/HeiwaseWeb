@@ -163,8 +163,10 @@ public sealed class BlobMediaServiceTests
     [Fact]
     public async Task Upload_Content_Type_Check_Is_Case_Insensitive_And_Reaches_Signature_Validation()
     {
+        using MemoryStream stream = new([1, 2, 3]);
+
         MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(
-            () => Upload(CreateSut(), new MemoryStream([1, 2, 3]), "IMAGE/PNG"));
+            () => Upload(CreateSut(), stream, "IMAGE/PNG"));
 
         Assert.Contains("does not match", ex.Message);
     }
