@@ -91,8 +91,10 @@ public sealed class BlobMediaServiceTests
     [InlineData("text/html")]
     public async Task Upload_Rejects_Disallowed_Content_Types(string contentType)
     {
+        using MemoryStream stream = new(Jpeg);
+
         MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(
-            () => Upload(CreateSut(), new MemoryStream(Jpeg), contentType));
+            () => Upload(CreateSut(), stream, contentType));
 
         Assert.Contains("not allowed", ex.Message);
     }
