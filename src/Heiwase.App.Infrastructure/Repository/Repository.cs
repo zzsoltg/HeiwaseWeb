@@ -93,7 +93,7 @@ internal abstract class Repository<T> : IRepository<T> where T : BaseEntity
         var query = buildQuery(container.GetItemLinqQueryable<T>());
 
         List<T> results = [];
-        using FeedIterator<T> iterator = query.ToFeedIterator();
+        using var iterator = query.ToFeedIterator();
         while (iterator.HasMoreResults)
         {
             var page = await iterator.ReadNextAsync(cancellationToken).ConfigureAwait(false);

@@ -31,7 +31,7 @@ public abstract class SiteTestContext : BunitContext
 
     protected static void UseCulture(string culture)
     {
-        CultureInfo info = CultureInfo.GetCultureInfo(culture);
+        var info = CultureInfo.GetCultureInfo(culture);
         CultureInfo.CurrentCulture = info;
         CultureInfo.CurrentUICulture = info;
     }

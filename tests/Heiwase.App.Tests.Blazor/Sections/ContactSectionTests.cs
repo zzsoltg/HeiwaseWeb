@@ -219,7 +219,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void A_Failed_Submission_Shows_The_Error_Message_And_Keeps_The_Input()
     {
-        StubHttpHandler failing = StubHttpHandler.Status(HttpStatusCode.InternalServerError);
+        var failing = StubHttpHandler.Status(HttpStatusCode.InternalServerError);
         var cut = RenderForm(failing);
         Fill(cut);
 

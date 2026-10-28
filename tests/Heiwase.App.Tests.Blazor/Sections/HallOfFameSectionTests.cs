@@ -55,7 +55,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void Requests_The_Hall_Of_Fame_Json()
     {
-        StubHttpHandler handler = StubHttpHandler.Json(HallOfFameTestData.Data(6, 6));
+        var handler = StubHttpHandler.Json(HallOfFameTestData.Data(6, 6));
 
         RenderSection(handler: handler);
 

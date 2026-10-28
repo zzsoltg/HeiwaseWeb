@@ -83,7 +83,7 @@ public sealed class HallOfFameMemberDtoTests
     {
         var json = JsonSerializer.Serialize(CreateDto());
 
-        using JsonDocument document = JsonDocument.Parse(json);
+        using var document = JsonDocument.Parse(json);
         var root = document.RootElement;
 
         Assert.True(root.TryGetProperty("name", out _));

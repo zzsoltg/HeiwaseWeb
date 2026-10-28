@@ -110,7 +110,7 @@ public sealed class MwkszGallerySliderTests : SiteTestContext
     public void Disposing_Stops_The_Auto_Slide_Timer()
     {
         var cut = Render<MwkszGallerySlider>();
-        System.Timers.Timer timer = (System.Timers.Timer) typeof(MwkszGallerySlider)
+        var timer = (System.Timers.Timer) typeof(MwkszGallerySlider)
             .GetField("_autoSlideTimer", BindingFlags.Instance | BindingFlags.NonPublic)!
             .GetValue(cut.Instance)!;
         Assert.True(timer.Enabled);
