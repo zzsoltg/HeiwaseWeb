@@ -55,9 +55,9 @@ public class HallOfFameMemberDto
 
     private static T? Resolve<T>(Dictionary<string, T> values)
     {
-        string language = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+        var language = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
-        if (values.TryGetValue(language, out T? value) || values.TryGetValue(DefaultLanguage, out value))
+        if (values.TryGetValue(language, out var value) || values.TryGetValue(DefaultLanguage, out value))
         {
             return value;
         }

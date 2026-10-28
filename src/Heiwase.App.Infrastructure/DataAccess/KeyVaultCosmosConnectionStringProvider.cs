@@ -17,7 +17,7 @@ internal sealed class KeyVaultCosmosConnectionStringProvider : ICosmosConnection
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(credential);
 
-        CosmosDbOptions settings = options.Value;
+        var settings = options.Value;
         _secretClient = new SecretClient(new Uri(settings.KeyVaultUri), credential);
         _secretName = settings.ConnectionStringSecretName;
     }

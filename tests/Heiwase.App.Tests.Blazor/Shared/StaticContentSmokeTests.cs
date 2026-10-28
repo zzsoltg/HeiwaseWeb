@@ -37,7 +37,7 @@ public sealed class StaticContentSmokeTests : SiteTestContext
                 && !_excludedSuffixes.Contains(t.Name))
             .OrderBy(t => t.FullName, StringComparer.Ordinal);
 
-        foreach (Type type in types)
+        foreach (var type in types)
         {
             data.Add(type.AssemblyQualifiedName!, Hungarian);
             data.Add(type.AssemblyQualifiedName!, English);
@@ -55,9 +55,9 @@ public sealed class StaticContentSmokeTests : SiteTestContext
     public void Renders_Content_In_Each_Culture(string typeName, string culture)
     {
         UseCulture(culture);
-        Type type = Type.GetType(typeName, throwOnError: true)!;
+        var type = Type.GetType(typeName, throwOnError: true)!;
 
-        IRenderedComponent<Microsoft.AspNetCore.Components.IComponent> cut = Render<Microsoft.AspNetCore.Components.IComponent>(
+        var cut = Render<Microsoft.AspNetCore.Components.IComponent>(
             builder =>
             {
                 builder.OpenComponent(0, type);
@@ -74,7 +74,7 @@ public sealed class StaticContentSmokeTests : SiteTestContext
     {
         UseCulture(culture);
 
-        IRenderedComponent<StickyCta> cut = Render<StickyCta>();
+        var cut = Render<StickyCta>();
 
         Assert.Contains(text, cut.Markup, StringComparison.Ordinal);
     }
@@ -82,7 +82,7 @@ public sealed class StaticContentSmokeTests : SiteTestContext
     [Fact]
     public void PictureShowDialog_Shows_The_Image_With_Its_Alt_Text()
     {
-        IRenderedComponent<PictureShowDialog> cut = Render<PictureShowDialog>(p => p
+        var cut = Render<PictureShowDialog>(p => p
             .Add(c => c.ImagePath, "img/a.jpg")
             .Add(c => c.AltText, "Alt szöveg"));
 
@@ -98,7 +98,7 @@ public sealed class StaticContentSmokeTests : SiteTestContext
         UseCulture(culture);
         var member = HallOfFameTestData.Member("c1", "Kiss Pista", "Kumite", "Arany 2024", "Ezüst 2023");
 
-        IRenderedComponent<CompetitorResultsDialog> cut = Render<CompetitorResultsDialog>(p => p.Add(c => c.Member, member));
+        var cut = Render<CompetitorResultsDialog>(p => p.Add(c => c.Member, member));
 
         Assert.Contains("Arany 2024", cut.Markup, StringComparison.Ordinal);
         Assert.Contains("Ezüst 2023", cut.Markup, StringComparison.Ordinal);
@@ -107,7 +107,7 @@ public sealed class StaticContentSmokeTests : SiteTestContext
     [Fact]
     public void CompetitorResultsDialog_Renders_Without_A_Member()
     {
-        IRenderedComponent<CompetitorResultsDialog> cut = Render<CompetitorResultsDialog>();
+        var cut = Render<CompetitorResultsDialog>();
 
         Assert.NotNull(cut.Markup);
     }
@@ -119,7 +119,7 @@ public sealed class StaticContentSmokeTests : SiteTestContext
     {
         var member = HallOfFameTestData.Member("s1", "Nagy Anna", title, "Vizsga 2022");
 
-        IRenderedComponent<SenpaiResultsDialog> cut = Render<SenpaiResultsDialog>(p => p.Add(c => c.Member, member));
+        var cut = Render<SenpaiResultsDialog>(p => p.Add(c => c.Member, member));
 
         Assert.Contains(role, cut.Markup, StringComparison.Ordinal);
         Assert.Contains("Vizsga 2022", cut.Markup, StringComparison.Ordinal);
@@ -128,7 +128,7 @@ public sealed class StaticContentSmokeTests : SiteTestContext
     [Fact]
     public void SenpaiResultsDialog_Renders_Without_A_Member()
     {
-        IRenderedComponent<SenpaiResultsDialog> cut = Render<SenpaiResultsDialog>();
+        var cut = Render<SenpaiResultsDialog>();
 
         Assert.Contains("Senpai", cut.Markup, StringComparison.Ordinal);
     }

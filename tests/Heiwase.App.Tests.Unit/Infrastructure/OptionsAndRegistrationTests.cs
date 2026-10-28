@@ -71,13 +71,13 @@ public sealed class OptionsAndRegistrationTests
 
         services.AddInfrastructure(Config([]));
 
-        foreach (Type type in new[]
+        foreach (var type in new[]
         {
             typeof(IArticleRepository), typeof(IHallOfFameMemberRepository), typeof(IApplicationFormRepository),
             typeof(IMediaService), typeof(ICosmosContainerProvider), typeof(ICosmosConnectionStringProvider),
         })
         {
-            ServiceDescriptor descriptor = Assert.Single(services, d => d.ServiceType == type);
+            var descriptor = Assert.Single(services, d => d.ServiceType == type);
             Assert.Equal(ServiceLifetime.Singleton, descriptor.Lifetime);
         }
     }
@@ -85,13 +85,13 @@ public sealed class OptionsAndRegistrationTests
     [Fact]
     public void AddInfrastructure_Does_Not_Override_A_Preregistered_Credential()
     {
-        TokenCredential credential = Substitute.For<TokenCredential>();
+        var credential = Substitute.For<TokenCredential>();
         ServiceCollection services = new();
         services.AddSingleton(credential);
 
         services.AddInfrastructure(Config([]));
 
-        using ServiceProvider provider = services.BuildServiceProvider();
+        using var provider = services.BuildServiceProvider();
         Assert.Same(credential, provider.GetRequiredService<TokenCredential>());
     }
 
@@ -100,7 +100,7 @@ public sealed class OptionsAndRegistrationTests
     {
         ServiceCollection services = new();
         services.AddInfrastructure(Config([]));
-        using ServiceProvider provider = services.BuildServiceProvider();
+        using var provider = services.BuildServiceProvider();
 
         Assert.Throws<OptionsValidationException>(() => provider.GetRequiredService<IOptions<CosmosDbOptions>>().Value);
     }
@@ -115,7 +115,7 @@ public sealed class OptionsAndRegistrationTests
             ["CosmosDb:KeyVaultUri"] = "https://vault.vault.azure.net/",
             ["Media:AccountName"] = "acct",
         }));
-        using ServiceProvider provider = services.BuildServiceProvider();
+        using var provider = services.BuildServiceProvider();
 
         Assert.NotNull(provider.GetRequiredService<IArticleRepository>());
         Assert.NotNull(provider.GetRequiredService<IHallOfFameMemberRepository>());

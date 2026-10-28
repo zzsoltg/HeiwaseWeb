@@ -48,7 +48,7 @@ public sealed class ContactSectionTests : SiteTestContext
     {
         UseCulture(culture);
 
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
 
         string[] labels = [.. cut.FindAll(".training-type-option").Select(l => l.TextContent.Trim())];
         Assert.Equal(5, labels.Length);
@@ -70,7 +70,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void Nothing_Is_Disabled_Or_Checked_Initially()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
 
         Assert.All(Enumerable.Range(0, 5), i => Assert.False(IsDisabled(cut, i)));
         Assert.All(Enumerable.Range(0, 5), i => Assert.False(IsChecked(cut, i)));
@@ -80,7 +80,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void Selecting_A_Training_Type_Checks_It_And_Unselecting_Clears_It()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
 
         Checkbox(cut, Sportkarate).Change(true);
         Assert.True(IsChecked(cut, Sportkarate));
@@ -92,7 +92,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void Child_And_Adult_Training_Exclude_Each_Other()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
 
         Checkbox(cut, Adult).Change(true);
         Assert.True(IsDisabled(cut, Child));
@@ -107,7 +107,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void Women_Self_Defense_Is_Disabled_For_Men_Only()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
 
         cut.Find("select").Change(nameof(GenderType.Male));
         Assert.True(IsDisabled(cut, WomenSelfDefense));
@@ -119,7 +119,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void Switching_To_Male_Drops_An_Already_Selected_Women_Self_Defense()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
         cut.Find("select").Change(nameof(GenderType.Female));
         Checkbox(cut, WomenSelfDefense).Change(true);
         Assert.True(IsChecked(cut, WomenSelfDefense));
@@ -132,7 +132,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void An_Adult_Birth_Date_Disables_And_Removes_Child_Training()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
         Checkbox(cut, Child).Change(true);
 
         cut.Find("input[type=date]").Change("1990-05-17");
@@ -145,8 +145,8 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void A_Minor_Birth_Date_Reveals_The_Guardian_Field_And_Keeps_Child_Training_Available()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
-        string childBirthDate = DateTime.Today.AddYears(-10).ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+        var cut = RenderForm();
+        var childBirthDate = DateTime.Today.AddYears(-10).ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
 
         cut.Find("input[type=date]").Change(childBirthDate);
 
@@ -157,7 +157,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void Athletics_Is_Never_Restricted()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
         cut.Find("select").Change(nameof(GenderType.Male));
         cut.Find("input[type=date]").Change("1990-05-17");
         Checkbox(cut, Adult).Change(true);
@@ -169,7 +169,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void Submitting_An_Empty_Form_Shows_Validation_Errors_And_Sends_Nothing()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
 
         cut.Find("form").Submit();
 
@@ -180,7 +180,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void Submitting_An_Invalid_Email_Shows_An_Error_And_Sends_Nothing()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
         Fill(cut, email: "not-an-email");
 
         cut.Find("form").Submit();
@@ -192,7 +192,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void A_Valid_Application_Is_Posted_To_Formspree_And_The_Form_Is_Reset()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
         Fill(cut);
         cut.Find("input[placeholder='+36...']").Change("+36 20 123 4567");
         cut.Find("select").Change(nameof(GenderType.Male));
@@ -203,7 +203,7 @@ public sealed class ContactSectionTests : SiteTestContext
         cut.Find("form").Submit();
 
         cut.WaitForAssertion(() => Assert.Single(cut.FindAll(".form-success-message.form-message-visible")));
-        RecordedRequest request = Assert.Single(_http.Requests);
+        var request = Assert.Single(_http.Requests);
         Assert.Equal(HttpMethod.Post, request.Method);
         Assert.Equal("https://formspree.io/f/mrenpyzo", request.Uri?.ToString());
         Assert.Contains("\"name\":\"Teszt Elek\"", request.Body, StringComparison.Ordinal);
@@ -220,7 +220,7 @@ public sealed class ContactSectionTests : SiteTestContext
     public void A_Failed_Submission_Shows_The_Error_Message_And_Keeps_The_Input()
     {
         StubHttpHandler failing = StubHttpHandler.Status(HttpStatusCode.InternalServerError);
-        IRenderedComponent<ContactSection> cut = RenderForm(failing);
+        var cut = RenderForm(failing);
         Fill(cut);
 
         cut.Find("form").Submit();
@@ -233,7 +233,7 @@ public sealed class ContactSectionTests : SiteTestContext
     [Fact]
     public void A_Minor_Application_Requires_A_Guardian()
     {
-        IRenderedComponent<ContactSection> cut = RenderForm();
+        var cut = RenderForm();
         Fill(cut);
         cut.Find("input[type=date]").Change(DateTime.Today.AddYears(-10).ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture));
 

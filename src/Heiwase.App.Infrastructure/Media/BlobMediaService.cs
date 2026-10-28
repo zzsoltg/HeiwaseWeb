@@ -31,8 +31,8 @@ internal sealed partial class BlobMediaService : IMediaService
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(credential);
 
-        MediaOptions settings = options.Value;
-        string serviceUri = string.IsNullOrWhiteSpace(settings.BlobEndpoint)
+        var settings = options.Value;
+        var serviceUri = string.IsNullOrWhiteSpace(settings.BlobEndpoint)
             ? $"https://{settings.AccountName}.blob.core.windows.net"
             : settings.BlobEndpoint.TrimEnd('/');
 
@@ -51,7 +51,7 @@ internal sealed partial class BlobMediaService : IMediaService
             throw new MediaValidationException("The file stream is not readable.");
         }
 
-        if (!Extensions.TryGetValue(contentType, out string? extension))
+        if (!Extensions.TryGetValue(contentType, out var extension))
         {
             throw new MediaValidationException($"Content type '{contentType}' is not allowed.");
         }
@@ -64,7 +64,7 @@ internal sealed partial class BlobMediaService : IMediaService
         MemoryStream? buffer = null;
         try
         {
-            Stream source = content;
+            var source = content;
             if (!content.CanSeek)
             {
                 buffer = await CopyWithLimitAsync(content, cancellationToken).ConfigureAwait(false);
@@ -82,9 +82,9 @@ internal sealed partial class BlobMediaService : IMediaService
 
             await ValidateSignatureAsync(source, contentType, cancellationToken).ConfigureAwait(false);
 
-            DateTime now = DateTime.UtcNow;
-            string blobName = $"{folder}/{now:yyyy}/{now:MM}/{Guid.NewGuid():N}{extension}";
-            BlobClient blob = _container.GetBlobClient(blobName);
+            var now = DateTime.UtcNow;
+            var blobName = $"{folder}/{now:yyyy}/{now:MM}/{Guid.NewGuid():N}{extension}";
+            var blob = _container.GetBlobClient(blobName);
 
             await blob.UploadAsync(
                 source,
@@ -107,12 +107,12 @@ internal sealed partial class BlobMediaService : IMediaService
 
     public async Task DeleteAsync(string blobUrl, CancellationToken cancellationToken = default)
     {
-        if (!Uri.TryCreate(blobUrl, UriKind.Absolute, out Uri? uri))
+        if (!Uri.TryCreate(blobUrl, UriKind.Absolute, out var uri))
         {
             return;
         }
 
-        string containerPath = _container.Uri.AbsolutePath.TrimEnd('/') + "/";
+        var containerPath = _container.Uri.AbsolutePath.TrimEnd('/') + "/";
         if (!string.Equals(uri.Scheme, _container.Uri.Scheme, StringComparison.OrdinalIgnoreCase)
             || uri.Port != _container.Uri.Port
             || !string.Equals(uri.Host, _container.Uri.Host, StringComparison.OrdinalIgnoreCase)
@@ -121,7 +121,7 @@ internal sealed partial class BlobMediaService : IMediaService
             return;
         }
 
-        string blobName = Uri.UnescapeDataString(uri.AbsolutePath[containerPath.Length..]);
+        var blobName = Uri.UnescapeDataString(uri.AbsolutePath[containerPath.Length..]);
         if (string.IsNullOrEmpty(blobName))
         {
             return;
@@ -135,7 +135,7 @@ internal sealed partial class BlobMediaService : IMediaService
     private async Task<MemoryStream> CopyWithLimitAsync(Stream content, CancellationToken cancellationToken)
     {
         MemoryStream buffer = new();
-        byte[] chunk = new byte[81920];
+        var chunk = new byte[81920];
         int read;
         while ((read = await content.ReadAsync(chunk, cancellationToken).ConfigureAwait(false)) > 0)
         {
@@ -154,9 +154,9 @@ internal sealed partial class BlobMediaService : IMediaService
 
     private static async Task ValidateSignatureAsync(Stream stream, string contentType, CancellationToken cancellationToken)
     {
-        long start = stream.Position;
-        byte[] header = new byte[12];
-        int total = 0;
+        var start = stream.Position;
+        var header = new byte[12];
+        var total = 0;
         int read;
         while (total < header.Length
             && (read = await stream.ReadAsync(header.AsMemory(total), cancellationToken).ConfigureAwait(false)) > 0)
@@ -167,7 +167,7 @@ internal sealed partial class BlobMediaService : IMediaService
         stream.Position = start;
 
         ReadOnlySpan<byte> bytes = header.AsSpan(0, total);
-        bool valid = contentType.ToLowerInvariant() switch
+        var valid = contentType.ToLowerInvariant() switch
         {
             "image/jpeg" => bytes.StartsWith(new byte[] { 0xFF, 0xD8, 0xFF }),
             "image/png" => bytes.StartsWith(new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A }),

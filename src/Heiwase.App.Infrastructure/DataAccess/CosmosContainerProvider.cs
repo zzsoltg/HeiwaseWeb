@@ -32,7 +32,7 @@ internal sealed class CosmosContainerProvider : ICosmosContainerProvider, IDispo
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(containerName);
 
-        CosmosClient client = await GetClientAsync(cancellationToken).ConfigureAwait(false);
+        var client = await GetClientAsync(cancellationToken).ConfigureAwait(false);
         return client.GetContainer(_databaseName, containerName);
     }
 
@@ -54,7 +54,7 @@ internal sealed class CosmosContainerProvider : ICosmosContainerProvider, IDispo
         {
             if (_client is null)
             {
-                string connectionString = await _connectionStringProvider
+                var connectionString = await _connectionStringProvider
                     .GetConnectionStringAsync(cancellationToken)
                     .ConfigureAwait(false);
 

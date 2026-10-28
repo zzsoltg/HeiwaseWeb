@@ -20,7 +20,7 @@ public sealed class MwkszGallerySliderTests : SiteTestContext
     [Fact]
     public void Shows_The_First_Page_Of_Four_Pictures()
     {
-        IRenderedComponent<MwkszGallerySlider> cut = Render<MwkszGallerySlider>();
+        var cut = Render<MwkszGallerySlider>();
 
         Assert.Equal(4, cut.FindAll("picture").Count);
         Assert.Equal(["csoport.jpg"], FirstImages(cut));
@@ -29,7 +29,7 @@ public sealed class MwkszGallerySliderTests : SiteTestContext
     [Fact]
     public void Uses_The_Supplied_Accessibility_Texts()
     {
-        IRenderedComponent<MwkszGallerySlider> cut = Render<MwkszGallerySlider>(p => p
+        var cut = Render<MwkszGallerySlider>(p => p
             .Add(c => c.ImageAltText, "Fotó")
             .Add(c => c.PreviousButtonAriaLabel, "Előző")
             .Add(c => c.NextButtonAriaLabel, "Következő"));
@@ -43,7 +43,7 @@ public sealed class MwkszGallerySliderTests : SiteTestContext
     [Fact]
     public void Next_Slides_To_The_Second_Page_With_Enter_And_Exit_Animations()
     {
-        IRenderedComponent<MwkszGallerySlider> cut = Render<MwkszGallerySlider>();
+        var cut = Render<MwkszGallerySlider>();
 
         cut.FindAll(".gallery-nav-btn")[1].Click();
 
@@ -58,7 +58,7 @@ public sealed class MwkszGallerySliderTests : SiteTestContext
     [Fact]
     public void Previous_Wraps_From_The_First_To_The_Last_Page()
     {
-        IRenderedComponent<MwkszGallerySlider> cut = Render<MwkszGallerySlider>();
+        var cut = Render<MwkszGallerySlider>();
 
         cut.FindAll(".gallery-nav-btn")[0].Click();
 
@@ -71,9 +71,9 @@ public sealed class MwkszGallerySliderTests : SiteTestContext
     [Fact]
     public void Next_Wraps_From_The_Last_Page_Back_To_The_First()
     {
-        IRenderedComponent<MwkszGallerySlider> cut = Render<MwkszGallerySlider>();
+        var cut = Render<MwkszGallerySlider>();
 
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
             cut.FindAll(".gallery-nav-btn")[1].Click();
             WaitForSlideEnd(cut);
@@ -85,7 +85,7 @@ public sealed class MwkszGallerySliderTests : SiteTestContext
     [Fact]
     public void Clicks_While_Animating_Are_Ignored()
     {
-        IRenderedComponent<MwkszGallerySlider> cut = Render<MwkszGallerySlider>();
+        var cut = Render<MwkszGallerySlider>();
 
         cut.FindAll(".gallery-nav-btn")[1].Click();
         cut.FindAll(".gallery-nav-btn")[1].Click();
@@ -97,7 +97,7 @@ public sealed class MwkszGallerySliderTests : SiteTestContext
     [Fact]
     public void The_Auto_Slide_Timer_Advances_To_The_Next_Page()
     {
-        IRenderedComponent<MwkszGallerySlider> cut = Render<MwkszGallerySlider>();
+        var cut = Render<MwkszGallerySlider>();
 
         typeof(MwkszGallerySlider)
             .GetMethod("OnAutoSlideElapsed", BindingFlags.Instance | BindingFlags.NonPublic)!
@@ -109,8 +109,8 @@ public sealed class MwkszGallerySliderTests : SiteTestContext
     [Fact]
     public void Disposing_Stops_The_Auto_Slide_Timer()
     {
-        IRenderedComponent<MwkszGallerySlider> cut = Render<MwkszGallerySlider>();
-        System.Timers.Timer timer = (System.Timers.Timer)typeof(MwkszGallerySlider)
+        var cut = Render<MwkszGallerySlider>();
+        System.Timers.Timer timer = (System.Timers.Timer) typeof(MwkszGallerySlider)
             .GetField("_autoSlideTimer", BindingFlags.Instance | BindingFlags.NonPublic)!
             .GetValue(cut.Instance)!;
         Assert.True(timer.Enabled);

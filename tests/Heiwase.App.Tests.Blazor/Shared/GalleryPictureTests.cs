@@ -13,7 +13,7 @@ public sealed class GalleryPictureTests : SiteTestContext
     [Fact]
     public void Derives_Modern_Format_Sources_From_The_Canonical_Jpg()
     {
-        IRenderedComponent<GalleryPicture> cut = Render<GalleryPicture>(p => p
+        var cut = Render<GalleryPicture>(p => p
             .Add(c => c.Image, Sample)
             .Add(c => c.AltText, "Group photo"));
 
@@ -27,14 +27,14 @@ public sealed class GalleryPictureTests : SiteTestContext
     [Fact]
     public void Click_Opens_The_Image_In_A_Borderless_Picture_Dialog()
     {
-        DialogRecorder dialogs = RecordDialogs();
-        IRenderedComponent<GalleryPicture> cut = Render<GalleryPicture>(p => p
+        var dialogs = RecordDialogs();
+        var cut = Render<GalleryPicture>(p => p
             .Add(c => c.Image, Sample)
             .Add(c => c.AltText, "Group photo"));
 
         cut.Find("picture").Click();
 
-        OpenedDialog dialog = dialogs.OnlyDialog;
+        var dialog = dialogs.OnlyDialog;
         Assert.Equal("PictureShowDialog", dialog.ComponentType.Name);
         Assert.Equal("Group photo", dialog.Title);
         Assert.Equal(Sample.Source, dialog.Parameters!["ImagePath"]);

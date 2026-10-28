@@ -25,13 +25,13 @@ public sealed class DialogSectionTests : SiteTestContext
         where TSection : IComponent
     {
         UseCulture(culture);
-        DialogRecorder dialogs = RecordDialogs();
-        IRenderedComponent<TSection> cut = Render<TSection>();
+        var dialogs = RecordDialogs();
+        var cut = Render<TSection>();
 
-        IReadOnlyList<AngleSharp.Dom.IElement> buttons = cut.FindAll(buttonSelector);
+        var buttons = cut.FindAll(buttonSelector);
         Assert.Equal(expectedDialogs.Length, buttons.Count);
 
-        foreach (AngleSharp.Dom.IElement button in buttons)
+        foreach (var button in buttons)
         {
             button.Click();
         }
@@ -56,7 +56,7 @@ public sealed class DialogSectionTests : SiteTestContext
     [MemberData(nameof(BothCultures))]
     public void Coaches_Buttons_Open_One_Dialog_Per_Coach_With_Wide_Frame(string culture)
     {
-        DialogRecorder dialogs = RenderAndClickAll<CoachesSection>(culture, ["CoachZoltanDialog", "CoachBendeguzDialog", "CoachBarnabasDialog"]);
+        var dialogs = RenderAndClickAll<CoachesSection>(culture, ["CoachZoltanDialog", "CoachBendeguzDialog", "CoachBarnabasDialog"]);
 
         Assert.All(dialogs.Opened, d => Assert.Equal("min(720px, 92vw)", d.Options.Width));
     }
@@ -75,7 +75,7 @@ public sealed class DialogSectionTests : SiteTestContext
     [MemberData(nameof(BothCultures))]
     public void Dojo_Video_Button_Opens_Borderless_Video_Dialog(string culture)
     {
-        DialogRecorder dialogs = RenderAndClickAll<DojoSection>(culture, ["DojoVideoDialog"], ".dojo-video-dialog button");
+        var dialogs = RenderAndClickAll<DojoSection>(culture, ["DojoVideoDialog"], ".dojo-video-dialog button");
 
         Assert.Contains("app-dialog-content-flush", dialogs.OnlyDialog.Options.ContentCssClass, StringComparison.Ordinal);
     }
@@ -85,15 +85,15 @@ public sealed class DialogSectionTests : SiteTestContext
     public void Dojo_Pictures_Open_The_Clicked_Image(string culture)
     {
         UseCulture(culture);
-        DialogRecorder dialogs = RecordDialogs();
-        IRenderedComponent<DojoSection> cut = Render<DojoSection>();
+        var dialogs = RecordDialogs();
+        var cut = Render<DojoSection>();
 
-        foreach (AngleSharp.Dom.IElement picture in cut.FindAll("picture.gallery-img"))
+        foreach (var picture in cut.FindAll("picture.gallery-img"))
         {
             picture.Click();
         }
 
-        string[] images = [.. dialogs.Opened.Select(d => (string)d.Parameters!["ImagePath"]!)];
+        string[] images = [.. dialogs.Opened.Select(d => (string) d.Parameters!["ImagePath"]!)];
         Assert.Equal(4, images.Length);
         Assert.EndsWith("/kumite.jpg", images[0], StringComparison.Ordinal);
         Assert.EndsWith("/dojoedzes.jpg", images[1], StringComparison.Ordinal);
@@ -103,7 +103,7 @@ public sealed class DialogSectionTests : SiteTestContext
         {
             Assert.Equal("PictureShowDialog", d.ComponentType.Name);
             Assert.Equal("auto", d.Options.Width);
-            Assert.False(string.IsNullOrEmpty((string?)d.Parameters!["AltText"]));
+            Assert.False(string.IsNullOrEmpty((string?) d.Parameters!["AltText"]));
         });
     }
 
@@ -111,9 +111,9 @@ public sealed class DialogSectionTests : SiteTestContext
     public void Sections_Are_Localised()
     {
         UseCulture(Hungarian);
-        string hungarian = Render<AboutSection>().Markup;
+        var hungarian = Render<AboutSection>().Markup;
         UseCulture(English);
-        string english = Render<AboutSection>().Markup;
+        var english = Render<AboutSection>().Markup;
 
         Assert.Contains("óta Heiwase", hungarian, StringComparison.Ordinal);
         Assert.Contains("Heiwase Founded", english, StringComparison.Ordinal);
@@ -122,7 +122,7 @@ public sealed class DialogSectionTests : SiteTestContext
     [Fact]
     public void Dialog_Titles_Follow_The_Current_Culture()
     {
-        DialogRecorder dialogs = RecordDialogs();
+        var dialogs = RecordDialogs();
 
         UseCulture(Hungarian);
         Render<AboutSection>().Find(".btn-info").Click();

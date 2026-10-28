@@ -17,7 +17,7 @@ public sealed class HallOfFameMemberDtoTests
 
     private static T WithCulture<T>(string culture, Func<T> action)
     {
-        CultureInfo original = CultureInfo.CurrentCulture;
+        var original = CultureInfo.CurrentCulture;
         try
         {
             CultureInfo.CurrentCulture = new CultureInfo(culture);
@@ -34,7 +34,7 @@ public sealed class HallOfFameMemberDtoTests
     [InlineData("en", "Smith", "Master")]
     public void Name_And_Title_Resolve_For_Current_Culture(string culture, string name, string title)
     {
-        HallOfFameMemberDto dto = CreateDto();
+        var dto = CreateDto();
 
         Assert.Equal(name, WithCulture(culture, () => dto.Name));
         Assert.Equal(title, WithCulture(culture, () => dto.Title));
@@ -43,7 +43,7 @@ public sealed class HallOfFameMemberDtoTests
     [Fact]
     public void Resolve_Falls_Back_To_English_When_Culture_Is_Missing()
     {
-        HallOfFameMemberDto dto = CreateDto();
+        var dto = CreateDto();
 
         Assert.Equal("Smith", WithCulture("de", () => dto.Name));
         Assert.Equal(["one"], WithCulture("de", () => dto.Description));
@@ -70,7 +70,7 @@ public sealed class HallOfFameMemberDtoTests
     [Fact]
     public void Image_Paths_Replace_The_Extension()
     {
-        HallOfFameMemberDto dto = CreateDto();
+        var dto = CreateDto();
 
         Assert.Equal("img/members/john.avif", dto.AvifPath.Replace('\\', '/'));
         Assert.Equal("img/members/john.webp", dto.WebpPath.Replace('\\', '/'));
@@ -81,10 +81,10 @@ public sealed class HallOfFameMemberDtoTests
     [Fact]
     public void Json_Uses_Contract_Names_And_Ignores_Computed_Properties()
     {
-        string json = JsonSerializer.Serialize(CreateDto());
+        var json = JsonSerializer.Serialize(CreateDto());
 
         using JsonDocument document = JsonDocument.Parse(json);
-        JsonElement root = document.RootElement;
+        var root = document.RootElement;
 
         Assert.True(root.TryGetProperty("name", out _));
         Assert.True(root.TryGetProperty("title", out _));

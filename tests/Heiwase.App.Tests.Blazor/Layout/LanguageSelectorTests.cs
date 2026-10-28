@@ -17,7 +17,7 @@ public sealed class LanguageSelectorTests : SiteTestContext
     {
         UseCulture(culture);
 
-        IRenderedComponent<LanguageSelector> cut = Render<LanguageSelector>();
+        var cut = Render<LanguageSelector>();
 
         Assert.Contains(expectedIcon, cut.Find("img").GetAttribute("src"), StringComparison.Ordinal);
         Assert.Contains(expectedIcon, cut.Find("source[type='image/avif']").GetAttribute("srcset"), StringComparison.Ordinal);
@@ -30,15 +30,15 @@ public sealed class LanguageSelectorTests : SiteTestContext
     public void Click_Stores_The_New_Culture_And_Reloads_The_Page(string culture, string expectedCulture)
     {
         UseCulture(culture);
-        IRenderedComponent<LanguageSelector> cut = Render<LanguageSelector>();
+        var cut = Render<LanguageSelector>();
 
         cut.Find(".language-selector-alignment").Click();
 
-        JSRuntimeInvocation call = Assert.Single(JSInterop.Invocations["localStorage.setItem"]);
+        var call = Assert.Single(JSInterop.Invocations["localStorage.setItem"]);
         Assert.Equal(["blazorCulture", expectedCulture], call.Arguments.Cast<string>());
 
-        BunitNavigationManager navigation = Services.GetRequiredService<BunitNavigationManager>();
-        NavigationHistory reload = Assert.Single(navigation.History);
+        var navigation = Services.GetRequiredService<BunitNavigationManager>();
+        var reload = Assert.Single(navigation.History);
         Assert.True(reload.Options.ForceLoad);
     }
 }

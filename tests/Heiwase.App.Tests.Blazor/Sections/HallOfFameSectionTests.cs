@@ -41,12 +41,12 @@ public sealed class HallOfFameSectionTests : SiteTestContext
         => typeof(HallOfFameSection).GetMethod(method, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)!.Invoke(instance, args);
 
     private static T Get<T>(object instance, string property)
-        => (T)typeof(HallOfFameSection).GetProperty(property, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)!.GetValue(instance)!;
+        => (T) typeof(HallOfFameSection).GetProperty(property, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)!.GetValue(instance)!;
 
     [Fact]
     public void Shows_A_Loading_Message_When_The_Data_Cannot_Be_Loaded()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection(handler: StubHttpHandler.Status(System.Net.HttpStatusCode.NotFound));
+        var cut = RenderSection(handler: StubHttpHandler.Status(System.Net.HttpStatusCode.NotFound));
 
         Assert.Equal("Loading data...", cut.Find(".text-center").TextContent);
         Assert.Empty(cut.FindAll(".card-common"));
@@ -66,7 +66,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void Renders_A_Window_Of_Five_Cards_Per_Track_Starting_With_The_Last_Item()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
+        var cut = RenderSection();
 
         Assert.Equal(["Competitor 6", "Competitor 1", "Competitor 2", "Competitor 3", "Competitor 4"], CompetitorNames(cut));
         Assert.Equal(["Senpai 6", "Senpai 1", "Senpai 2", "Senpai 3", "Senpai 4"], SenpaiNames(cut));
@@ -75,7 +75,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void Small_Data_Sets_Wrap_Around()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection(competitors: 2, senpais: 1);
+        var cut = RenderSection(competitors: 2, senpais: 1);
 
         Assert.Equal(["Competitor 2", "Competitor 1", "Competitor 2", "Competitor 1", "Competitor 2"], CompetitorNames(cut));
         Assert.Equal(5, SenpaiNames(cut).Length);
@@ -84,7 +84,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void Senpai_Track_Is_Hidden_Without_Senpais()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection(competitors: 3, senpais: 0);
+        var cut = RenderSection(competitors: 3, senpais: 0);
 
         Assert.NotEmpty(cut.FindAll("#competitors-grid"));
         Assert.Empty(cut.FindAll("#senpais-grid"));
@@ -95,7 +95,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     {
         UseCulture(Hungarian);
 
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
+        var cut = RenderSection();
 
         Assert.All(CompetitorNames(cut), n => Assert.EndsWith(" HU", n, StringComparison.Ordinal));
     }
@@ -103,9 +103,9 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void Photo_Sources_Use_Modern_Image_Formats_With_A_Fallback()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
+        var cut = RenderSection();
 
-        AngleSharp.Dom.IElement card = cut.Find("#competitors-grid .card-common");
+        var card = cut.Find("#competitors-grid .card-common");
         Assert.EndsWith("Competitor 6", card.QuerySelector("img")!.GetAttribute("alt"), StringComparison.Ordinal);
         Assert.EndsWith(".avif", card.QuerySelector("source[type='image/avif']")!.GetAttribute("srcset"), StringComparison.Ordinal);
         Assert.EndsWith(".webp", card.QuerySelector("source[type='image/webp']")!.GetAttribute("srcset"), StringComparison.Ordinal);
@@ -132,7 +132,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void Next_Button_Shows_The_Following_Competitor_After_Sliding_Left()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
+        var cut = RenderSection();
 
         cut.FindAll(".slider-nav-btn")[1].Click();
 
@@ -144,7 +144,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void Previous_Button_Shows_The_Preceding_Competitor_After_Sliding_Right()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
+        var cut = RenderSection();
 
         cut.FindAll(".slider-nav-btn")[0].Click();
 
@@ -155,7 +155,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void Senpai_Buttons_Move_The_Senpai_Track()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
+        var cut = RenderSection();
 
         cut.FindAll(".slider-nav-btn")[3].Click();
         cut.WaitForAssertion(() => Assert.Equal("Senpai 1", SenpaiNames(cut)[0]));
@@ -168,8 +168,8 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void A_Click_During_A_Running_Animation_Is_Ignored()
     {
-        JSRuntimeInvocationHandler<object> slide = _module.Setup<object>("slideTrackLeft", Grid);
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
+        var slide = _module.Setup<object>("slideTrackLeft", Grid);
+        var cut = RenderSection();
 
         cut.FindAll(".slider-nav-btn")[1].Click();
         cut.FindAll(".slider-nav-btn")[1].Click();
@@ -182,7 +182,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void Wraps_Around_When_Moving_Past_Either_End()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection(competitors: 3, senpais: 3);
+        var cut = RenderSection(competitors: 3, senpais: 3);
         object section = Section(cut);
 
         Invoke(section, "NextCompetitor");
@@ -202,7 +202,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void Navigation_Without_Data_Does_Nothing()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection(handler: StubHttpHandler.Status(System.Net.HttpStatusCode.NotFound));
+        var cut = RenderSection(handler: StubHttpHandler.Status(System.Net.HttpStatusCode.NotFound));
         object section = Section(cut);
 
         Invoke(section, "NextCompetitor");
@@ -212,14 +212,14 @@ public sealed class HallOfFameSectionTests : SiteTestContext
 
         Assert.Equal(0, Get<int>(section, "CompetitorIndex"));
         Assert.Equal(0, Get<int>(section, "SenpaiIndex"));
-        Assert.Empty((List<HallOfFameMemberDto>)Invoke(section, "GetCompetitorItems")!);
-        Assert.Empty((List<HallOfFameMemberDto>)Invoke(section, "GetSenpaiItems")!);
+        Assert.Empty((List<HallOfFameMemberDto>) Invoke(section, "GetCompetitorItems")!);
+        Assert.Empty((List<HallOfFameMemberDto>) Invoke(section, "GetSenpaiItems")!);
     }
 
     [Fact]
     public void The_Auto_Slide_Timer_Advances_Both_Tracks_In_Opposite_Directions()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
+        var cut = RenderSection();
 
         Invoke(Section(cut), "OnTimerElapsed", null, null);
 
@@ -232,7 +232,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void A_Manual_Click_Pauses_The_Auto_Slide_Until_The_Resume_Timer_Elapses()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
+        var cut = RenderSection();
         object section = Section(cut);
 
         cut.FindAll(".slider-nav-btn")[1].Click();
@@ -248,38 +248,38 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     [Fact]
     public void Competitor_Button_Opens_The_Results_Dialog_For_That_Member()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
-        DialogRecorder dialogs = RecordDialogs();
+        var cut = RenderSection();
+        var dialogs = RecordDialogs();
 
         cut.Find("#competitors-grid .btn-info").Click();
 
-        OpenedDialog dialog = dialogs.OnlyDialog;
+        var dialog = dialogs.OnlyDialog;
         Assert.Equal("CompetitorResultsDialog", dialog.ComponentType.Name);
         Assert.StartsWith("Competitor 6", dialog.Title, StringComparison.Ordinal);
-        Assert.Equal("c6", ((HallOfFameMemberDto)dialog.Parameters!["Member"]!).Id);
+        Assert.Equal("c6", ((HallOfFameMemberDto) dialog.Parameters!["Member"]!).Id);
     }
 
     [Fact]
     public void Senpai_Button_Opens_The_Senpai_Dialog_For_That_Member()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
-        DialogRecorder dialogs = RecordDialogs();
+        var cut = RenderSection();
+        var dialogs = RecordDialogs();
 
         cut.Find("#senpais-grid .btn-info").Click();
 
-        OpenedDialog dialog = dialogs.OnlyDialog;
+        var dialog = dialogs.OnlyDialog;
         Assert.Equal("SenpaiResultsDialog", dialog.ComponentType.Name);
-        Assert.Equal("s6", ((HallOfFameMemberDto)dialog.Parameters!["Member"]!).Id);
+        Assert.Equal("s6", ((HallOfFameMemberDto) dialog.Parameters!["Member"]!).Id);
     }
 
     [Fact]
     public async Task Disposing_Releases_The_Timers_And_The_Module()
     {
-        IRenderedComponent<HallOfFameSection> cut = RenderSection();
+        var cut = RenderSection();
         object section = Section(cut);
         cut.FindAll(".slider-nav-btn")[1].Click();
 
-        await ((IAsyncDisposable)section).DisposeAsync();
+        await ((IAsyncDisposable) section).DisposeAsync();
 
         Assert.NotNull(section);
     }

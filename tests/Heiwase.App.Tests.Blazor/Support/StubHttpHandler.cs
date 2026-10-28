@@ -18,7 +18,7 @@ public sealed class StubHttpHandler(Func<HttpRequestMessage, HttpResponseMessage
 
     public static StubHttpHandler Json(object payload)
     {
-        string json = JsonSerializer.Serialize(payload);
+        var json = JsonSerializer.Serialize(payload);
         return new StubHttpHandler(_ => new HttpResponseMessage(HttpStatusCode.OK)
         {
             Content = new StringContent(json, Encoding.UTF8, "application/json"),
@@ -30,7 +30,7 @@ public sealed class StubHttpHandler(Func<HttpRequestMessage, HttpResponseMessage
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        string body = request.Content is null ? string.Empty : await request.Content.ReadAsStringAsync(cancellationToken);
+        var body = request.Content is null ? string.Empty : await request.Content.ReadAsStringAsync(cancellationToken);
         Requests.Add(new RecordedRequest(request.Method, request.RequestUri, body));
         return responder(request);
     }

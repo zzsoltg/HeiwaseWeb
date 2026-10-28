@@ -51,12 +51,12 @@ public sealed class RepositoryTests
     public async Task GetById_Returns_Entity_Using_Id_As_Partition_Key()
     {
         TestEntity entity = new() { Id = "42" };
-        ItemResponse<TestEntity> response = Substitute.For<ItemResponse<TestEntity>>();
+        var response = Substitute.For<ItemResponse<TestEntity>>();
         response.Resource.Returns(entity);
         _container.ReadItemAsync<TestEntity>("42", new PartitionKey("42"), cancellationToken: Arg.Any<CancellationToken>())
             .Returns(response);
 
-        TestEntity? result = await CreateSut().GetByIdAsync("42");
+        var result = await CreateSut().GetByIdAsync("42");
 
         Assert.Same(entity, result);
     }
@@ -76,7 +76,7 @@ public sealed class RepositoryTests
         _container.ReadItemAsync<TestEntity>(default!, default, default, default)
             .ReturnsForAnyArgs(Task.FromException<ItemResponse<TestEntity>>(CosmosError(HttpStatusCode.TooManyRequests)));
 
-        CosmosException ex = await Assert.ThrowsAsync<CosmosException>(() => CreateSut().GetByIdAsync("1"));
+        var ex = await Assert.ThrowsAsync<CosmosException>(() => CreateSut().GetByIdAsync("1"));
 
         Assert.Equal(HttpStatusCode.TooManyRequests, ex.StatusCode);
     }

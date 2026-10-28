@@ -15,7 +15,7 @@ public sealed class BlobMediaServiceTests
 
     private static BlobMediaService CreateSut(int maxFileSize = 1024)
     {
-        IOptions<MediaOptions> options = Options.Create(new MediaOptions
+        var options = Options.Create(new MediaOptions
         {
             AccountName = "acct",
             ContainerName = "public-media",
@@ -45,7 +45,7 @@ public sealed class BlobMediaServiceTests
     [Fact]
     public void Constructor_Builds_Default_Endpoint_From_Account_Name()
     {
-        IOptions<MediaOptions> options = Options.Create(new MediaOptions { AccountName = "acct" });
+        var options = Options.Create(new MediaOptions { AccountName = "acct" });
 
         BlobMediaService sut = new(options, Substitute.For<TokenCredential>());
 
@@ -74,7 +74,7 @@ public sealed class BlobMediaServiceTests
         MemoryStream stream = new(Jpeg);
         stream.Close();
 
-        MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(() => Upload(CreateSut(), stream));
+        var ex = await Assert.ThrowsAsync<MediaValidationException>(() => Upload(CreateSut(), stream));
 
         Assert.Contains("not readable", ex.Message);
     }
@@ -85,7 +85,7 @@ public sealed class BlobMediaServiceTests
     [InlineData("text/html")]
     public async Task Upload_Rejects_Disallowed_Content_Types(string contentType)
     {
-        MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(
+        var ex = await Assert.ThrowsAsync<MediaValidationException>(
             () => Upload(CreateSut(), new MemoryStream(Jpeg), contentType));
 
         Assert.Contains("not allowed", ex.Message);
@@ -100,7 +100,7 @@ public sealed class BlobMediaServiceTests
     [InlineData("articles//x")]
     public async Task Upload_Rejects_Invalid_Folder_Names(string folder)
     {
-        MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(
+        var ex = await Assert.ThrowsAsync<MediaValidationException>(
             () => Upload(CreateSut(), new MemoryStream(Jpeg), folder: folder));
 
         Assert.Contains("Folder", ex.Message);
@@ -109,7 +109,7 @@ public sealed class BlobMediaServiceTests
     [Fact]
     public async Task Upload_Rejects_Oversized_Seekable_Stream()
     {
-        MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(
+        var ex = await Assert.ThrowsAsync<MediaValidationException>(
             () => Upload(CreateSut(maxFileSize: 8), new MemoryStream(Jpeg)));
 
         Assert.Contains("limit", ex.Message);
@@ -118,7 +118,7 @@ public sealed class BlobMediaServiceTests
     [Fact]
     public async Task Upload_Rejects_Oversized_NonSeekable_Stream()
     {
-        MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(
+        var ex = await Assert.ThrowsAsync<MediaValidationException>(
             () => Upload(CreateSut(maxFileSize: 8), new NonSeekableStream(Jpeg)));
 
         Assert.Contains("limit", ex.Message);
@@ -131,7 +131,7 @@ public sealed class BlobMediaServiceTests
     {
         Stream stream = seekable ? new MemoryStream([]) : new NonSeekableStream([]);
 
-        MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(() => Upload(CreateSut(), stream));
+        var ex = await Assert.ThrowsAsync<MediaValidationException>(() => Upload(CreateSut(), stream));
 
         Assert.Contains("empty", ex.Message);
     }
@@ -145,7 +145,7 @@ public sealed class BlobMediaServiceTests
     [InlineData("image/jpeg", new byte[] { 0xFF })]
     public async Task Upload_Rejects_Content_That_Does_Not_Match_The_Declared_Type(string contentType, byte[] data)
     {
-        MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(
+        var ex = await Assert.ThrowsAsync<MediaValidationException>(
             () => Upload(CreateSut(), new MemoryStream(data), contentType));
 
         Assert.Contains("does not match", ex.Message);
@@ -154,7 +154,7 @@ public sealed class BlobMediaServiceTests
     [Fact]
     public async Task Upload_Content_Type_Check_Is_Case_Insensitive_And_Reaches_Signature_Validation()
     {
-        MediaValidationException ex = await Assert.ThrowsAsync<MediaValidationException>(
+        var ex = await Assert.ThrowsAsync<MediaValidationException>(
             () => Upload(CreateSut(), new MemoryStream([1, 2, 3]), "IMAGE/PNG"));
 
         Assert.Contains("does not match", ex.Message);
@@ -171,9 +171,9 @@ public sealed class BlobMediaServiceTests
     [InlineData("https://blob.example.test/public-media/")]
     public async Task Delete_Ignores_Foreign_Or_Malformed_Urls_Without_Touching_Storage(string url)
     {
-        BlobMediaService sut = CreateSut();
+        var sut = CreateSut();
 
-        Exception? ex = await Record.ExceptionAsync(() => sut.DeleteAsync(url));
+        var ex = await Record.ExceptionAsync(() => sut.DeleteAsync(url));
 
         Assert.Null(ex);
     }

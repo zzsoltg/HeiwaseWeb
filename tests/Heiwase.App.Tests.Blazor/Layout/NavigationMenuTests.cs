@@ -12,7 +12,7 @@ public sealed class NavigationMenuTests : SiteTestContext
     {
         UseCulture(Hungarian);
 
-        IRenderedComponent<NavigationMenu> cut = Render<NavigationMenu>();
+        var cut = Render<NavigationMenu>();
 
         string[] labels = [.. cut.FindAll(".nav-links a").Select(a => a.TextContent.Trim())];
         Assert.Contains("Kezdőlap", labels);
@@ -25,7 +25,7 @@ public sealed class NavigationMenuTests : SiteTestContext
     {
         UseCulture(English);
 
-        IRenderedComponent<NavigationMenu> cut = Render<NavigationMenu>();
+        var cut = Render<NavigationMenu>();
 
         string[] labels = [.. cut.FindAll(".nav-links a").Select(a => a.TextContent.Trim())];
         Assert.DoesNotContain("Kezdőlap", labels);
@@ -35,7 +35,7 @@ public sealed class NavigationMenuTests : SiteTestContext
     [Fact]
     public void Links_Point_To_Every_Page_Section()
     {
-        IRenderedComponent<NavigationMenu> cut = Render<NavigationMenu>();
+        var cut = Render<NavigationMenu>();
 
         string[] targets = [.. cut.FindAll(".nav-links a").Select(a => a.GetAttribute("href")!)];
 
@@ -51,7 +51,7 @@ public sealed class NavigationMenuTests : SiteTestContext
     [Fact]
     public void Menu_Starts_Closed()
     {
-        IRenderedComponent<NavigationMenu> cut = Render<NavigationMenu>();
+        var cut = Render<NavigationMenu>();
 
         Assert.DoesNotContain("active", cut.Find(".hamburger").ClassList);
         Assert.DoesNotContain("active", cut.Find(".nav-links").ClassList);
@@ -60,7 +60,7 @@ public sealed class NavigationMenuTests : SiteTestContext
     [Fact]
     public void Hamburger_Toggles_The_Menu()
     {
-        IRenderedComponent<NavigationMenu> cut = Render<NavigationMenu>();
+        var cut = Render<NavigationMenu>();
 
         cut.Find(".hamburger").Click();
 
@@ -75,7 +75,7 @@ public sealed class NavigationMenuTests : SiteTestContext
     [Fact]
     public void Clicking_A_Link_Closes_The_Menu()
     {
-        IRenderedComponent<NavigationMenu> cut = Render<NavigationMenu>();
+        var cut = Render<NavigationMenu>();
         cut.Find(".hamburger").Click();
 
         cut.Find(".nav-links a[href='#about']").Click();

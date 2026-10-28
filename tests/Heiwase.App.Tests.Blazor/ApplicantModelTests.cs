@@ -52,18 +52,18 @@ public sealed class ApplicantModelTests
     [Fact]
     public void Minor_Without_Guardian_Is_Rejected()
     {
-        ApplicantModel model = Valid();
+        var model = Valid();
         model.DateOfBirth = YearsAgo(10);
         model.TrainingTypes = [TrainingType.Child];
 
-        ValidationResult error = Assert.Single(RunValidate(model));
+        var error = Assert.Single(RunValidate(model));
         Assert.Contains(nameof(ApplicantModel.GuardianName), error.MemberNames);
     }
 
     [Fact]
     public void Minor_With_Guardian_Is_Accepted()
     {
-        ApplicantModel model = Valid();
+        var model = Valid();
         model.DateOfBirth = YearsAgo(10);
         model.TrainingTypes = [TrainingType.Child];
         model.GuardianName = "Szülő";
@@ -76,18 +76,18 @@ public sealed class ApplicantModelTests
     [InlineData(GenderType.Unknown)]
     public void WomenSelfDefense_Requires_Female(GenderType sex)
     {
-        ApplicantModel model = Valid();
+        var model = Valid();
         model.Sex = sex;
         model.TrainingTypes = [TrainingType.WomenSelfDefense];
 
-        ValidationResult error = Assert.Single(RunValidate(model));
+        var error = Assert.Single(RunValidate(model));
         Assert.Contains(nameof(ApplicantModel.TrainingTypes), error.MemberNames);
     }
 
     [Fact]
     public void WomenSelfDefense_Is_Accepted_For_Female()
     {
-        ApplicantModel model = Valid();
+        var model = Valid();
         model.Sex = GenderType.Female;
         model.TrainingTypes = [TrainingType.WomenSelfDefense];
 
@@ -97,28 +97,28 @@ public sealed class ApplicantModelTests
     [Fact]
     public void Child_And_Adult_Cannot_Be_Combined()
     {
-        ApplicantModel model = Valid();
+        var model = Valid();
         model.DateOfBirth = null;
         model.TrainingTypes = [TrainingType.Child, TrainingType.Adult];
 
-        ValidationResult error = Assert.Single(RunValidate(model));
+        var error = Assert.Single(RunValidate(model));
         Assert.Contains(nameof(ApplicantModel.TrainingTypes), error.MemberNames);
     }
 
     [Fact]
     public void Adult_Cannot_Apply_To_Child_Training()
     {
-        ApplicantModel model = Valid();
+        var model = Valid();
         model.TrainingTypes = [TrainingType.Child];
 
-        ValidationResult error = Assert.Single(RunValidate(model));
+        var error = Assert.Single(RunValidate(model));
         Assert.Contains(nameof(ApplicantModel.TrainingTypes), error.MemberNames);
     }
 
     [Fact]
     public void Child_Training_Is_Accepted_When_Birth_Date_Is_Unknown()
     {
-        ApplicantModel model = Valid();
+        var model = Valid();
         model.DateOfBirth = null;
         model.TrainingTypes = [TrainingType.Child];
 
@@ -139,7 +139,7 @@ public sealed class ApplicantModelTests
     [Fact]
     public void Invalid_Email_Is_Rejected()
     {
-        ApplicantModel model = Valid();
+        var model = Valid();
         model.Email = "not-an-email";
 
         Assert.Contains(RunDataAnnotations(model), e => e.MemberNames.Contains(nameof(ApplicantModel.Email)));

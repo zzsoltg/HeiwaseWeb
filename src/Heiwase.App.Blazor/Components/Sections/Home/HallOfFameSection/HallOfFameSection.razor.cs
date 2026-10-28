@@ -141,7 +141,7 @@ public partial class HallOfFameSection : IAsyncDisposable
             return [];
         }
 
-        int count = Competitors.Count;
+        var count = Competitors.Count;
         return
         [
             Competitors[( CompetitorIndex - 1 + count ) % count],
@@ -159,7 +159,7 @@ public partial class HallOfFameSection : IAsyncDisposable
             return [];
         }
 
-        int count = Senpais.Count;
+        var count = Senpais.Count;
         return
         [
             Senpais[( SenpaiIndex - 1 + count ) % count],
