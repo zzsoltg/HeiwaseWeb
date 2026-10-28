@@ -34,7 +34,7 @@ jobs:
 
       - name: Test with coverage
         run: >
-          dotnet test src/Heiwase.App.slnx
+          dotnet test Heiwase.App.slnx
           --settings tests/coverage.runsettings
           --collect:"XPlat Code Coverage"
           --results-directory ./TestResults
@@ -83,7 +83,7 @@ jobs:
           queries: security-and-quality
 
       - name: Build Solution with Roslyn Analyzers
-        run: dotnet build src/Heiwase.App.slnx --configuration Release
+        run: dotnet build Heiwase.App.slnx --configuration Release
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
