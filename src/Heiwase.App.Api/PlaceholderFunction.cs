@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Heiwase.App.Api;
 
-public class PlaceholderFunction
+public partial class PlaceholderFunction
 {
     private readonly ILogger<PlaceholderFunction> _logger;
 
@@ -17,11 +17,19 @@ public class PlaceholderFunction
     [Function("Function")]
     public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
     {
-        _logger.LogInformation("C# HTTP trigger function processed a request.");
+        LogRequestProcessed(_logger);
 
         string? name = req.Query["name"];
         return new OkObjectResult(string.IsNullOrWhiteSpace(name)
             ? "Welcome to Azure Functions!"
             : $"Welcome to Azure Functions! Hello, {name}");
+    }
+
+    private static readonly Action<ILogger, Exception?> _logRequestProcessedMessage =
+        LoggerMessage.Define(LogLevel.Information, new EventId(1, nameof(Run)), "C# HTTP trigger function processed a request.");
+
+    private static void LogRequestProcessed(ILogger logger)
+    {
+        _logRequestProcessedMessage(logger, null);
     }
 }

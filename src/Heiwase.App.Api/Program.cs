@@ -2,7 +2,6 @@ using Azure.Monitor.OpenTelemetry.Exporter;
 
 using Heiwase.App.Infrastructure;
 
-using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Azure.Functions.Worker.OpenTelemetry;
 using Microsoft.Extensions.DependencyInjection;

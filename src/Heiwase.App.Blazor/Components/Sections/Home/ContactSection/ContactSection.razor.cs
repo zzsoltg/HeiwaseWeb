@@ -102,7 +102,9 @@ public partial class ContactSection
         if (isChecked)
         {
             if (!IsTrainingTypeDisabled(type) && !Applicant.TrainingTypes.Contains(type))
+            {
                 Applicant.TrainingTypes.Add(type);
+            }
         }
         else
         {
@@ -111,5 +113,5 @@ public partial class ContactSection
     }
 
     protected void SanitizeTrainingTypes() =>
-        Applicant.TrainingTypes.RemoveAll(t => IsTrainingTypeDisabled(t));
+        Applicant.TrainingTypes.RemoveAll(IsTrainingTypeDisabled);
 }
