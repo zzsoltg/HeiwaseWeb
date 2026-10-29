@@ -14,7 +14,7 @@ public partial class PlaceholderFunction
         _logger = logger;
     }
 
-    // [Authorize(Roles = "Administrator")] -> This attribut is required for all POST methods in the API Endpoints.
+    // [Authorize(Roles = "Administrator")] -> This attribute is required for all POST methods in the API Endpoints.
     [Function("Function")]
     public IActionResult Run(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get")]
