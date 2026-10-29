@@ -12,6 +12,8 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddMsalAuthentication(options =>
 {
     builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
+    options.ProviderOptions.DefaultAccessTokenScopes.Add("api://11d473e3-d1e2-4dcd-a9b8-5a225d0c1446/API.Access");
+    options.UserOptions.RoleClaim = "roles";
 });
 
 await builder.Build().RunAsync();
