@@ -14,8 +14,12 @@ public partial class PlaceholderFunction
         _logger = logger;
     }
 
+    // [Authorize(Roles = "Administrator")] -> This attribute is required for all POST methods in the API Endpoints.
     [Function("Function")]
-    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
+    public IActionResult Run(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get")]
+        // [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "articles")] -> The attribute with Route is required for non placeholder functions.
+        HttpRequest req)
     {
         LogRequestProcessed(_logger);
 

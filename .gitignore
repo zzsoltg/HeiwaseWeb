@@ -1,8 +1,6 @@
 # ==========================================
-# .NET / Blazor WebAssembly Standalone
+# Build & Output Directories
 # ==========================================
-
-# Build
 [Bb]in/
 [Oo]bj/
 [Oo]ut/
@@ -18,30 +16,79 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
+artifacts/
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+csx/
+ecf/
+rcf/
 
-# Publish and Deployment
-*.Publish.xml
-*.pubxml
-*.pubxml.user
-publish/
-[Pp]ublish[Pp]rofiles/
-AppPackages/
+# Build artifacts & temp files
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.pidb
+*.svclog
+.builds
+*_i.c
+*_p.c
+*_i.h
+*.[Cc]ache
+!*.[Cc]ache/
 
-# VS IDE
-.vs/
+# ==========================================
+# Configuration & Local Environment
+# ==========================================
+local.settings.json
+.env
+.env.*
+appsettings.Development.json
+appsettings.Local.json
+*.user.json
+
+# ==========================================
+# User-Specific & Solution Files
+# ==========================================
+*.suo
 *.user
 *.userosscache
 *.sln.docstates
-*.suo
-*.vssscc
-*.vspscc
-*.vsix
+*.userprefs
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.pfx
+*.publishsettings
 
-# JetBrains Rider IDE
-.idea/
-_ReSharper*/
-*.[Rr]e[Ss]harper
-*.DotSettings.user
+# Source control local states
+*.vspscc
+*.vssscc
+*.scc
+$tf/
+
+# ==========================================
+# IDE & Editor Specific
+# ==========================================
+# Visual Studio
+.vs/
+*.vsix
+Backup*/
+_UpgradeReport_Files/
+UpgradeLog*.XML
+UpgradeLog*.htm
 
 # Visual Studio Code
 .vscode/*
@@ -51,28 +98,110 @@ _ReSharper*/
 !.vscode/extensions.json
 *.code-workspace
 
-# Tests and coverage
+# JetBrains Rider & ReSharper
+.idea/
+*.sln.iml
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Other IDEs & Add-ins
+.JustCode
+_TeamCity*
+.cr/
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+*.gpState
+.paket/paket.exe
+paket-files/
+.fake/
+__pycache__/
+*.pyc
+
+# ==========================================
+# Publish & Deployment
+# ==========================================
+publish/
+[Pp]ublish[Pp]rofiles/
+*.[Pp]ublish.xml
+*.pubxml
+*.pubxml.user
+*.azurePubxml
+PublishScripts/
+*.publishproj
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+_pkginfo.txt
+ClientBin/
+Generated_Code/
+
+# ==========================================
+# Testing & Code Coverage
+# ==========================================
 [Tt]est[Rr]esult*/
+TestResults/
 [Bb]uild[Ll]og.*
+TestResult.xml
+*.VisualState.xml
 *.coverage
 *.coveragexml
 coverage.json
+coverage-report/
+StrykerOutput/
 BenchmarkDotNet.Artifacts/
+*.dotCover
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+*.mm.*
+AutoTest.Net/
+_Chutzpah*
+FakesAssemblies/
 
-# Configuration and enviromental variables
-.env
-.env.*
-appsettings.Development.json
-appsettings.Local.json
-*.user.json
-
-# Node.js and NPM
+# ==========================================
+# Dependency Management (NuGet, NPM)
+# ==========================================
+*.nupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
 node_modules/
 npm-debug.log
 yarn-error.log
 yarn-debug.log
 
-# OP System
+# ==========================================
+# Profiler & Diagnostics
+# ==========================================
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# ==========================================
+# Database & Web Workbench
+# ==========================================
+*.mdf
+*.ldf
+*.rdl.data
+*.bim.layout
+*.bim_*.settings
+.sass-cache/
+
+# ==========================================
+# Operating System Files
+# ==========================================
 .DS_Store
 .DS_Store?
 ._*
@@ -81,8 +210,5 @@ yarn-debug.log
 ehthumbs.db
 Thumbs.db
 Desktop.ini
-
-# Testing
-StrykerOutput/
-TestResults/
-coverage-report/
+~$*
+*~
