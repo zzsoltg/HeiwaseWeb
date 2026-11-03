@@ -55,36 +55,36 @@ The ultimate objective of my thesis is to deliver a robust, high-fidelity softwa
 * Designing and provisioning the Azure cloud infrastructure: Cosmos DB, Blob Storage, and Azure Functions.
 * Defining data models, entities, and Data Transfer Objects (DTOs) within the `Shared` project.
 * Establishing database connectivity paradigms within the `Infrastructure` layer.
-
-### **December 2026 – Backend and Azure Functions Integration**
-* Developing serverless REST API endpoints utilizing an Azure Functions v4 project architecture.
 * Implementing Microsoft Entra ID-based authentication and authorization protocols across all protected endpoints.
+
+### **November 2026 – Backend and Azure Functions Integration**
+* Developing serverless REST API endpoints utilizing an Azure Functions v4 project architecture.
 * Transitioning the public landing page from utilizing static JSON payloads to dynamically querying real-time data from Cosmos DB.
 * Implementing HTTP client services within the Blazor application to facilitate seamless API communication.
 * Integrating Azure Application Insights to establish comprehensive telemetry, logging, and exception handling mechanisms.
 
-### **January 2027 – Administrative Interface Development**
+### **December 2027 – Administrative Interface Development**
 * Comprehensive realization of the highly secure `BlazorAdmin` CMS interface.
 * Implementation of ubiquitous CRUD operations for managing news articles and events.
 * Integration of a sophisticated, embedded Markdown editor.
 * Development of a dedicated file upload service interfacing directly with Azure Blob Storage.
 * Incorporating Progressive Web Application (PWA) functionalities, Service Workers, and offline caching mechanisms.
 
-### **March 2027 – DevOps Processes and Rigorous Testing**
+### **February 2027 – DevOps Processes and Rigorous Testing**
 * Authoring comprehensive Unit tests to ensure code reliability.
 * Integrating automated testing protocols seamlessly into the CI/CD pipeline.
 * Finalizing the dual CI/CD pipelines within the GitHub Actions environment.
 * Conducting rigorous UI testing across diverse platforms and varying screen resolutions.
 * Finalizing both end-user and developer documentation.
 
-### **April 2027 – Thesis Initiation: Design, Implementation, and Testing Chapters**
+### **March 2027 – Thesis Initiation: Design, Implementation, and Testing Chapters**
 * Generating architectural schematics and entity-relationship database diagrams.
 * Compiling a meticulously detailed table of contents and drafting the thesis introduction.
 * Exhaustively documenting the system's architectural blueprint.
 * Explicating the serverless REST API workflows and outlining the underlying data model.
 * Providing an in-depth operational exposition of the Content Management System.
 
-### **May 2027 – Testing Chapter, Final Manuscript, and Submission**
+### **April 2027 – Testing Chapter, Final Manuscript, and Submission**
 * Showcasing the CI/CD automation capabilities and the GitHub Actions pipeline.
 * Presenting the Unit tests alongside a profound, code-level analytical review.
 * Evaluating Application Insights error logs and performance metrics, supplemented with visual diagrams.
