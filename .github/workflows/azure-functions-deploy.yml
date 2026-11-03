@@ -47,6 +47,7 @@ jobs:
         with:
           name: function-app-artifact
           path: ${{ env.OUTPUT_PATH }}
+          include-hidden-files: true
 
   deploy:
     runs-on: ubuntu-latest
