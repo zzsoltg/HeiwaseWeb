@@ -40,14 +40,15 @@ jobs:
       - name: Build and Publish validation
         run: |
           dotnet publish ${{ env.PROJECT_PATH }} -c Release -o ${{ env.OUTPUT_PATH }}
+          cd ${{ env.OUTPUT_PATH }}
+          zip -r ../api-deployment.zip .
 
       - name: Upload artifact for deployment
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
         with:
           name: function-app-artifact
-          path: ${{ env.OUTPUT_PATH }}
-          include-hidden-files: true
+          path: ${{ github.workspace }}/api-deployment.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -58,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: function-app-artifact
-          path: ${{ env.OUTPUT_PATH }}
+          path: ${{ github.workspace }}
 
       - name: Azure Login via OIDC
         uses: azure/login@v2
@@ -71,5 +72,5 @@ jobs:
         uses: Azure/functions-action@v1
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          package: ${{ env.OUTPUT_PATH }}
+          package: ${{ github.workspace }}/api-deployment.zip
           respect-funcignore: true
