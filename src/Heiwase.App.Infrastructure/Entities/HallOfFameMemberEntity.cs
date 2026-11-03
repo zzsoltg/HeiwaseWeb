@@ -4,7 +4,9 @@ namespace Heiwase.App.Infrastructure.Entities;
 
 public sealed class HallOfFameMemberEntity : BaseEntity
 {
-    /// <summary>Localized texts are stored per language code (for example <c>hu</c>, <c>en</c>).</summary>
+    /// <summary>
+    /// Localized texts are stored per language code (for example <c>hu</c>, <c>en</c>).
+    /// </summary>
     [JsonPropertyName("name")]
     public Dictionary<string, string> Name { get; set; } = [];
 

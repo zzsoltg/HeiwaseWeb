@@ -1,0 +1,45 @@
+[
+  {
+    "Name": "API with Public Blazor",
+    "Projects": [
+      {
+        "Path": "src\\Heiwase.App.Api\\Heiwase.App.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\Heiwase.App.Blazor\\Heiwase.App.Blazor.csproj",
+        "Action": "Start"
+      }
+    ]
+  },
+  {
+    "Name": "API with Private Blazor",
+    "Projects": [
+      {
+        "Path": "src\\Heiwase.App.Api\\Heiwase.App.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\Heiwase.App.BlazorAdmin\\Heiwase.App.BlazorAdmin.csproj",
+        "Action": "Start"
+      }
+    ]
+  },
+  {
+    "Name": "API with both Blazors",
+    "Projects": [
+      {
+        "Path": "src\\Heiwase.App.Api\\Heiwase.App.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\Heiwase.App.Blazor\\Heiwase.App.Blazor.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\Heiwase.App.BlazorAdmin\\Heiwase.App.BlazorAdmin.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

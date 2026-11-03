@@ -3,6 +3,7 @@ using System.Reflection;
 using Bunit;
 
 using Heiwase.App.Blazor.Components.Sections.Home.HallOfFameSection;
+using Heiwase.App.Blazor.Services;
 using Heiwase.App.Shared.Models;
 using Heiwase.App.Tests.Blazor.Support;
 
@@ -24,7 +25,7 @@ public sealed class HallOfFameSectionTests : SiteTestContext
 
     private IRenderedComponent<HallOfFameSection> RenderSection(int competitors = 6, int senpais = 6, StubHttpHandler? handler = null)
     {
-        Services.AddSingleton((handler ?? StubHttpHandler.Json(HallOfFameTestData.Data(competitors, senpais))).CreateClient());
+        Services.AddSingleton<IHallOfFameService>(new HallOfFameService((handler ?? StubHttpHandler.Json(HallOfFameTestData.Data(competitors, senpais))).CreateClient()));
         return Render<HallOfFameSection>();
     }
 
@@ -53,14 +54,14 @@ public sealed class HallOfFameSectionTests : SiteTestContext
     }
 
     [Fact]
-    public void Requests_The_Hall_Of_Fame_Json()
+    public void Requests_The_Hall_Of_Fame_Endpoint()
     {
         var handler = StubHttpHandler.Json(HallOfFameTestData.Data(6, 6));
 
         RenderSection(handler: handler);
 
         Assert.NotEmpty(handler.Requests);
-        Assert.All(handler.Requests, r => Assert.Equal("http://localhost/data/halloffame.json", r.Uri?.ToString()));
+        Assert.All(handler.Requests, r => Assert.Equal("http://localhost/api/halloffame", r.Uri?.ToString()));
     }
 
     [Fact]
