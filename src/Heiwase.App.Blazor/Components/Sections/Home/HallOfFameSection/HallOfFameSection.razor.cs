@@ -1,9 +1,9 @@
-﻿using System.Net.Http.Json;
 using System.Timers;
 
 using Heiwase.App.Blazor.Components.Shared.Dialogs.CompetitorResultsDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.SenpaiResultsDialog;
 using Heiwase.App.Blazor.Helpers;
+using Heiwase.App.Blazor.Services;
 using Heiwase.App.Shared.Models;
 
 using Microsoft.AspNetCore.Components;
@@ -22,7 +22,7 @@ public partial class HallOfFameSection : IAsyncDisposable
     public IJSRuntime JS { get; set; } = default!;
 
     [Inject]
-    public HttpClient Http { get; set; } = default!;
+    public IHallOfFameService HallOfFame { get; set; } = default!;
 
     [Inject]
     public DialogService DialogService { get; set; } = default!;
@@ -40,7 +40,6 @@ public partial class HallOfFameSection : IAsyncDisposable
     protected int CompetitorIndex { get; set; }
     protected int SenpaiIndex { get; set; }
 
-    protected const string HallOfFameDataString = "data/halloffame.json";
     protected const string CompetitorGridId = "competitors-grid";
     protected const string SenpaiGridId = "senpais-grid";
 
@@ -82,7 +81,7 @@ public partial class HallOfFameSection : IAsyncDisposable
     {
         try
         {
-            var data = await Http.GetFromJsonAsync<HallOfFameDataDto>(HallOfFameDataString);
+            var data = await HallOfFame.GetAsync();
 
             if (data != null)
             {
@@ -92,7 +91,7 @@ public partial class HallOfFameSection : IAsyncDisposable
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Hiba a JSON betöltésekor: {ex.Message}");
+            Console.WriteLine($"Hiba a Hall of Fame adatok betöltésekor: {ex.Message}");
         }
     }
 
