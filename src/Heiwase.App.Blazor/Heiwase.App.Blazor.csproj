@@ -6,9 +6,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
 	<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+	<Configurations>Debug;Release;DebugAzure</Configurations>
+    <WasmApplicationEnvironmentName Condition="'$(Configuration)'=='DebugAzure'">AzureApi</WasmApplicationEnvironmentName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugAzure|AnyCPU'">
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
@@ -34,17 +40,17 @@
 
   <ItemGroup>
     <PackageReference Include="dotless.Core" Version="1.6.7" ExcludeAssets="all" PrivateAssets="all" GeneratePathProperty="true" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.14" />
-    <PackageReference Include="System.Drawing.Common" Version="10.0.14" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.14" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.14" PrivateAssets="all" />
-    <PackageReference Include="Radzen.Blazor" Version="12.1.10" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.9" PrivateAssets="all" />
+    <PackageReference Include="Radzen.Blazor" Version="11.2.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Heiwase.App.Shared\Heiwase.App.Shared.csproj" />
   </ItemGroup>
-
+	
   <ItemGroup>
     <Compile Update="Resources\Components\Layout\NavigationMenuResource.Designer.cs">
       <DesignTime>True</DesignTime>

@@ -15,8 +15,18 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-var apiBaseUrl = builder.Configuration["ApiBaseUrl"];
-var apiBaseAddress = new Uri(string.IsNullOrWhiteSpace(apiBaseUrl) ? builder.HostEnvironment.BaseAddress : apiBaseUrl);
+var apiBaseUrl = builder.Configuration["ApiBaseUrl"]?.Trim();
+if (string.IsNullOrEmpty(apiBaseUrl))
+{
+    apiBaseUrl = builder.HostEnvironment.BaseAddress;
+}
+
+if (!Uri.TryCreate(apiBaseUrl.EndsWith('/') ? apiBaseUrl : $"{apiBaseUrl}/", UriKind.Absolute, out var apiBaseAddress)
+    || apiBaseAddress.Scheme is not ("http" or "https"))
+{
+    throw new InvalidOperationException($"ApiBaseUrl must be an absolute http(s) URL, for example 'https://func-name.azurewebsites.net/'. Current value: '{apiBaseUrl}'.");
+}
+
 builder.Services.AddScoped<IHallOfFameService>(sp => new HallOfFameService(new HttpClient { BaseAddress = apiBaseAddress }));
 builder.Services.AddRadzenComponents();
 
