@@ -108,9 +108,8 @@ public partial class ContactSection : IAsyncDisposable
 
                 await _module.DisposeAsync();
             }
-            catch (JSDisconnectedException ex)
+            catch (JSDisconnectedException)
             {
-                Logger.LogDebug(ex, "JS runtime disconnected while disposing ContactSection turnstile resources.");
             }
         }
 
