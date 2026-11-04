@@ -1,5 +1,7 @@
 using Azure.Monitor.OpenTelemetry.Exporter;
 
+using Heiwase.App.Api.Configuration;
+using Heiwase.App.Api.Services;
 using Heiwase.App.Infrastructure;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,6 +16,12 @@ var builder = FunctionsApplication.CreateBuilder(args);
 builder.ConfigureFunctionsWebApplication();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddOptions<TurnstileOptions>()
+    .Bind(builder.Configuration.GetSection(TurnstileOptions.SectionName))
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
+builder.Services.AddHttpClient<ITurnstileValidator, TurnstileValidator>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

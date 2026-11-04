@@ -79,6 +79,12 @@
                            placeholder="Questions, additional information..." />
         </div>
 
+        <div id="@CaptchaElementId" class="turnstile-container" @key="CaptchaElementId" style="margin-bottom:15px"></div>
+        <div class="form-feedback-message form-error-message @(CaptchaError ? "form-message-visible" : "")">
+            <i class="fas fa-exclamation-circle"></i>
+            Please complete the security check.
+        </div>
+
         <button type="submit" class="btn-design btn-submit">
             <i class="fas fa-paper-plane"></i> Submit
         </button>

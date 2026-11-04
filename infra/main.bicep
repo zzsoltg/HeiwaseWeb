@@ -268,6 +268,10 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
           name: 'Media__ContainerName'
           value: publicContainer.name
         }
+        {
+          name: 'Turnstile__SecretKey'
+          value: '@Microsoft.KeyVault(SecretUri=${keyVault.properties.vaultUri}secrets/Turnstile-SecretKey/)'
+        }
       ]
     }
   }

@@ -3,12 +3,14 @@ using System.Net;
 using Bunit;
 
 using Heiwase.App.Blazor.Components.Sections.Home.ContactSection;
+using Heiwase.App.Blazor.Configuration;
 using Heiwase.App.Blazor.Services.Implementation;
 using Heiwase.App.Blazor.Services.Interface;
 using Heiwase.App.Shared.Enums;
 using Heiwase.App.Tests.Blazor.Support;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 
 namespace Heiwase.App.Tests.Blazor.Sections;
 
@@ -20,10 +22,13 @@ public sealed class ContactSectionTests : SiteTestContext
     private const int WomenSelfDefense = 3;
     private const int Athletics = 4;
 
+    private BunitJSModuleInterop _turnstileModule = default!;
     private readonly StubHttpHandler _http = StubHttpHandler.Status(HttpStatusCode.OK);
 
     private IRenderedComponent<ContactSection> RenderForm(StubHttpHandler? handler = null)
     {
+        _turnstileModule = JSInterop.SetupModule("./js/turnstile.js");
+        Services.AddSingleton(new TurnstileSettings("test-site-key"));
         Services.AddSingleton<IApplicationFormService>(new ApplicationFormService((handler ?? _http).CreateClient()));
         return Render<ContactSection>();
     }
@@ -37,6 +42,12 @@ public sealed class ContactSectionTests : SiteTestContext
     private static bool IsChecked(IRenderedComponent<ContactSection> cut, int index)
         => Checkbox(cut, index).HasAttribute("checked");
 
+    private void SolveCaptcha(IRenderedComponent<ContactSection> cut)
+    {
+        var render = Assert.Single(_turnstileModule.Invocations, invocation => invocation.Identifier == "render");
+        var reference = Assert.IsType<DotNetObjectReference<ContactSection>>(render.Arguments[3]);
+        cut.InvokeAsync(() => reference.Value.OnCaptchaSolved("captcha-token"));
+    }
     private static void Fill(IRenderedComponent<ContactSection> cut, string name = "Teszt Elek", string email = "elek@example.com")
     {
         cut.Find("input[placeholder='Full Name']").Change(name);
@@ -201,6 +212,7 @@ public sealed class ContactSectionTests : SiteTestContext
         cut.Find("input[type=date]").Change("1990-05-17");
         Checkbox(cut, Adult).Change(true);
         Checkbox(cut, Athletics).Change(true);
+        SolveCaptcha(cut);
 
         cut.Find("form").Submit();
 
@@ -214,6 +226,7 @@ public sealed class ContactSectionTests : SiteTestContext
         Assert.Contains("\"dateOfBirth\":\"1990-05-17\"", request.Body, StringComparison.Ordinal);
         Assert.Contains("\"sex\":1", request.Body, StringComparison.Ordinal);
         Assert.Contains("\"trainingTypes\":[2,5]", request.Body, StringComparison.Ordinal);
+        Assert.Contains("\"captchaToken\":\"captcha-token\"", request.Body, StringComparison.Ordinal);
         Assert.Empty(cut.FindAll(".form-error-message.form-message-visible"));
         Assert.Equal(string.Empty, cut.Find("input[placeholder='Full Name']").GetAttribute("value") ?? string.Empty);
         Assert.False(IsChecked(cut, Adult));
@@ -225,6 +238,7 @@ public sealed class ContactSectionTests : SiteTestContext
         var failing = StubHttpHandler.Status(HttpStatusCode.BadRequest);
         var cut = RenderForm(failing);
         Fill(cut);
+        SolveCaptcha(cut);
 
         cut.Find("form").Submit();
 
@@ -239,6 +253,7 @@ public sealed class ContactSectionTests : SiteTestContext
         var failing = StubHttpHandler.Status(HttpStatusCode.InternalServerError);
         var cut = RenderForm(failing);
         Fill(cut);
+        SolveCaptcha(cut);
 
         cut.Find("form").Submit();
 
@@ -257,6 +272,18 @@ public sealed class ContactSectionTests : SiteTestContext
         cut.Find("form").Submit();
 
         Assert.NotEmpty(cut.FindAll(".form-validation-message"));
+        Assert.Empty(_http.Requests);
+    }
+
+    [Fact]
+    public void Submitting_Without_Solving_The_Captcha_Shows_An_Error_And_Sends_Nothing()
+    {
+        var cut = RenderForm();
+        Fill(cut);
+
+        cut.Find("form").Submit();
+
+        Assert.Single(cut.FindAll(".form-error-message.form-message-visible"));
         Assert.Empty(_http.Requests);
     }
 }

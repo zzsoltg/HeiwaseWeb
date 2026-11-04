@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 
 using Heiwase.App.Blazor;
-using Heiwase.App.Blazor.Services.Implementation;
+using Heiwase.App.Blazor.Configuration;using Heiwase.App.Blazor.Services.Implementation;
 using Heiwase.App.Blazor.Services.Interface;
 
 using Microsoft.AspNetCore.Components.Web;
@@ -28,8 +28,15 @@ if (!Uri.TryCreate(apiBaseUrl.EndsWith('/') ? apiBaseUrl : $"{apiBaseUrl}/", Uri
     throw new InvalidOperationException($"ApiBaseUrl must be an absolute http(s) URL, for example 'https://func-name.azurewebsites.net/'. Current value: '{apiBaseUrl}'.");
 }
 
+var turnstileSiteKey = builder.Configuration["Turnstile:SiteKey"]?.Trim();
+if (string.IsNullOrEmpty(turnstileSiteKey))
+{
+    throw new InvalidOperationException("Turnstile:SiteKey must be configured in appsettings.json.");
+}
+
 builder.Services.AddScoped<IHallOfFameService>(sp => new HallOfFameService(new HttpClient { BaseAddress = apiBaseAddress }));
 builder.Services.AddScoped<IApplicationFormService>(sp => new ApplicationFormService(new HttpClient { BaseAddress = apiBaseAddress }));
+builder.Services.AddSingleton(new TurnstileSettings(turnstileSiteKey));
 builder.Services.AddRadzenComponents();
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");

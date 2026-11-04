@@ -24,6 +24,9 @@ public sealed class ApplicationFormDto : IValidatableObject
 
     public string Message { get; set; } = string.Empty;
 
+    [Required]
+    public string CaptchaToken { get; set; } = string.Empty;
+
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         if (!Enum.IsDefined(Sex) || Sex == GenderType.Unknown)

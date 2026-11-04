@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
 using Heiwase.App.Api.Mappers;
+using Heiwase.App.Api.Services;
 using Heiwase.App.Infrastructure.Interface;
 using Heiwase.App.Shared.Models;
 
@@ -14,11 +15,14 @@ namespace Heiwase.App.Api;
 public sealed class ApplicationFormFunction
 {
     private readonly IApplicationFormRepository _repository;
+    private readonly ITurnstileValidator _turnstileValidator;
 
-    public ApplicationFormFunction(IApplicationFormRepository repository)
+    public ApplicationFormFunction(IApplicationFormRepository repository, ITurnstileValidator turnstileValidator)
     {
         ArgumentNullException.ThrowIfNull(repository);
+        ArgumentNullException.ThrowIfNull(turnstileValidator);
         _repository = repository;
+        _turnstileValidator = turnstileValidator;
     }
 
     // [Authorize(Roles = "Administrator")] -> This attribute is required for all admin POST methods in the API Endpoints.
@@ -57,7 +61,27 @@ public sealed class ApplicationFormFunction
             return new BadRequestObjectResult(new ValidationProblemDetails(errors));
         }
 
-        await _repository.AddAsync(application.ToEntity(), req.HttpContext.RequestAborted).ConfigureAwait(false);
+        var cancellationToken = req.HttpContext.RequestAborted;
+
+        bool captchaPassed;
+        try
+        {
+            captchaPassed = await _turnstileValidator.ValidateAsync(application.CaptchaToken, cancellationToken).ConfigureAwait(false);
+        }
+        catch (HttpRequestException)
+        {
+            return new StatusCodeResult(StatusCodes.Status503ServiceUnavailable);
+        }
+
+        if (!captchaPassed)
+        {
+            return new BadRequestObjectResult(new ValidationProblemDetails(new Dictionary<string, string[]>
+            {
+                [nameof(ApplicationFormDto.CaptchaToken)] = ["The security check failed. Please try again."]
+            }));
+        }
+
+        await _repository.AddAsync(application.ToEntity(), cancellationToken).ConfigureAwait(false);
 
         return new OkResult();
     }

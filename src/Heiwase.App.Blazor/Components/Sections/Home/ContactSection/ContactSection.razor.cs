@@ -1,5 +1,7 @@
-﻿using System.Net.Http.Json;
+using System.Globalization;
+using System.Net.Http.Json;
 
+using Heiwase.App.Blazor.Configuration;
 using Heiwase.App.Blazor.Services.Interface;
 using Heiwase.App.Blazor.ViewModels;
 using Heiwase.App.Shared.Enums;
@@ -7,11 +9,27 @@ using Heiwase.App.Shared.Models;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 
 namespace Heiwase.App.Blazor.Components.Sections.Home.ContactSection;
 
-public partial class ContactSection
+public partial class ContactSection : IAsyncDisposable
 {
+    protected const string CaptchaElementId = "contact-turnstile";
+
+    private IJSObjectReference? _module;
+    private DotNetObjectReference<ContactSection>? _selfRef;
+    private string? _widgetId;
+    private string _captchaToken = string.Empty;
+
+    [Inject]
+    public IJSRuntime JS { get; set; } = default!;
+
+    [Inject]
+    public TurnstileSettings Turnstile { get; set; } = default!;
+
+    protected bool CaptchaError { get; set; }
+
     [Inject]
     public IApplicationFormService ApplicationFormService { get; set; } = default!;
 
@@ -37,6 +55,64 @@ public partial class ContactSection
         ];
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || GetType() == typeof(ContactSection))
+        {
+            // The wrapper component renders a language variant that inherits this class and owns the form.
+            return;
+        }
+
+        try
+        {
+            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/turnstile.js");
+            _selfRef = DotNetObjectReference.Create(this);
+            _widgetId = await _module.InvokeAsync<string>(
+                "render",
+                CaptchaElementId,
+                Turnstile.SiteKey,
+                CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
+                _selfRef);
+        }
+        catch (JSException)
+        {
+            // Script blocked or failed to load; submitting will show the security check error.
+        }
+    }
+
+    [JSInvokable]
+    public void OnCaptchaSolved(string token)
+    {
+        _captchaToken = token;
+        CaptchaError = false;
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public void OnCaptchaExpired() => _captchaToken = string.Empty;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module is not null)
+        {
+            try
+            {
+                if (_widgetId is not null)
+                {
+                    await _module.InvokeVoidAsync("remove", _widgetId);
+                }
+
+                await _module.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+        }
+
+        _selfRef?.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
     protected string GetLocalizedTrainingName(TrainingType type) =>
         type switch
         {
@@ -52,6 +128,13 @@ public partial class ContactSection
     {
         FormSubmitted = false;
         FormError = false;
+        CaptchaError = false;
+
+        if (string.IsNullOrEmpty(_captchaToken))
+        {
+            CaptchaError = true;
+            return;
+        }
 
         var application = new ApplicationFormDto
         {
@@ -62,7 +145,8 @@ public partial class ContactSection
             DateOfBirth = Applicant.DateOfBirth,
             GuardianName = Applicant.GuardianName,
             TrainingTypes = [.. Applicant.TrainingTypes],
-            Message = Applicant.Message
+            Message = Applicant.Message,
+            CaptchaToken = _captchaToken
         };
 
         try
@@ -82,6 +166,20 @@ public partial class ContactSection
         catch (HttpRequestException)
         {
             FormError = true;
+        }
+        finally
+        {
+            await ResetCaptchaAsync();
+        }
+    }
+
+    private async Task ResetCaptchaAsync()
+    {
+        _captchaToken = string.Empty;
+
+        if (_module is not null && _widgetId is not null)
+        {
+            await _module.InvokeVoidAsync("reset", _widgetId);
         }
     }
 

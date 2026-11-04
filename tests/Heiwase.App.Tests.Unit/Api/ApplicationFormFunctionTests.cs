@@ -1,6 +1,7 @@
 using System.Text.Json;
 
 using Heiwase.App.Api;
+using Heiwase.App.Api.Services;
 using Heiwase.App.Infrastructure.Entities;
 using Heiwase.App.Infrastructure.Interface;
 using Heiwase.App.Shared.Enums;
@@ -19,13 +20,15 @@ public sealed class ApplicationFormFunctionTests
     public async Task Valid_Application_Is_Mapped_And_Saved()
     {
         var repository = Substitute.For<IApplicationFormRepository>();
+        var validator = CreateValidator(true);
         repository.AddAsync(Arg.Any<ApplicationFormEntity>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
-        var function = new ApplicationFormFunction(repository);
+        var function = new ApplicationFormFunction(repository, validator);
         var request = CreateRequest(new ApplicationFormDto
         {
             Name = "Teszt Elek",
             Email = "elek@example.com",
+            CaptchaToken = "token",
             Sex = GenderType.Male,
             DateOfBirth = new DateOnly(1990, 5, 17),
             TrainingTypes = [TrainingType.Adult, TrainingType.Athletics]
@@ -50,11 +53,13 @@ public sealed class ApplicationFormFunctionTests
     public async Task Minor_Without_Guardian_Returns_Bad_Request_Without_Saving()
     {
         var repository = Substitute.For<IApplicationFormRepository>();
-        var function = new ApplicationFormFunction(repository);
+        var validator = CreateValidator(true);
+        var function = new ApplicationFormFunction(repository, validator);
         var request = CreateRequest(new ApplicationFormDto
         {
             Name = "Teszt Elek",
             Email = "elek@example.com",
+            CaptchaToken = "token",
             Sex = GenderType.Male,
             DateOfBirth = DateOnly.FromDateTime(DateTime.UtcNow).AddYears(-10)
         });
@@ -67,6 +72,59 @@ public sealed class ApplicationFormFunctionTests
             Arg.Any<CancellationToken>());
     }
 
+    [Fact]
+    public async Task Failed_Captcha_Returns_Bad_Request_Without_Saving()
+    {
+        var repository = Substitute.For<IApplicationFormRepository>();
+        var function = new ApplicationFormFunction(repository, CreateValidator(false));
+        var request = CreateRequest(new ApplicationFormDto
+        {
+            Name = "Teszt Elek",
+            Email = "elek@example.com",
+            CaptchaToken = "bad",
+            Sex = GenderType.Male,
+            DateOfBirth = new DateOnly(1990, 5, 17)
+        });
+
+        var result = await function.SubmitAsync(request);
+
+        Assert.IsType<BadRequestObjectResult>(result);
+        await repository.DidNotReceive().AddAsync(
+            Arg.Any<ApplicationFormEntity>(),
+            Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task Captcha_Service_Outage_Returns_503_Without_Saving()
+    {
+        var repository = Substitute.For<IApplicationFormRepository>();
+        var validator = Substitute.For<ITurnstileValidator>();
+        validator.ValidateAsync(Arg.Any<string?>(), Arg.Any<CancellationToken>())
+            .Returns<Task<bool>>(_ => throw new HttpRequestException("down"));
+        var function = new ApplicationFormFunction(repository, validator);
+        var request = CreateRequest(new ApplicationFormDto
+        {
+            Name = "Teszt Elek",
+            Email = "elek@example.com",
+            CaptchaToken = "token",
+            Sex = GenderType.Male,
+            DateOfBirth = new DateOnly(1990, 5, 17)
+        });
+
+        var result = await function.SubmitAsync(request);
+
+        Assert.Equal(StatusCodes.Status503ServiceUnavailable, Assert.IsType<StatusCodeResult>(result).StatusCode);
+        await repository.DidNotReceive().AddAsync(
+            Arg.Any<ApplicationFormEntity>(),
+            Arg.Any<CancellationToken>());
+    }
+
+    private static ITurnstileValidator CreateValidator(bool result)
+    {
+        var validator = Substitute.For<ITurnstileValidator>();
+        validator.ValidateAsync(Arg.Any<string?>(), Arg.Any<CancellationToken>()).Returns(result);
+        return validator;
+    }
     private static HttpRequest CreateRequest(ApplicationFormDto application)
     {
         var context = new DefaultHttpContext();
