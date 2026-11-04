@@ -9,6 +9,7 @@ using Heiwase.App.Shared.Models;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
 namespace Heiwase.App.Blazor.Components.Sections.Home.ContactSection;
@@ -35,6 +36,9 @@ public partial class ContactSection : IAsyncDisposable
 
     [Inject]
     public IStringLocalizer<ContactSectionResource> L { get; set; } = default!;
+
+    [Inject]
+    public ILogger<ContactSection> Logger { get; set; } = default!;
 
     protected ApplicantModel Applicant { get; set; } = new();
 
@@ -104,8 +108,9 @@ public partial class ContactSection : IAsyncDisposable
 
                 await _module.DisposeAsync();
             }
-            catch (JSDisconnectedException)
+            catch (JSDisconnectedException ex)
             {
+                Logger.LogDebug(ex, "JS runtime disconnected while disposing ContactSection turnstile resources.");
             }
         }
 
