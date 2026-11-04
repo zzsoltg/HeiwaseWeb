@@ -1,8 +1,9 @@
-﻿using System.Globalization;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 
+using Heiwase.App.Blazor.Services.Interface;
 using Heiwase.App.Blazor.ViewModels;
 using Heiwase.App.Shared.Enums;
+using Heiwase.App.Shared.Models;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -12,15 +13,16 @@ namespace Heiwase.App.Blazor.Components.Sections.Home.ContactSection;
 public partial class ContactSection
 {
     [Inject]
-    public HttpClient Http { get; set; } = default!;
+    public IApplicationFormService ApplicationFormService { get; set; } = default!;
+
     [Inject]
     public IStringLocalizer<ContactSectionResource> L { get; set; } = default!;
+
     protected ApplicantModel Applicant { get; set; } = new();
 
     protected bool FormSubmitted { get; set; }
-    protected bool FormError { get; set; }
 
-    protected const string FormspreeEndpoint = "https://formspree.io/f/mrenpyzo";
+    protected bool FormError { get; set; }
 
     protected TrainingType[] TrainingTypeOptions { get; set; } = [];
 
@@ -51,26 +53,33 @@ public partial class ContactSection
         FormSubmitted = false;
         FormError = false;
 
-        var payload = new
+        var application = new ApplicationFormDto
         {
-            name = Applicant.Name,
-            email = Applicant.Email,
-            phone = Applicant.Phone,
-            sex = Applicant.Sex,
-            dateOfBirth = Applicant.DateOfBirth?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-            guardianName = Applicant.GuardianName,
-            trainingTypes = string.Join(", ", Applicant.TrainingTypes),
-            message = Applicant.Message
+            Name = Applicant.Name,
+            Email = Applicant.Email,
+            Phone = Applicant.Phone,
+            Sex = Applicant.Sex,
+            DateOfBirth = Applicant.DateOfBirth,
+            GuardianName = Applicant.GuardianName,
+            TrainingTypes = [.. Applicant.TrainingTypes],
+            Message = Applicant.Message
         };
 
-        var response = await Http.PostAsJsonAsync(FormspreeEndpoint, payload);
-
-        if (response.IsSuccessStatusCode)
+        try
         {
-            FormSubmitted = true;
-            Applicant = new ApplicantModel();
+            var success = await ApplicationFormService.SubmitAsync(application);
+
+            if (success)
+            {
+                FormSubmitted = true;
+                Applicant = new ApplicantModel();
+            }
+            else
+            {
+                FormError = true;
+            }
         }
-        else
+        catch (HttpRequestException)
         {
             FormError = true;
         }

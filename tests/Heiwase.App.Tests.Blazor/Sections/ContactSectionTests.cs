@@ -3,6 +3,8 @@ using System.Net;
 using Bunit;
 
 using Heiwase.App.Blazor.Components.Sections.Home.ContactSection;
+using Heiwase.App.Blazor.Services.Implementation;
+using Heiwase.App.Blazor.Services.Interface;
 using Heiwase.App.Shared.Enums;
 using Heiwase.App.Tests.Blazor.Support;
 
@@ -22,7 +24,7 @@ public sealed class ContactSectionTests : SiteTestContext
 
     private IRenderedComponent<ContactSection> RenderForm(StubHttpHandler? handler = null)
     {
-        Services.AddSingleton((handler ?? _http).CreateClient());
+        Services.AddSingleton<IApplicationFormService>(new ApplicationFormService((handler ?? _http).CreateClient()));
         return Render<ContactSection>();
     }
 
@@ -190,7 +192,7 @@ public sealed class ContactSectionTests : SiteTestContext
     }
 
     [Fact]
-    public void A_Valid_Application_Is_Posted_To_Formspree_And_The_Form_Is_Reset()
+    public void A_Valid_Application_Is_Posted_To_The_Api_And_The_Form_Is_Reset()
     {
         var cut = RenderForm();
         Fill(cut);
@@ -205,15 +207,30 @@ public sealed class ContactSectionTests : SiteTestContext
         cut.WaitForAssertion(() => Assert.Single(cut.FindAll(".form-success-message.form-message-visible")));
         var request = Assert.Single(_http.Requests);
         Assert.Equal(HttpMethod.Post, request.Method);
-        Assert.Equal("https://formspree.io/f/mrenpyzo", request.Uri?.ToString());
+        Assert.Equal("http://localhost/api/applications", request.Uri?.ToString());
         Assert.Contains("\"name\":\"Teszt Elek\"", request.Body, StringComparison.Ordinal);
         Assert.Contains("\"email\":\"elek@example.com\"", request.Body, StringComparison.Ordinal);
         Assert.Contains("\"phone\":\"\\u002B36 20 123 4567\"", request.Body, StringComparison.Ordinal);
         Assert.Contains("\"dateOfBirth\":\"1990-05-17\"", request.Body, StringComparison.Ordinal);
-        Assert.Contains("Adult, Athletics", request.Body, StringComparison.Ordinal);
+        Assert.Contains("\"sex\":1", request.Body, StringComparison.Ordinal);
+        Assert.Contains("\"trainingTypes\":[2,5]", request.Body, StringComparison.Ordinal);
         Assert.Empty(cut.FindAll(".form-error-message.form-message-visible"));
         Assert.Equal(string.Empty, cut.Find("input[placeholder='Full Name']").GetAttribute("value") ?? string.Empty);
         Assert.False(IsChecked(cut, Adult));
+    }
+
+    [Fact]
+    public void A_Bad_Request_Shows_The_Error_Message_And_Keeps_The_Input()
+    {
+        var failing = StubHttpHandler.Status(HttpStatusCode.BadRequest);
+        var cut = RenderForm(failing);
+        Fill(cut);
+
+        cut.Find("form").Submit();
+
+        cut.WaitForAssertion(() => Assert.Single(cut.FindAll(".form-error-message.form-message-visible")));
+        Assert.Empty(cut.FindAll(".form-success-message.form-message-visible"));
+        Assert.Equal("Teszt Elek", cut.Find("input[placeholder='Full Name']").GetAttribute("value"));
     }
 
     [Fact]

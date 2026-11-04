@@ -3,7 +3,8 @@ using System.Reflection;
 using Bunit;
 
 using Heiwase.App.Blazor.Components.Sections.Home.HallOfFameSection;
-using Heiwase.App.Blazor.Services;
+using Heiwase.App.Blazor.Services.Implementation;
+using Heiwase.App.Blazor.Services.Interface;
 using Heiwase.App.Shared.Models;
 using Heiwase.App.Tests.Blazor.Support;
 

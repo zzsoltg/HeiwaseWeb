@@ -1,6 +1,6 @@
 using Heiwase.App.Shared.Models;
 
-namespace Heiwase.App.Blazor.Services;
+namespace Heiwase.App.Blazor.Services.Interface;
 
 public interface IHallOfFameService
 {

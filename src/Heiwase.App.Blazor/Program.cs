@@ -1,7 +1,8 @@
 ﻿using System.Globalization;
 
 using Heiwase.App.Blazor;
-using Heiwase.App.Blazor.Services;
+using Heiwase.App.Blazor.Services.Implementation;
+using Heiwase.App.Blazor.Services.Interface;
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -28,6 +29,7 @@ if (!Uri.TryCreate(apiBaseUrl.EndsWith('/') ? apiBaseUrl : $"{apiBaseUrl}/", Uri
 }
 
 builder.Services.AddScoped<IHallOfFameService>(sp => new HallOfFameService(new HttpClient { BaseAddress = apiBaseAddress }));
+builder.Services.AddScoped<IApplicationFormService>(sp => new ApplicationFormService(new HttpClient { BaseAddress = apiBaseAddress }));
 builder.Services.AddRadzenComponents();
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");

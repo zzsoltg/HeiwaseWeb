@@ -1,8 +1,9 @@
 using System.Net.Http.Json;
 
+using Heiwase.App.Blazor.Services.Interface;
 using Heiwase.App.Shared.Models;
 
-namespace Heiwase.App.Blazor.Services;
+namespace Heiwase.App.Blazor.Services.Implementation;
 
 public sealed class HallOfFameService : IHallOfFameService
 {

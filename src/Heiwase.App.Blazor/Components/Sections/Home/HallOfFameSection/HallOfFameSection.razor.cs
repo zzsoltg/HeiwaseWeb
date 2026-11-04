@@ -3,7 +3,7 @@ using System.Timers;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.CompetitorResultsDialog;
 using Heiwase.App.Blazor.Components.Shared.Dialogs.SenpaiResultsDialog;
 using Heiwase.App.Blazor.Helpers;
-using Heiwase.App.Blazor.Services;
+using Heiwase.App.Blazor.Services.Interface;
 using Heiwase.App.Shared.Models;
 
 using Microsoft.AspNetCore.Components;
@@ -22,7 +22,7 @@ public partial class HallOfFameSection : IAsyncDisposable
     public IJSRuntime JS { get; set; } = default!;
 
     [Inject]
-    public IHallOfFameService HallOfFame { get; set; } = default!;
+    public IHallOfFameService HallOfFameService { get; set; } = default!;
 
     [Inject]
     public DialogService DialogService { get; set; } = default!;
@@ -81,7 +81,7 @@ public partial class HallOfFameSection : IAsyncDisposable
     {
         try
         {
-            var data = await HallOfFame.GetAsync();
+            var data = await HallOfFameService.GetAsync();
 
             if (data != null)
             {
