@@ -23,7 +23,7 @@ public sealed class ApplicationFormFunctionTests
         var validator = CreateValidator(true);
         repository.AddAsync(Arg.Any<ApplicationFormEntity>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
-        var function = new ApplicationFormFunction(repository, validator);
+        var function = new ApplicationFormFunction(repository, validator, Substitute.For<IApplicationNotifier>());
         var request = CreateRequest(new ApplicationFormDto
         {
             Name = "Teszt Elek",
@@ -54,7 +54,7 @@ public sealed class ApplicationFormFunctionTests
     {
         var repository = Substitute.For<IApplicationFormRepository>();
         var validator = CreateValidator(true);
-        var function = new ApplicationFormFunction(repository, validator);
+        var function = new ApplicationFormFunction(repository, validator, Substitute.For<IApplicationNotifier>());
         var request = CreateRequest(new ApplicationFormDto
         {
             Name = "Teszt Elek",
@@ -76,7 +76,7 @@ public sealed class ApplicationFormFunctionTests
     public async Task Failed_Captcha_Returns_Bad_Request_Without_Saving()
     {
         var repository = Substitute.For<IApplicationFormRepository>();
-        var function = new ApplicationFormFunction(repository, CreateValidator(false));
+        var function = new ApplicationFormFunction(repository, CreateValidator(false), Substitute.For<IApplicationNotifier>());
         var request = CreateRequest(new ApplicationFormDto
         {
             Name = "Teszt Elek",
@@ -101,7 +101,7 @@ public sealed class ApplicationFormFunctionTests
         var validator = Substitute.For<ITurnstileValidator>();
         validator.ValidateAsync(Arg.Any<string?>(), Arg.Any<CancellationToken>())
             .Returns<Task<bool>>(_ => throw new HttpRequestException("down"));
-        var function = new ApplicationFormFunction(repository, validator);
+        var function = new ApplicationFormFunction(repository, validator, Substitute.For<IApplicationNotifier>());
         var request = CreateRequest(new ApplicationFormDto
         {
             Name = "Teszt Elek",

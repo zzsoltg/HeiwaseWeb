@@ -17,12 +17,19 @@ public sealed class ApplicationFormFunction
     private readonly IApplicationFormRepository _repository;
     private readonly ITurnstileValidator _turnstileValidator;
 
-    public ApplicationFormFunction(IApplicationFormRepository repository, ITurnstileValidator turnstileValidator)
+    private readonly IApplicationNotifier _notifier;
+
+    public ApplicationFormFunction(
+        IApplicationFormRepository repository,
+        ITurnstileValidator turnstileValidator,
+        IApplicationNotifier notifier)
     {
         ArgumentNullException.ThrowIfNull(repository);
         ArgumentNullException.ThrowIfNull(turnstileValidator);
+        ArgumentNullException.ThrowIfNull(notifier);
         _repository = repository;
         _turnstileValidator = turnstileValidator;
+        _notifier = notifier;
     }
 
     // [Authorize(Roles = "Administrator")] -> This attribute is required for all admin POST methods in the API Endpoints.
@@ -81,7 +88,9 @@ public sealed class ApplicationFormFunction
             }));
         }
 
-        await _repository.AddAsync(application.ToEntity(), cancellationToken).ConfigureAwait(false);
+        var entity = application.ToEntity();
+        await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
+        await _notifier.NotifyAsync(entity, CancellationToken.None).ConfigureAwait(false);
 
         return new OkResult();
     }

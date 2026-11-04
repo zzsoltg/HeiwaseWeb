@@ -1,3 +1,5 @@
+using Azure.Communication.Email;
+using Azure.Core;
 using Azure.Monitor.OpenTelemetry.Exporter;
 
 using Heiwase.App.Api.Configuration;
@@ -22,6 +24,18 @@ builder.Services.AddOptions<TurnstileOptions>()
     .ValidateDataAnnotations()
     .ValidateOnStart();
 builder.Services.AddHttpClient<ITurnstileValidator, TurnstileValidator>();
+
+builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(EmailOptions.SectionName));
+var emailEndpoint = builder.Configuration[$"{EmailOptions.SectionName}:{nameof(EmailOptions.Endpoint)}"];
+if (string.IsNullOrWhiteSpace(emailEndpoint))
+{
+    builder.Services.AddSingleton<IApplicationNotifier, NoOpApplicationNotifier>();
+}
+else
+{
+    builder.Services.AddSingleton(sp => new EmailClient(new Uri(emailEndpoint), sp.GetRequiredService<TokenCredential>()));
+    builder.Services.AddSingleton<IApplicationNotifier, AcsApplicationNotifier>();
+}
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
