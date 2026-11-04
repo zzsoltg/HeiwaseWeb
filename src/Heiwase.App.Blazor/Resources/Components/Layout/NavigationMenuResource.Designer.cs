@@ -92,7 +92,7 @@ namespace Heiwase.App.Blazor.Components.Layout {
         /// </summary>
         public static string HallOfFame {
             get {
-                return ResourceManager.GetString("HallOfFame", resourceCulture);
+                return ResourceManager.GetString("HallOfFameService", resourceCulture);
             }
         }
         

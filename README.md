@@ -7,7 +7,7 @@ with public website and Content Management System.
 
 - **Production URL (_public website_):** https://nice-glacier-0b19a2e03.6.azurestaticapps.net
 - **Production URL (_private CMS_):** _not yet published_
-- **Production URL (_Azure Functions API_):** func-heiwase-hg2gr2co.azurewebsites.net
+- **Production URL (_Azure Functions API_):** https://func-heiwase-hg2gr2co.azurewebsites.net
 
 ## ℹ️ Project Purpose
 

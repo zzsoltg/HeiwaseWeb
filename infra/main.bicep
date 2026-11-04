@@ -169,11 +169,42 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-02-01' = {
 }
 
 
+param applicationNotificationRecipients string = 'zimmermannzsoltgabor@gmail.com'
+
+resource emailService 'Microsoft.Communication/emailServices@2023-04-01' = {
+  name: 'email-heiwase-${uniqueString(resourceGroup().id)}'
+  location: 'global'
+  properties: {
+    dataLocation: 'Europe'
+  }
+}
+
+resource emailDomain 'Microsoft.Communication/emailServices/domains@2023-04-01' = {
+  parent: emailService
+  name: 'AzureManagedDomain'
+  location: 'global'
+  properties: {
+    domainManagement: 'AzureManaged'
+  }
+}
+
+resource communicationService 'Microsoft.Communication/communicationServices@2023-04-01' = {
+  name: 'acs-heiwase-${uniqueString(resourceGroup().id)}'
+  location: 'global'
+  properties: {
+    dataLocation: 'Europe'
+    linkedDomains: [
+      emailDomain.id
+    ]
+  }
+}
+
 param functionAppName string = 'func-heiwase-${substring(uniqueString(resourceGroup().id), 0, 8)}'
 
 var functionStorageName = 'stfunc${uniqueString(resourceGroup().id)}'
 var deploymentContainerName = 'app-package'
 var keyVaultSecretsUserRoleId = '4633458b-17de-408a-b874-0445c86b69e6'
+var communicationAndEmailServiceOwnerRoleId = '09976791-48a7-449e-bb21-39d1a415f350'
 var storageBlobDataOwnerRoleId = 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b'
 var storageBlobDataContributorRoleId = 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
 
@@ -268,6 +299,22 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
           name: 'Media__ContainerName'
           value: publicContainer.name
         }
+        {
+          name: 'Email__Endpoint'
+          value: 'https://${communicationService.properties.hostName}'
+        }
+        {
+          name: 'Email__SenderAddress'
+          value: 'DoNotReply@${emailDomain.properties.fromSenderDomain}'
+        }
+        {
+          name: 'Email__Recipients'
+          value: applicationNotificationRecipients
+        }
+        {
+          name: 'Turnstile__SecretKey'
+          value: '@Microsoft.KeyVault(SecretUri=${keyVault.properties.vaultUri}secrets/Turnstile-SecretKey/)'
+        }
       ]
     }
   }
@@ -303,6 +350,16 @@ resource functionKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-0
     principalId: functionApp.identity.principalId
     principalType: 'ServicePrincipal'
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', keyVaultSecretsUserRoleId)
+  }
+}
+
+resource functionEmailRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: communicationService
+  name: guid(communicationService.id, functionApp.id, communicationAndEmailServiceOwnerRoleId)
+  properties: {
+    principalId: functionApp.identity.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', communicationAndEmailServiceOwnerRoleId)
   }
 }
 
