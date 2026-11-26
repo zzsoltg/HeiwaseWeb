@@ -107,6 +107,10 @@ The backend API is still under development, and the frontend Blazor application 
 You can attach your own Azure Resource Group to the project via modifying the `infra/main.bicep` file, and change the CMS tenant for the BlazorAdmin project.
 Without that, the API will only accept the public GET requests, and the Application Form POST methods and you won't be able to access the CMS Pages.
 
+**Article creation:** `POST /api/articles` requires an Entra ID bearer access token for the API with the `Administrator` app role. Configure and assign that role in the Entra application before using the admin portal. The public article GET endpoints do not require authentication.
+
+For other administrator-only API functions, wrap the protected work in `AdministratorAuthorization.ExecuteAsync(req, () => ProtectedActionAsync(req))`. The action runs only after successful bearer-token and administrator-role checks; otherwise the method returns HTTP 401 or 403.
+
 **1. Clone the repository**
 ```bash
 git clone https://github.com/zzsoltg/HeiwaseWeb
