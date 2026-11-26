@@ -81,6 +81,74 @@ public sealed class ArticleFunctionTests
             Arg.Any<CancellationToken>());
     }
 
+    [Fact]
+    public async Task GetById_Returns_Persisted_Seo_Metadata()
+    {
+        var repository = Substitute.For<IArticleRepository>();
+        var article = JsonSerializer.Deserialize<ArticleEntity>(
+            """{"id":"article-1","title":"News","markdownContent":"Text","isPublished":true,"summary":"A summary","coverImageUrl":"https://example.test/cover.png","updatedAt":"2026-01-02T03:04:05Z"}""")!;
+        repository.GetByIdAsync("article-1", Arg.Any<CancellationToken>()).Returns(article);
+
+        var result = Assert.IsType<OkObjectResult>(await new ArticleFunction(repository).GetByIdAsync(CreateRequest(null), "article-1"));
+        using var json = JsonDocument.Parse(JsonSerializer.Serialize(result.Value));
+
+        Assert.Equal("A summary", json.RootElement.GetProperty("summary").GetString());
+        Assert.Equal("https://example.test/cover.png", json.RootElement.GetProperty("coverImageUrl").GetString());
+        Assert.Equal(DateTime.Parse("2026-01-02T03:04:05Z", null, System.Globalization.DateTimeStyles.RoundtripKind), json.RootElement.GetProperty("updatedAt").GetDateTime());
+    }
+
+    [Fact]
+    public async Task Create_Stores_Seo_Metadata_And_Sets_Server_Update_Time()
+    {
+        var repository = Substitute.For<IArticleRepository>();
+        var request = CreateRequest(CreateToken("Administrator", DateTime.UtcNow.AddMinutes(5)));
+        request.Body = new MemoryStream(Encoding.UTF8.GetBytes(
+            """{"title":"News","markdownContent":"Text","summary":"A summary","coverImageUrl":"https://example.test/cover.png","updatedAt":"2000-01-01T00:00:00Z"}"""));
+        var before = DateTime.UtcNow;
+
+        var result = Assert.IsType<CreatedResult>(await new ArticleFunction(repository).CreateAsync(request));
+        using var json = JsonDocument.Parse(JsonSerializer.Serialize(result.Value));
+
+        Assert.Equal("A summary", json.RootElement.GetProperty("summary").GetString());
+        Assert.Equal("https://example.test/cover.png", json.RootElement.GetProperty("coverImageUrl").GetString());
+        Assert.InRange(json.RootElement.GetProperty("updatedAt").GetDateTime(), before, DateTime.UtcNow);
+        await repository.Received(1).AddAsync(
+            Arg.Is<ArticleEntity>(article => article.Summary == "A summary"
+                && article.CoverImageUrl == "https://example.test/cover.png"
+                && article.UpdatedAt >= before),
+            Arg.Any<CancellationToken>());
+    }
+
+    [Theory]
+    [InlineData("http://example.test/cover.png")]
+    [InlineData("javascript:alert(1)")]
+    [InlineData("https://user:password@example.test/cover.png")]
+    public async Task Create_Rejects_Unsafe_Cover_Image_Url(string imageUrl)
+    {
+        var repository = Substitute.For<IArticleRepository>();
+        var request = CreateRequest(CreateToken("Administrator", DateTime.UtcNow.AddMinutes(5)));
+        request.Body = new MemoryStream(JsonSerializer.SerializeToUtf8Bytes(
+            new { title = "News", markdownContent = "Text", coverImageUrl = imageUrl }));
+
+        var result = await new ArticleFunction(repository).CreateAsync(request);
+
+        Assert.IsType<BadRequestObjectResult>(result);
+        await repository.DidNotReceive().AddAsync(Arg.Any<ArticleEntity>(), Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task GetById_Does_Not_Invent_Update_Time_For_Legacy_Article()
+    {
+        var repository = Substitute.For<IArticleRepository>();
+        repository.GetByIdAsync("legacy", Arg.Any<CancellationToken>())
+            .Returns(new ArticleEntity { Id = "legacy", Title = "Old", IsPublished = true, CreatedAt = new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc) });
+
+        var result = Assert.IsType<OkObjectResult>(await new ArticleFunction(repository).GetByIdAsync(CreateRequest(null), "legacy"));
+        using var json = JsonDocument.Parse(JsonSerializer.Serialize(result.Value));
+
+        Assert.Equal(JsonValueKind.Null, json.RootElement.GetProperty("updatedAt").ValueKind);
+    }
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]

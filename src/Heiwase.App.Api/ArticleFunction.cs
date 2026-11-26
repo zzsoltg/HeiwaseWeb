@@ -74,6 +74,14 @@ public sealed class ArticleFunction
                 return new BadRequestObjectResult("Title and markdownContent are required.");
             }
 
+            if (dto.CoverImageUrl is not null
+                && (!Uri.TryCreate(dto.CoverImageUrl, UriKind.Absolute, out var coverImageUri)
+                    || coverImageUri.Scheme != Uri.UriSchemeHttps
+                    || !string.IsNullOrEmpty(coverImageUri.UserInfo)))
+            {
+                return new BadRequestObjectResult("coverImageUrl must be an absolute HTTPS URL without credentials.");
+            }
+
             var entity = dto.ToEntity();
             await _repository.AddAsync(entity, req.HttpContext.RequestAborted).ConfigureAwait(false);
 

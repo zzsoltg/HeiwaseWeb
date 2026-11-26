@@ -109,6 +109,8 @@ Without that, the API will only accept the public GET requests, and the Applicat
 
 **Article creation:** `POST /api/articles` requires an Entra ID bearer access token for the API with the `Administrator` app role. Configure and assign that role in the Entra application before using the admin portal. The public article GET endpoints do not require authentication.
 
+Article creation accepts optional `summary` and `coverImageUrl` fields; a cover image URL must be an absolute HTTPS URL without embedded credentials. The API sets `updatedAt` when an article is created rather than trusting a client-supplied value. Existing articles without an `updatedAt` retain a null value: their creation date must not be assumed to be their last modification date. A future article update path must set `updatedAt` whenever the article changes.
+
 For other administrator-only API functions, wrap the protected work in `AdministratorAuthorization.ExecuteAsync(req, () => ProtectedActionAsync(req))`. The action runs only after successful bearer-token and administrator-role checks; otherwise the method returns HTTP 401 or 403.
 
 **1. Clone the repository**
