@@ -14,7 +14,10 @@ internal static class ArticleMapper
             Id = entity.Id,
             Title = entity.Title,
             MarkdownContent = entity.MarkdownContent,
+            Summary = entity.Summary,
+            CoverImageUrl = entity.CoverImageUrl,
             CreatedAt = entity.CreatedAt,
+            UpdatedAt = entity.UpdatedAt,
             IsPublished = entity.IsPublished
         };
     }
@@ -28,7 +31,10 @@ internal static class ArticleMapper
             Id = string.Empty,
             Title = dto.Title,
             MarkdownContent = dto.MarkdownContent,
+            Summary = dto.Summary,
+            CoverImageUrl = dto.CoverImageUrl,
             CreatedAt = dto.CreatedAt == default ? DateTime.UtcNow : dto.CreatedAt.ToUniversalTime(),
+            UpdatedAt = DateTime.UtcNow,
             IsPublished = dto.IsPublished
         };
     }
