@@ -1,0 +1,115 @@
+@page "/news/{Id}"
+@implements IDisposable
+@using System.Text.Json
+@using Heiwase.App.Blazor.Components
+@using Heiwase.App.Blazor.Services.Interface
+@using Heiwase.App.Shared.Models
+@using Microsoft.Extensions.Localization
+@inject IArticleService Articles
+@inject IArticleMarkdownRenderer Markdown
+@inject IStringLocalizer<ArticleText> L
+@inject ILogger<ArticleDetail> Logger
+
+<PageTitle>@(_article?.Title ?? L["Article"].Value) | Heiwase Karate Szeged</PageTitle>
+<main class="article-page">
+    <div class="article-container">
+        <a class="article-back" href="/#news">← @L["Back"]</a>
+        @if (_loading)
+        {
+            <h1>@L["Article"]</h1>
+            <div class="article-state" role="status"><span class="article-spinner" aria-hidden="true"></span>@L["Loading"]</div>
+        }
+        else if (_error)
+        {
+            <h1>@L["Article"]</h1>
+            <div class="article-state" role="alert">
+                <p>@L["ArticleError"]</p>
+                <button type="button" @onclick="LoadAsync">@L["Retry"]</button>
+            </div>
+        }
+        else if (_article is null)
+        {
+            <h1>@L["Article"]</h1>
+            <p class="article-not-found">@L["NotFound"]</p>
+        }
+        else
+        {
+            <article>
+                <header class="article-header">
+                    @if (_article.CreatedAt != default)
+                    {
+                        <time datetime="@_article.CreatedAt.ToString("O", CultureInfo.InvariantCulture)">@_article.CreatedAt.ToString("D", CultureInfo.CurrentCulture)</time>
+                    }
+                    <h1>@_article.Title</h1>
+                </header>
+                <div class="article-content">@((MarkupString)_html)</div>
+            </article>
+            <a class="article-back" href="/#news">← @L["Back"]</a>
+        }
+    </div>
+</main>
+<SiteFooter />
+
+@code {
+    [Parameter] public string Id { get; set; } = string.Empty;
+
+    private CancellationTokenSource? _request;
+    private ArticleDto? _article;
+    private string _html = string.Empty;
+    private bool _loading = true;
+    private bool _error;
+    private int _generation;
+
+    protected override Task OnParametersSetAsync() => LoadAsync();
+
+    private async Task LoadAsync()
+    {
+        _request?.Cancel();
+        _request?.Dispose();
+        _request = new CancellationTokenSource();
+        var token = _request.Token;
+        var generation = ++_generation;
+        _article = null;
+        _html = string.Empty;
+        _loading = true;
+        _error = false;
+        try
+        {
+            var article = await Articles.GetByIdAsync(Id, token);
+            if (generation != _generation || token.IsCancellationRequested)
+            {
+                return;
+            }
+
+            var html = article is null ? string.Empty : Markdown.Render(article.MarkdownContent);
+            _article = article;
+            _html = html;
+        }
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
+        {
+            return;
+        }
+        catch (Exception ex) when (ex is HttpRequestException or JsonException or InvalidDataException or OperationCanceledException or ArgumentException or InvalidOperationException)
+        {
+            if (generation == _generation)
+            {
+                Logger.LogWarning(ex, "Unable to load article {ArticleId}", Id);
+                _error = true;
+            }
+        }
+        finally
+        {
+            if (generation == _generation)
+            {
+                _loading = false;
+            }
+        }
+    }
+
+    public void Dispose()
+    {
+        _generation++;
+        _request?.Cancel();
+        _request?.Dispose();
+    }
+}

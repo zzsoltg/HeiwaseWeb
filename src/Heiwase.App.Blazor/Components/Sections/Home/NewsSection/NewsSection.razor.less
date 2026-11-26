@@ -1,0 +1,122 @@
+.news-section {
+    background: #f5f6fb;
+    color: #222;
+    scroll-margin-top: 100px;
+}
+
+.news-container {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.news-container h2 {
+    margin: 0;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    color: #222;
+}
+
+.news-intro {
+    margin: 0 0 2rem;
+    font-size: 1.2rem;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.news-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 28px;
+    min-width: 0;
+    color: #222;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, .1);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    transition: box-shadow .2s ease, transform .2s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .16);
+}
+
+.news-card:focus-visible, .news-retry:focus-visible {
+    outline: 3px solid #004aad;
+    outline-offset: 4px;
+}
+
+.news-card time {
+    color: #515668;
+    font-size: .95rem;
+    font-weight: 600;
+}
+
+.news-card h3 {
+    margin: 0;
+    font-size: 2rem;
+    line-height: 1.1;
+}
+
+.news-card p {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.55;
+}
+
+.news-more {
+    margin-top: auto;
+    padding-top: 8px;
+    color: #004aad;
+    font-weight: 800;
+}
+
+.news-state {
+    padding: 1rem 0;
+}
+
+.news-spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: .6em;
+    border: 2px solid #c8cee3;
+    border-top-color: #004aad;
+    border-radius: 50%;
+    animation: news-spin .8s linear infinite;
+    vertical-align: middle;
+}
+
+.news-retry {
+    padding: .6rem 1rem;
+    border: 0;
+    border-radius: 8px;
+    background: #004aad;
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+}
+
+@keyframes news-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1050px) {
+    .news-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 768px) {
+    .news-grid { grid-template-columns: 1fr; }
+    .news-card { padding: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .news-card { transition: none; }
+    .news-card:hover { transform: none; }
+    .news-spinner { animation: none; }
+}

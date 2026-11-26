@@ -109,6 +109,8 @@ Without that, the API will only accept the public GET requests, and the Applicat
 
 **Article creation:** `POST /api/articles` requires an Entra ID bearer access token for the API with the `Administrator` app role. Configure and assign that role in the Entra application before using the admin portal. The public article GET endpoints do not require authentication.
 
+**Public articles:** The home page loads published articles from `GET /api/articles`; `/news/{id}` loads the individual article from `GET /api/articles/{id}`. The public site's `ApiBaseUrl` selects the API. Article content is Markdown, rendered with Markdig and sanitized before it is displayed. Use standard Markdown for images, for example `![Karate practice](https://heiwasemedia.blob.core.windows.net/public-media/img/example.jpg)`. Image files must already exist in the site's `public-media` Blob Storage container; the example path is illustrative. Only HTTPS image URLs for that container are displayed, and loading an image sends a request to Blob Storage. Invalid image references are not loaded. Article-image authoring and storage validation are tracked separately in #165.
+
 For other administrator-only API functions, wrap the protected work in `AdministratorAuthorization.ExecuteAsync(req, () => ProtectedActionAsync(req))`. The action runs only after successful bearer-token and administrator-role checks; otherwise the method returns HTTP 401 or 403.
 
 **1. Clone the repository**

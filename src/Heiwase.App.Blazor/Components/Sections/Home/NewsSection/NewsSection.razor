@@ -1,0 +1,92 @@
+@implements IDisposable
+@using System.Text.Json
+@using Heiwase.App.Blazor.Components
+@using Heiwase.App.Blazor.Services.Interface
+@using Heiwase.App.Shared.Models
+@using Microsoft.Extensions.Localization
+@inject IArticleService Articles
+@inject IArticleMarkdownRenderer Markdown
+@inject IStringLocalizer<ArticleText> L
+@inject ILogger<NewsSection> Logger
+
+<section id="news" class="section-padding news-section">
+    <div class="news-container">
+        <h2>@L["News"]</h2>
+        <p class="news-intro">@L["NewsIntro"]</p>
+        @if (_loading)
+        {
+            <div class="news-state" role="status"><span class="news-spinner" aria-hidden="true"></span>@L["Loading"]</div>
+        }
+        else if (_error)
+        {
+            <div class="news-state" role="alert">
+                <p>@L["Error"]</p>
+                <button type="button" class="news-retry" @onclick="LoadAsync">@L["Retry"]</button>
+            </div>
+        }
+        else if (_articles.Count == 0)
+        {
+            <p class="news-empty">@L["Empty"]</p>
+        }
+        else
+        {
+            <div class="news-grid">
+                @foreach (var article in _articles)
+                {
+                    <a class="news-card" href="@($"/news/{Uri.EscapeDataString(article.Id)}")">
+                        @if (article.CreatedAt != default)
+                        {
+                            <time datetime="@article.CreatedAt.ToString("O", CultureInfo.InvariantCulture)">@article.CreatedAt.ToString("D", CultureInfo.CurrentCulture)</time>
+                        }
+                        <h3>@article.Title</h3>
+                        @{ var excerpt = Markdown.CreateExcerpt(article.MarkdownContent); }
+                        @if (!string.IsNullOrEmpty(excerpt))
+                        {
+                            <p>@excerpt</p>
+                        }
+                        <span class="news-more">@L["ReadArticle"] <span aria-hidden="true">→</span></span>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+@code {
+    private readonly CancellationTokenSource _cancellation = new();
+    private IReadOnlyList<ArticleDto> _articles = [];
+    private bool _loading = true;
+    private bool _error;
+
+    protected override Task OnInitializedAsync() => LoadAsync();
+
+    private async Task LoadAsync()
+    {
+        _loading = true;
+        _error = false;
+        try
+        {
+            var articles = await Articles.GetAllAsync(_cancellation.Token);
+            _articles = articles.OrderByDescending(a => a.CreatedAt).ThenBy(a => a.Id, StringComparer.Ordinal).ToArray();
+        }
+        catch (OperationCanceledException) when (_cancellation.IsCancellationRequested)
+        {
+            return;
+        }
+        catch (Exception ex) when (ex is HttpRequestException or JsonException or InvalidDataException or OperationCanceledException)
+        {
+            Logger.LogWarning(ex, "Unable to load news articles");
+            _error = true;
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+
+    public void Dispose()
+    {
+        _cancellation.Cancel();
+        _cancellation.Dispose();
+    }
+}
