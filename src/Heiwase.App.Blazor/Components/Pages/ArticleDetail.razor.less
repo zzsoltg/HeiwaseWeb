@@ -1,0 +1,181 @@
+.article-page {
+    min-height: 60vh;
+    padding: 140px 24px 80px;
+    color: #222;
+    background: #fff;
+}
+
+.article-container {
+    max-width: 72ch;
+    margin: 0 auto;
+    min-width: 0;
+}
+
+.article-back {
+    display: inline-block;
+    margin: 0 0 2rem;
+    color: #004aad;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: .15em;
+}
+
+.article-back:focus-visible, .article-state button:focus-visible {
+    outline: 3px solid #004aad;
+    outline-offset: 4px;
+}
+
+.article-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #e4e6f0;
+}
+
+.article-header time {
+    color: #515668;
+    font-weight: 600;
+}
+
+.article-page h1 {
+    margin: .5rem 0 0;
+    font-size: clamp(3rem, 7vw, 5rem);
+    line-height: 1;
+    overflow-wrap: anywhere;
+}
+
+.article-content {
+    margin-bottom: 3rem;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.article-content ::deep p {
+    margin: 0 0 1.2em;
+}
+
+.article-content ::deep h2, .article-content ::deep h3,
+.article-content ::deep h4, .article-content ::deep h5,
+.article-content ::deep h6 {
+    margin: 1.5em 0 .45em;
+    color: #222;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+
+.article-content ::deep h2 { font-size: 2.4rem; }
+.article-content ::deep h3 { font-size: 2rem; }
+.article-content ::deep h4 { font-size: 1.6rem; }
+.article-content ::deep h5 { font-size: 1.3rem; }
+.article-content ::deep h6 { font-size: 1.1rem; }
+
+.article-content ::deep a {
+    color: #004aad;
+    text-decoration: underline;
+    text-underline-offset: .15em;
+}
+
+.article-content ::deep a:focus-visible {
+    outline: 3px solid #004aad;
+    outline-offset: 3px;
+}
+
+.article-content ::deep blockquote {
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid #3533cd;
+    background: #f1f3fb;
+}
+
+.article-content ::deep blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.article-content ::deep ul, .article-content ::deep ol {
+    margin: 0 0 1.2em;
+    padding-left: 1.8em;
+}
+
+.article-content ::deep li { margin: .3em 0; }
+.article-content ::deep img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem auto;
+    border-radius: 12px;
+}
+
+.article-content ::deep code {
+    padding: .1em .3em;
+    border-radius: 4px;
+    background: #eef0f6;
+    font-family: monospace;
+}
+
+.article-content ::deep pre {
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 1rem;
+    border-radius: 10px;
+    background: #eef0f6;
+}
+
+.article-content ::deep pre code { padding: 0; }
+.article-content ::deep .article-table {
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.article-content ::deep table {
+    border-collapse: collapse;
+    width: 100%;
+    overflow-wrap: normal;
+}
+
+.article-content ::deep th, .article-content ::deep td {
+    padding: .6rem .8rem;
+    border: 1px solid #bdc3d1;
+}
+
+.article-content ::deep th { background: #eef0f6; }
+.article-content ::deep hr {
+    margin: 2rem 0;
+    border: 0;
+    border-top: 1px solid #bdc3d1;
+}
+
+.article-state { padding: 1.5rem 0; }
+.article-state button {
+    padding: .6rem 1rem;
+    border: 0;
+    border-radius: 8px;
+    background: #004aad;
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+}
+
+.article-spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: .6em;
+    border: 2px solid #c8cee3;
+    border-top-color: #004aad;
+    border-radius: 50%;
+    animation: article-spin .8s linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes article-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .article-page { padding: 105px 16px 60px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .article-spinner { animation: none; }
+}

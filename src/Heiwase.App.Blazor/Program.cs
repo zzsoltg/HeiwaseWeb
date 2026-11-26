@@ -36,6 +36,8 @@ if (string.IsNullOrEmpty(turnstileSiteKey))
 
 builder.Services.AddScoped<IHallOfFameService>(sp => new HallOfFameService(new HttpClient { BaseAddress = apiBaseAddress }));
 builder.Services.AddScoped<IApplicationFormService>(sp => new ApplicationFormService(new HttpClient { BaseAddress = apiBaseAddress }));
+builder.Services.AddScoped<IArticleService>(sp => new ArticleService(new HttpClient { BaseAddress = apiBaseAddress }));
+builder.Services.AddSingleton<IArticleMarkdownRenderer, ArticleMarkdownRenderer>();
 builder.Services.AddSingleton(new TurnstileSettings(turnstileSiteKey));
 builder.Services.AddRadzenComponents();
 

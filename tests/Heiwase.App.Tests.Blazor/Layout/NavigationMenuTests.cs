@@ -29,7 +29,7 @@ public sealed class NavigationMenuTests : SiteTestContext
 
         string[] labels = [.. cut.FindAll(".nav-links a").Select(a => a.TextContent.Trim())];
         Assert.DoesNotContain("Kezdőlap", labels);
-        Assert.Equal(9, labels.Length);
+        Assert.Equal(10, labels.Length);
     }
 
     [Fact]
@@ -40,7 +40,7 @@ public sealed class NavigationMenuTests : SiteTestContext
         string[] targets = [.. cut.FindAll(".nav-links a").Select(a => a.GetAttribute("href")!)];
 
         Assert.Equal(
-            ["#home", "#why-us", "#about", "#coaches", "#mwksz", "#halloffame", "#dojo", "#timetable", "#contact"],
+            ["/#home", "/#why-us", "/#about", "/#coaches", "/#mwksz", "/#halloffame", "/#news", "/#dojo", "/#timetable", "/#contact"],
             targets);
     }
 
@@ -78,7 +78,7 @@ public sealed class NavigationMenuTests : SiteTestContext
         var cut = Render<NavigationMenu>();
         cut.Find(".hamburger").Click();
 
-        cut.Find(".nav-links a[href='#about']").Click();
+        cut.Find(".nav-links a[href='/#about']").Click();
 
         Assert.DoesNotContain("active", cut.Find(".nav-links").ClassList);
         Assert.DoesNotContain("active", cut.Find(".hamburger").ClassList);

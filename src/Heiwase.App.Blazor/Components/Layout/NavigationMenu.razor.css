@@ -24,7 +24,7 @@
 .sticky-nav a:hover {
   color: #cb6ce6;
 }
-@media (max-width: 768px) {
+@media (max-width: 1300px) {
   .sticky-nav {
     top: 0;
     right: 0;
@@ -40,7 +40,7 @@
   gap: 20px;
   align-items: center;
 }
-@media (max-width: 768px) {
+@media (max-width: 1300px) {
   .nav-links {
     display: flex;
     flex-direction: column;
@@ -60,12 +60,13 @@
     transform: translateY(0);
     padding-bottom: 20px;
     pointer-events: auto;
+    overflow-y: auto;
   }
 }
 .hamburger {
   display: none;
 }
-@media (max-width: 768px) {
+@media (max-width: 1300px) {
   .hamburger {
     display: inline-flex;
     flex-direction: column;
