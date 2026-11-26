@@ -40,6 +40,7 @@ else
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.MapInboundClaims = false;
         options.Authority = "https://login.microsoftonline.com/2db17e8f-ef24-4243-a719-48b5ec5ff8b1/v2.0";
         options.Audience = "api://11d473e3-d1e2-4dcd-a9b8-5a225d0c1446";
 

@@ -1,9 +1,11 @@
 using System.Text.Json;
 
 using Heiwase.App.Api.Mappers;
+using Heiwase.App.Api.Services;
 using Heiwase.App.Infrastructure.Interface;
 using Heiwase.App.Shared.Models;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -47,7 +49,7 @@ public sealed class ArticleFunction
             : new NotFoundResult();
     }
 
-    // TODO: Restrict to administrators ([Authorize(Roles = "Administrator")]) once the admin portal exists.
+    [Authorize(Roles = "Administrator")]
     [Function("CreateArticle")]
     public async Task<IActionResult> CreateAsync(
         [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "articles")]
@@ -55,24 +57,27 @@ public sealed class ArticleFunction
     {
         ArgumentNullException.ThrowIfNull(req);
 
-        ArticleDto? dto;
-        try
+        return await AdministratorAuthorization.ExecuteAsync(req, async () =>
         {
-            dto = await req.ReadFromJsonAsync<ArticleDto>(cancellationToken: req.HttpContext.RequestAborted).ConfigureAwait(false);
-        }
-        catch (JsonException)
-        {
-            return new BadRequestObjectResult("Invalid JSON body.");
-        }
+            ArticleDto? dto;
+            try
+            {
+                dto = await req.ReadFromJsonAsync<ArticleDto>(cancellationToken: req.HttpContext.RequestAborted).ConfigureAwait(false);
+            }
+            catch (JsonException)
+            {
+                return new BadRequestObjectResult("Invalid JSON body.");
+            }
 
-        if (dto is null || string.IsNullOrWhiteSpace(dto.Title) || string.IsNullOrWhiteSpace(dto.MarkdownContent))
-        {
-            return new BadRequestObjectResult("Title and markdownContent are required.");
-        }
+            if (dto is null || string.IsNullOrWhiteSpace(dto.Title) || string.IsNullOrWhiteSpace(dto.MarkdownContent))
+            {
+                return new BadRequestObjectResult("Title and markdownContent are required.");
+            }
 
-        var entity = dto.ToEntity();
-        await _repository.AddAsync(entity, req.HttpContext.RequestAborted).ConfigureAwait(false);
+            var entity = dto.ToEntity();
+            await _repository.AddAsync(entity, req.HttpContext.RequestAborted).ConfigureAwait(false);
 
-        return new CreatedResult($"/api/articles/{entity.Id}", entity.ToDto());
+            return new CreatedResult($"/api/articles/{entity.Id}", entity.ToDto());
+        }).ConfigureAwait(false);
     }
 }
